@@ -1,0 +1,163 @@
+{
+  "workbench.colorTheme": "Firefox Dark",
+  "explorer.openEditors.visible": 0,
+  "atomKeymap.promptV3Features": true,
+  "extensions.autoUpdate": false,
+  "editor.snippetSuggestions": "top",
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "typescript.updateImportsOnFileMove.enabled": "never",
+  "explorer.confirmDragAndDrop": false,
+  "editor.folding": false,
+  "debug.node.autoAttach": "on",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "prettier.trailingComma": "es5",
+  "files.trimTrailingWhitespace": true,
+  "prettier.singleQuote": true,
+  "editor.tabSize": 2,
+  "javascript.validate.enable": false,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnSave": true,
+  "html.format.wrapLineLength": 80,
+  "prettier.proseWrap": "always",
+  "vim.leader": "<space>",
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      // Convert Foo to { default: Foo }
+      "before": [
+        "<leader>",
+        "d"
+      ],
+      "after": [
+        "c",
+        "i",
+        "w",
+        "{",
+        " ",
+        "d",
+        "e",
+        "f",
+        "a",
+        "u",
+        "l",
+        "t",
+        ":",
+        " ",
+        "<Esc>",
+        "p",
+        "a",
+        " ",
+        "<Esc>"
+      ]
+    },
+    {
+      // Convert import to require
+      "before": [
+        "<leader>",
+        "r"
+      ],
+      "after": [
+        "_",
+        "c",
+        "w",
+        "c",
+        "o",
+        "n",
+        "s",
+        "t",
+        "<Esc>",
+        "/",
+        "f",
+        "r",
+        "o",
+        "m",
+        "<Cr>",
+        "c",
+        "f",
+        " ",
+        "=",
+        " ",
+        "r",
+        "e",
+        "q",
+        "u",
+        "i",
+        "r",
+        "e",
+        "(",
+        "<Esc>",
+        "A",
+        "<Esc>",
+        "i",
+        ")",
+        "<Esc>",
+        "/",
+        "i",
+        "m",
+        "p",
+        "o",
+        "r",
+        "t",
+        "<Cr>",
+      ]
+    },
+  ],
+  "vim.visualModeKeyBindings": [
+    {
+      "before": [
+        ",",
+        ","
+      ],
+      "after": [
+        "<Esc>"
+      ]
+    }
+  ],
+  "vim.insertModeKeyBindings": [
+    {
+      "before": [
+        ",",
+        ","
+      ],
+      "after": [
+        "<Esc>"
+      ]
+    }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "p"
+      ],
+      "after": [
+        "p",
+        "g",
+        "v",
+        "y"
+      ]
+    }
+  ],
+  "eslint.alwaysShowStatus": true,
+  "eslint.packageManager": "yarn",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.lineNumbers": "relative",
+  "editor.cursorSurroundingLines": 8,
+  "window.zoomLevel": 1,
+  "rust.all_features": true,
+  "editor.wordWrapColumn": 90,
+  "explorer.confirmDelete": false,
+}
