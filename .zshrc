@@ -199,9 +199,9 @@ function gif() {
 }
 
 # local
-if [[ -f local.zsh ]]; then
+if [[ -f ~/.local.zsh ]]; then
   echo "sourcing local.zsh..."
-  source local.zsh
+  source ~/.local.zsh
 fi
 
 export NVM_DIR="$HOME/.nvm"
