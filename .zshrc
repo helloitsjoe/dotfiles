@@ -198,6 +198,12 @@ function gif() {
   # convert -layers Optimize $1.gif $1-small.gif
 }
 
+# local
+if [[ -f local.zsh ]]; then
+  echo "sourcing local.zsh..."
+  source local.zsh
+fi
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
