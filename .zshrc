@@ -86,6 +86,8 @@ source $ZSH/oh-my-zsh.sh
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -94,6 +96,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 alias zshconfig="code ~/.zshrc"
 alias ohmyzsh="code ~/.oh-my-zsh"
+alias gz="gzip -c $1 | wc -c"
 alias c="code ."
 alias v="vim ."
 alias z="vi ~/.zshrc"
@@ -121,26 +124,78 @@ alias ytws="yt --watch --silent"
 alias gcdf="git clean -df"
 alias gcam="git add . && git commit -m"
 alias gmm="gco main && git pull && gco - && git merge main"
+alias glg="git log --graph --oneline"
+alias glc="git rev-parse --short HEAD | tr -d '\n' | pbcopy && echo 'Copied hash'"
+alias gpx="git log -p -S"
+alias his="history | grep"
 function gcamp() { gcam $1 && git push; }
+function mk() { mkdir $1 && cd $1; }
 alias testpack="npm pack && tar -xvzf *.tgz && rm -rf package *.tgz"
 alias npkill="npx npkill"
 alias diskusage="du -k ./* | awk '$1 > 500000' | sort -nr"
+# alias diskspace="du -h ./* -d2 | grep 'G\t'"
+alias prettyjson="pbpaste | jq '.' | pbcopy"
 alias pruneLocal="git branch -vv | grep origin | grep ': gone' | awk '{print $1}' | xargs -L 1 git branch -d"
+# alias prunelocal="git branch --merged main | grep -v "main" | xargs -n 1 git branch -d"
 alias pruneRemote="git remote prune origin"
+alias deleteremote="git push -d origin"
 
-# Nginx
-alias nstart="sudo brew services start nginx"
-alias nstop="sudo brew services stop nginx"
-alias nrestart="sudo brew services restart nginx"
+#WF
+alias vm="ssh dev-gcp"
+alias yv!="yarn version!"
+alias n8="nvm use 8.16.2"
+alias devdoctor="bash dev_doctor/src/dev_doctor"
+
+function cdp() {
+  package=$1
+  dir=$(yarn --silent workspace $package exec --silent pwd)
+  cd $dir
+}
 
 # Docker
+alias d="docker"
+alias dps="docker ps"
+alias dc="docker-compose"
+alias dcu="docker-compose up"
+alias dcr="docker-compose run --rm"
 alias dsize="la ~/Library/Containers/com.docker.docker/Data/vms/0/data/"
 alias dprune="docker image prune -a"
+alias dpruneall="docker system prune -a"
 alias dlist="docker ps -a -q"
 alias dstopall="docker stop $(dlist)"
 alias drmall="docker rm $(dlist)"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# k8s
+alias k="kubectl"
+alias kuc="k config use-context"
+alias kgc="k config get-contexts"
+function kpods() {
+  namespace="${1:-$(basename $(pwd))}"
+  echo $namespace
+  kubectl -n $namespace get pods
+}
+function klogs() {
+  pod_id=$1
+  namespace="${2:-$(basename $(pwd))}"
+  echo $namespace
+  kubectl logs $pod_id -n $namespace 
+}
+function kh() {
+  namespace="${1:-$(basename $(pwd))}"
+  echo $namespace
+  kubectl -n $namespace describe hpa
+}
+function kauth() {
+  # mv $1 ~/.kube/config
+  mv ~/Downloads/kubecfg.yaml ~/.kube/config
+}
+
+# GIF
+function gif() {
+  # ffmpeg -i $1.mov -vf scale=480:-1 -r 15 gif/ffout%3d.png
+  ffmpeg -i $1.mov -pix_fmt rgb8 -r 15 -vf scale=480:-1 $1.gif
+  # convert -layers Optimize $1.gif $1-small.gif
+}
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
