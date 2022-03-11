@@ -40,8 +40,9 @@ let mapleader = " "
 nnoremap <leader>/ @="_i// <C-v><Esc>j"<CR>
 nnoremap <leader>? @="_xxx<C-v><Esc>j"<CR>
 nnoremap <leader>so :so%<CR>
-nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 25 <bar> let g:netrw_browse_split = 4<CR>
-nnoremap <C-p> :Files<CR>
+nnoremap <leader>e :wincmd v<bar> :Ex <bar> :vertical resize 25 <bar> let g:netrw_browse_split = 4<CR>
+:nnoremap <leader>w <C-w>
+nnoremap <C-p> :GFiles<CR>
 
 command! -bar -nargs=* -complete=file -range=% -bang W         <line1>,<line2>write<bang> <args>
 command! -bar -nargs=* -complete=file -range=% -bang Wq        <line1>,<line2>wq<bang> <args>
