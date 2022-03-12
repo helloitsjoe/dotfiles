@@ -31,6 +31,7 @@ set updatetime=100 " Update GitGutter every 100ms
 autocmd BufEnter *.js iabbr cl console.log('');<C-c>hhi
 autocmd BufEnter *.js iabbr cll console.log('', f);<C-c>hhhhhi
 
+
 " let g:netrw_banner = 0
 " let g:netrw_liststyle = 3
 " let g:netrw_browse_split = 4
@@ -57,6 +58,15 @@ nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
 nnoremap <C-p> :GFiles<CR>
+nnoremap <leader>f :Rg<CR>
+
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   "rg --column --line-number --no-heading --color=always --smart-case -g '!{*.lock,*-lock.json}' ".shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:40%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
 
 command! -bar -nargs=* -complete=file -range=% -bang W         <line1>,<line2>write<bang> <args>
 command! -bar -nargs=* -complete=file -range=% -bang Wq        <line1>,<line2>wq<bang> <args>
