@@ -7,19 +7,29 @@ syntax on
 let g:gruvbox_contrast_dark = 'hard'
 colorscheme gruvbox
 
-set number
-
 filetype plugin indent on
+set number
 set tabstop=2
 set shiftwidth=2
+set smartindent
 set relativenumber
 set scrolloff=8
 set expandtab
-set hlsearch
+set nohlsearch
+set ignorecase
+set smartcase
+set laststatus=2
 set incsearch
 set cursorline
 set cursorcolumn
+set noerrorbells
+set visualbell t_vb=
 set colorcolumn=80
+set signcolumn=yes
+set updatetime=100 " Update GitGutter every 100ms
+
+autocmd BufEnter *.js iabbr cl console.log('');<C-c>hhi
+autocmd BufEnter *.js iabbr cll console.log('', f);<C-c>hhhhhi
 
 " let g:netrw_banner = 0
 " let g:netrw_liststyle = 3
@@ -42,6 +52,10 @@ nnoremap <leader>? @="_xxx<C-v><Esc>j"<CR>
 nnoremap <leader>so :so%<CR>
 nnoremap <leader>e :wincmd v<bar> :Ex <bar> :vertical resize 25 <bar> let g:netrw_browse_split = 4<CR>
 :nnoremap <leader>w <C-w>
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
 nnoremap <C-p> :GFiles<CR>
 
 command! -bar -nargs=* -complete=file -range=% -bang W         <line1>,<line2>write<bang> <args>

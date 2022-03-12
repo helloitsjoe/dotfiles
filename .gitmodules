@@ -1,3 +1,6 @@
 [submodule ".vim/plugged/fzf.vim"]
 	path = .vim/plugged/fzf.vim
 	url = https://github.com/junegunn/fzf.vim.git
+[submodule ".vim/pack/airblade/start/vim-gitgutter"]
+	path = .vim/pack/airblade/start/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git

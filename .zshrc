@@ -130,7 +130,7 @@ alias glc="git rev-parse --short HEAD | tr -d '\n' | pbcopy && echo 'Copied hash
 alias gpx="git log -p -S"
 alias his="history | grep"
 function gcamp() { gcam $1 && git push; }
-function mk() { mkdir $1 && cd $1; }
+function mk() { mkdir -p $1 && cd $1; }
 alias testpack="npm pack && tar -xvzf *.tgz && rm -rf package *.tgz"
 alias npkill="npx npkill"
 alias diskusage="du -k ./* | awk '$1 > 500000' | sort -nr"
