@@ -1,10 +1,12 @@
 call plug#begin()
+  Plug 'dense-analysis/ale'
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 call plug#end()
 
 syntax on
 let g:gruvbox_contrast_dark = 'hard'
+
 colorscheme gruvbox
 
 filetype plugin indent on
@@ -20,31 +22,53 @@ set ignorecase
 set smartcase
 set laststatus=2
 set incsearch
-set cursorline
-set cursorcolumn
 set noerrorbells
 set visualbell t_vb=
 set colorcolumn=80
 set signcolumn=yes
-set updatetime=100 " Update GitGutter every 100ms
+set updatetime=500
+set backspace=indent,eol,start
+" set cursorline
+" set cursorcolumn
 
-autocmd BufEnter *.js iabbr cl console.log('');<C-c>hhi
-autocmd BufEnter *.js iabbr cll console.log('', f);<C-c>hhhhhi
-
-
-" let g:netrw_banner = 0
-" let g:netrw_liststyle = 3
-" let g:netrw_browse_split = 4
-" let g:netrw_altv = 1
-" let g:netrw_winsize = 25
-" augroup ProjectDrawer
-"   autocmd!
-"   autocmd VimEnter * :Vexplore
-" augroup END
+" cl' will expand to a console log with the cursor in place
+autocmd BufEnter *.js iabbr cl console.log(');<C-c>2hi
+autocmd BufEnter *.js iabbr cll console.log(', f);<C-c>5hi
 
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_SR = "\<Esc>]50;CursorShape=2\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
+" ALE (linting and prettier)
+let g:ale_linters = {
+\  'javascript': ['eslint'],
+\}
+let g:ale_fixers = {
+\  'javascript': ['prettier'],
+\}
+
+" Adds total lint warnings/errors to the statusbar
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+
+    return l:counts.total == 0 ? 'OK' : printf(
+    \   '⚠️  %d ❌ %d',
+    \   all_non_errors,
+    \   all_errors
+    \)
+endfunction
+
+let g:ale_sign_error = '❌'
+let g:ale_sign_warning = '⚠️'
+let g:ale_echo_msg_error_str = 'Errors'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_statusline_format = ['%d errors', '%d warnings', 'OK']
+let g:ale_fix_on_save = 1
+
+set statusline=%{LinterStatus()}
 
 let mapleader = " "
 
@@ -59,8 +83,9 @@ nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
 nnoremap <C-p> :GFiles<CR>
 nnoremap <leader>f :Rg<CR>
+xnoremap p pgvy
 
-
+" Search across files
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   "rg --column --line-number --no-heading --color=always --smart-case -g '!{*.lock,*-lock.json}' ".shellescape(<q-args>), 1,
