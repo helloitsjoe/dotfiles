@@ -1,12 +1,8 @@
 # Dotfiles
 
-```
-git pull --recurse-submodules
-```
-
 ## Vim
 
-Install FZF plugin:
+Install plugins:
 
 ```
 :PlugInstall
