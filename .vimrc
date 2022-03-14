@@ -31,6 +31,12 @@ set backspace=indent,eol,start
 " set cursorline
 " set cursorcolumn
 
+" Copy visual selection to clipboard
+map <C-c> "+y
+
+" Copy relative file path to clipboard
+noremap <Leader>yf :let @*=expand("%")<cr>:echo "Copied file to clipboard"<cr>
+
 " cl' will expand to a console log with the cursor in place
 autocmd BufEnter *.js iabbr cl console.log(');<C-c>2hi
 autocmd BufEnter *.js iabbr cll console.log(', f);<C-c>5hi
