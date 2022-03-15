@@ -1,4 +1,5 @@
 call plug#begin()
+  Plug 'airblade/vim-gitgutter'
   Plug 'dense-analysis/ale'
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -10,6 +11,14 @@ let g:gruvbox_contrast_dark = 'hard'
 colorscheme gruvbox
 
 filetype plugin indent on
+
+let padding = ' | '
+
+" Add filename and lint status to the statusline
+set statusline=%t
+set statusline+=%{padding}
+set statusline+=%{LinterStatus()}
+
 set number
 set tabstop=2
 set shiftwidth=2
@@ -73,8 +82,6 @@ let g:ale_echo_msg_error_str = 'Errors'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_statusline_format = ['%d errors', '%d warnings', 'OK']
 let g:ale_fix_on_save = 1
-
-set statusline=%{LinterStatus()}
 
 let mapleader = " "
 
