@@ -8,7 +8,10 @@ call plug#end()
 syntax on
 let g:gruvbox_contrast_dark = 'hard'
 
-colorscheme gruvbox
+set termguicolors
+set background=dark
+
+colorscheme quantum
 
 filetype plugin indent on
 
