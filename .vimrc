@@ -15,7 +15,6 @@ set background=dark
 " let g:gruvbox_contrast_dark = 'hard'
 " let g:gruvbox_colors = { 'bg0': ['#000000', 0] }
 
-" colorscheme gruvbox
 colorscheme quantum
 
 filetype plugin indent on
