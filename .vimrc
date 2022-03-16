@@ -98,6 +98,7 @@ nnoremap <leader>? @="_xxx<C-v><Esc>j"<CR>
 nnoremap <leader>so :so%<CR>
 nnoremap <leader>e :wincmd v<bar> :Ex <bar> :vertical resize 25 <bar> let g:netrw_browse_split = 4<CR>
 :nnoremap <leader>w <C-w>
+nnoremap <leader>gb :term git blame %<CR>
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
