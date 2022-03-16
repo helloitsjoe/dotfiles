@@ -13,7 +13,7 @@ set termguicolors
 set background=dark
 
 " let g:gruvbox_contrast_dark = 'hard'
-" let g:gruvbox_colors = { 'bg0': ['#000000', 0] }
+" let g:gruvbox_colors = { 'bg0': ['#111111', 0] }
 
 colorscheme quantum
 
