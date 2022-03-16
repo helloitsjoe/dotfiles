@@ -1,16 +1,21 @@
 call plug#begin()
   Plug 'airblade/vim-gitgutter'
   Plug 'dense-analysis/ale'
+  Plug 'maxmellon/vim-jsx-pretty'
+" Plug 'gruvbox-community/gruvbox'
+  Plug 'helloitsjoe/quantum.vim'
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 call plug#end()
 
 syntax on
-let g:gruvbox_contrast_dark = 'hard'
-
 set termguicolors
 set background=dark
 
+" let g:gruvbox_contrast_dark = 'hard'
+" let g:gruvbox_colors = { 'bg0': ['#000000', 0] }
+
+" colorscheme gruvbox
 colorscheme quantum
 
 filetype plugin indent on
