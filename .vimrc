@@ -56,6 +56,7 @@ noremap <Leader>yf :let @*=expand("%")<cr>:echo "Copied file to clipboard"<cr>
 " cl' will expand to a console log with the cursor in place
 autocmd BufEnter *.js iabbr cl console.log(');<C-c>2hi
 autocmd BufEnter *.js iabbr cll console.log(', f);<C-c>5hi
+autocmd BufEnter *.js iabbr modex module.exports = {<CR><Tab><CR>};<C-c>ki
 
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_SR = "\<Esc>]50;CursorShape=2\x7"
@@ -115,3 +116,4 @@ command! -bang -nargs=* Rg
 
 command! -bar -nargs=* -complete=file -range=% -bang W         <line1>,<line2>write<bang> <args>
 command! -bar -nargs=* -complete=file -range=% -bang Wq        <line1>,<line2>wq<bang> <args>
+command! -bar -bang Q quit<bang>
