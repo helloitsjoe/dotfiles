@@ -122,6 +122,7 @@ alias yts="yt --silent"
 alias ytc="yt --coverage"
 alias ytwc="yt --watch --coverage"
 alias ytws="yt --watch --silent"
+alias p="pnpm"
 alias gcdf="git clean -df"
 alias gcam="git add . && git commit -m"
 alias gmm="gco main && git pull && gco - && git merge main"
@@ -140,6 +141,14 @@ alias pruneLocal="git branch -vv | grep origin | grep ': gone' | awk '{print $1}
 # alias prunelocal="git branch --merged main | grep -v "main" | xargs -n 1 git branch -d"
 alias pruneRemote="git remote prune origin"
 alias deleteremote="git push -d origin"
+
+function findfileswithcontents() {
+  grep -rl --exclude-dir={node_modules,coverage} --exclude=\*.lock "$1" .
+}
+
+function findandreplace() {
+  findfileswithcontents | xargs sed -i '' "s/$1/$2/"
+}
 
 #WF
 alias vm="ssh dev-gcp"
