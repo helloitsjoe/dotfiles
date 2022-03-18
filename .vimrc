@@ -114,6 +114,7 @@ nnoremap <leader>so :so%<CR>
 nnoremap <leader>e :wincmd v<bar> :Ex <bar> :vertical resize 25 <bar> let g:netrw_browse_split = 4<CR>
 nnoremap <leader>e :wincmd v<bar> :Ex <bar> :vertical resize 25 <bar> let g:netrw_browse_split = 4<CR>
 nnoremap <leader>wf :vertical wincmd f<CR>
+xnoremap <leader>A $A
 :nnoremap <leader>w <C-w>
 nnoremap <leader>cn :cnext<CR>
 nnoremap <leader>cp :cprev<CR>
