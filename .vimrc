@@ -40,6 +40,8 @@ set smartcase
 set laststatus=2
 set incsearch
 set noerrorbells
+" Keep Explore window from splitting
+set hidden
 set visualbell t_vb=
 set colorcolumn=80
 set signcolumn=yes
@@ -55,9 +57,16 @@ map <C-c> "+y
 noremap <Leader>yf :let @*=expand("%")<cr>:echo "Copied file to clipboard"<cr>
 
 " cl' will expand to a console log with the cursor in place
-autocmd BufEnter *.js iabbr cl console.log(');<C-c>2hi
-autocmd BufEnter *.js iabbr cll console.log(', f);<C-c>5hi
+autocmd BufEnter *.js iabbr cl console.log(');<C-c>F'i
+autocmd BufEnter *.js iabbr cll console.log(', );<C-c>F'i
 autocmd BufEnter *.js iabbr modex module.exports = {<CR><Tab><CR>};<C-c>ki
+autocmd BufEnter *.js iabbr im import { X } from ';<C-c>F'i
+autocmd BufEnter *.js iabbr req const { X } = require('');<C-c>F'i
+autocmd BufEnter *.js iabbr it it(', () => {<CR><Tab><CR>});<C-c>2kf'i
+autocmd BufEnter *.js iabbr test test(', () => {<CR><Tab><CR>});<C-c>2kf'i
+autocmd BufEnter *.js iabbr desc describe(', () => {<CR><Tab><CR>});<C-c>2kf'i
+autocmd BufEnter *.js iabbr imr import React from 'react';
+autocmd BufEnter *.js iabbr impt import PropTypes from 'prop-types';
 
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_SR = "\<Esc>]50;CursorShape=2\x7"
@@ -101,6 +110,8 @@ nnoremap <leader>? @="_xxx<C-v><Esc>j"<CR>
 nnoremap <leader>so :so%<CR>
 nnoremap <leader>e :wincmd v<bar> :Ex <bar> :vertical resize 25 <bar> let g:netrw_browse_split = 4<CR>
 :nnoremap <leader>w <C-w>
+nnoremap <leader>cn :cnext<CR>
+nnoremap <leader>cp :cprev<CR>
 nnoremap <leader>gb :term git blame %<CR>
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
