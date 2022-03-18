@@ -114,7 +114,7 @@ nnoremap <leader>so :so%<CR>
 nnoremap <leader>e :wincmd v<bar> :Ex <bar> :vertical resize 25 <bar> let g:netrw_browse_split = 4<CR>
 nnoremap <leader>e :wincmd v<bar> :Ex <bar> :vertical resize 25 <bar> let g:netrw_browse_split = 4<CR>
 nnoremap <leader>wf :vertical wincmd f<CR>
-xnoremap <leader>A $A
+xnoremap A $A
 :nnoremap <leader>w <C-w>
 nnoremap <leader>cn :cnext<CR>
 nnoremap <leader>cp :cprev<CR>
@@ -130,7 +130,7 @@ xnoremap p pgvy
 " Search across files
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
-  \   "rg --column --line-number --no-heading --color=always --smart-case -g '!{*.lock,*-lock.json}' ".shellescape(<q-args>), 1,
+  \   "rg --column --hidden --line-number --no-heading --color=always --smart-case -g '!{.git,*.lock,*-lock.json}' ".shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview('up:40%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)

@@ -181,13 +181,11 @@ alias kuc="k config use-context"
 alias kgc="k config get-contexts"
 function kpods() {
   namespace="${1:-$(basename $(pwd))}"
-  echo $namespace
   kubectl -n $namespace get pods
 }
 function klogs() {
-  pod_id=$1
+  pod_id="${1:-$(kpods | grep $(basename $(pwd)) | awk {'print $1'})}"
   namespace="${2:-$(basename $(pwd))}"
-  echo $namespace
   kubectl logs $pod_id -n $namespace 
 }
 function kh() {
