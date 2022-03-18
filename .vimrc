@@ -11,6 +11,7 @@ call plug#end()
 syntax on
 set termguicolors
 set background=dark
+set wildignore=node_modules/**,dist/**,coverage/**
 
 " let g:gruvbox_contrast_dark = 'hard'
 " let g:gruvbox_colors = { 'bg0': ['#111111', 0] }
@@ -90,6 +91,8 @@ let g:ale_echo_msg_error_str = 'Errors'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_statusline_format = ['%d errors', '%d warnings', 'OK']
 let g:ale_fix_on_save = 1
+
+let g:netrw_liststyle = 3
 
 let mapleader = " "
 
