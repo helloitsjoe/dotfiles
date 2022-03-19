@@ -13,6 +13,12 @@ sh makesymlinks.sh
 
 This will also create a backup of your old dotfiles in `~/dotfiles_old`.
 
+## Tools
+
+- [fzf](https://github.com/junegunn/fzf)
+- [ripgrep](https://github.com/BurntSushi/ripgrep)
+- [oh-my-zsh](https://ohmyz.sh/)
+
 ## Vim
 
 Install plugins:
