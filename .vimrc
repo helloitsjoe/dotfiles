@@ -44,7 +44,7 @@ set smartcase
 set laststatus=2
 set incsearch
 set noerrorbells
-" Keep Explore window from splitting
+" Keep Explore window from splitting vertically
 set hidden
 set visualbell t_vb=
 set colorcolumn=80
@@ -72,17 +72,12 @@ autocmd BufEnter *.js iabbr desc describe(', () => {<CR><Tab><CR>});<C-c>2kf'i
 autocmd BufEnter *.js iabbr imr import React from 'react';
 autocmd BufEnter *.js iabbr impt import PropTypes from 'prop-types';
 
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
 
 " ALE (linting and prettier)
-let g:ale_linters = {
-\  'javascript': ['eslint'],
-\}
-let g:ale_fixers = {
-\  'javascript': ['prettier'],
-\}
+let g:ale_linters = { 'javascript': ['eslint'] }
+let g:ale_fixers = { 'javascript': ['prettier'] }
 
 " Adds total lint warnings/errors to the statusbar
 function! LinterStatus() abort
@@ -91,7 +86,7 @@ function! LinterStatus() abort
     let l:all_errors = l:counts.error + l:counts.style_error
     let l:all_non_errors = l:counts.total - l:all_errors
 
-    return l:counts.total == 0 ? 'OK' : printf(
+    return l:counts.total == 0 ? '' : printf(
     \   '⚠️  %d ❌ %d',
     \   all_non_errors,
     \   all_errors
@@ -113,7 +108,6 @@ nnoremap <leader>/ @="_i// <C-v><Esc>j"<CR>
 nnoremap <leader>? @="_xxx<C-v><Esc>j"<CR>
 nnoremap <leader>so :so%<CR>
 nnoremap <leader>e :wincmd v<bar> :Ex <bar> :vertical resize 25 <bar> let g:netrw_browse_split = 4<CR>
-nnoremap <leader>e :wincmd v<bar> :Ex <bar> :vertical resize 25 <bar> let g:netrw_browse_split = 4<CR>
 nnoremap <leader>wf :vertical wincmd f<CR>
 xnoremap A $A
 :nnoremap <leader>w <C-w>
@@ -124,10 +118,12 @@ nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
+nnoremap <leader>wv <C-w>v<C-w>l
 nnoremap <C-p> :GFiles<CR>
 nnoremap <leader>f :Rg<CR>
 xnoremap p pgvy
 nnoremap vv <C-w>v<C-w>l
+nnoremap <leader>v <C-v>
 
 " Search across files
 command! -bang -nargs=* Rg
