@@ -2,6 +2,7 @@ call plug#begin()
   Plug 'airblade/vim-gitgutter'
   Plug 'dense-analysis/ale'
   Plug 'maxmellon/vim-jsx-pretty'
+  Plug 'sheerun/vim-polyglot'
 " Plug 'gruvbox-community/gruvbox'
   Plug 'helloitsjoe/quantum.vim'
   Plug 'junegunn/fzf.vim'
@@ -126,6 +127,7 @@ nnoremap <C-l> <C-W>l
 nnoremap <C-p> :GFiles<CR>
 nnoremap <leader>f :Rg<CR>
 xnoremap p pgvy
+nnoremap vv <C-w>v<C-w>l
 
 " Search across files
 command! -bang -nargs=* Rg
