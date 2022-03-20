@@ -1,13 +1,16 @@
 call plug#begin()
-  Plug 'airblade/vim-gitgutter'
-  Plug 'dense-analysis/ale'
-  Plug 'maxmellon/vim-jsx-pretty'
-  Plug 'sheerun/vim-polyglot'
 " Plug 'gruvbox-community/gruvbox'
   Plug 'helloitsjoe/quantum.vim'
+  Plug 'airblade/vim-gitgutter'
+  Plug 'sheerun/vim-polyglot'
+  Plug 'dense-analysis/ale'
+  Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-surround'
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 call plug#end()
+
+let $FZF_DEFAULT_OPTS='--reverse'
 
 syntax on
 set termguicolors
@@ -57,9 +60,6 @@ set backspace=indent,eol,start
 " Copy visual selection to clipboard
 map <C-c> "+y
 
-" Copy relative file path to clipboard
-noremap <Leader>yf :let @*=expand("%")<cr>:echo "Copied file to clipboard"<cr>
-
 " cl' will expand to a console log with the cursor in place
 autocmd BufEnter *.js iabbr cl console.log(');<C-c>F'i
 autocmd BufEnter *.js iabbr cll console.log(', );<C-c>F'i
@@ -107,13 +107,16 @@ let mapleader = " "
 nnoremap <leader>/ @="_i// <C-v><Esc>j"<CR>
 nnoremap <leader>? @="_xxx<C-v><Esc>j"<CR>
 nnoremap <leader>so :so%<CR>
+nnoremap <leader>sv :so ~/.vimrc<CR>
+" Open explorer in a side panel
 nnoremap <leader>e :wincmd v<bar> :Ex <bar> :vertical resize 25 <bar> let g:netrw_browse_split = 4<CR>
+" Copy relative file path to clipboard
+noremap <leader>yf :let @*=expand("%")<cr>:echo "Copied file to clipboard"<cr>
 nnoremap <leader>wf :vertical wincmd f<CR>
-xnoremap A $A
 :nnoremap <leader>w <C-w>
+" Quickfix list
 nnoremap <leader>cn :cnext<CR>
 nnoremap <leader>cp :cprev<CR>
-nnoremap <leader>gb :term git blame %<CR>
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
@@ -121,9 +124,27 @@ nnoremap <C-l> <C-W>l
 nnoremap <leader>wv <C-w>v<C-w>l
 nnoremap <C-p> :GFiles<CR>
 nnoremap <leader>f :Rg<CR>
-xnoremap p pgvy
+" Vertical split. Is this mapping actually useful?
 nnoremap vv <C-w>v<C-w>l
 nnoremap <leader>v <C-v>
+nnoremap <leader>{ va{Vd
+
+" Fugitive - some of these might be overkill as mappings
+nnoremap <leader>gb :Git blame<CR>
+nnoremap <leader>gs :Git<CR>
+nnoremap <leader>gl :Git log<CR>
+nnoremap <leader>gd :Gvdiff!<CR>
+nnoremap gdh :diffget //2<CR>
+nnoremap gdl :diffget //3<CR>
+
+" Visual maps
+xnoremap A $A
+xnoremap p pgvy
+
+" Tab autocomplete, navigate with j/k
+inoremap <tab> <C-n>
+inoremap <expr> <C-j> ((pumvisible())?("\<C-n>"):("j"))
+inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
 
 " Search across files
 command! -bang -nargs=* Rg
