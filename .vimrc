@@ -8,6 +8,7 @@ call plug#begin()
   Plug 'tpope/vim-surround'
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'sheerun/vim-go'
 call plug#end()
 
 let $FZF_DEFAULT_OPTS='--reverse'
@@ -124,8 +125,6 @@ nnoremap <C-l> <C-W>l
 nnoremap <leader>wv <C-w>v<C-w>l
 nnoremap <C-p> :GFiles<CR>
 nnoremap <leader>f :Rg<CR>
-" Vertical split. Is this mapping actually useful?
-nnoremap vv <C-w>v<C-w>l
 nnoremap <leader>v <C-v>
 nnoremap <leader>{ va{Vd
 
