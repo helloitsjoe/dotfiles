@@ -130,8 +130,6 @@ alias glg="git log --graph --oneline"
 alias glc="git rev-parse --short HEAD | tr -d '\n' | pbcopy && echo 'Copied hash'"
 alias gpx="git log -p -S"
 alias his="history | grep"
-function gcamp() { gcam $1 && git push; }
-function mk() { mkdir -p $1 && cd $1; }
 alias testpack="npm pack && tar -xvzf *.tgz && rm -rf package *.tgz"
 alias npkill="npx npkill"
 alias diskusage="du -k ./* | awk '$1 > 500000' | sort -nr"
@@ -141,6 +139,25 @@ alias pruneLocal="git branch -vv | grep origin | grep ': gone' | awk '{print $1}
 # alias prunelocal="git branch --merged main | grep -v "main" | xargs -n 1 git branch -d"
 alias pruneRemote="git remote prune origin"
 alias deleteremote="git push -d origin"
+
+function gcamp() { gcam $1 && git push; }
+function mk() { mkdir -p $1 && cd $1; }
+
+function yfix() {
+  if [ -e yarn.lock ]; then
+    echo 'Found yarn.lock, converting and fixing with npm audit fix...'
+    npm i --package-lock-only
+    npm audit fix
+    rm yarn.lock
+    yarn import
+    rm package-lock.json
+  elif [ -e package-lock.json ]; then
+    echo 'Found package-lock.json, running npm audit fix...'
+    npm audit fix
+  else
+    echo 'This does not appear to be an npm directory'
+  fi
+}
 
 function findfileswithcontents() {
   grep -rl --exclude-dir={node_modules,coverage} --exclude=\*.lock "$1" .
