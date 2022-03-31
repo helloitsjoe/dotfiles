@@ -31,6 +31,8 @@ let padding = ' | '
 " Add filename and lint status to the statusline
 set statusline=%t
 set statusline+=%{padding}
+set statusline+=col:\ %c
+set statusline+=%{padding}
 set statusline+=%{LinterStatus()}
 
 set path+=**
@@ -68,9 +70,9 @@ autocmd BufEnter *.js iabbr cll console.log(', );<C-c>F'i
 autocmd BufEnter *.js iabbr modex module.exports = {<CR><Tab><CR>};<C-c>ki
 autocmd BufEnter *.js iabbr im import { X } from ';<C-c>F'i
 autocmd BufEnter *.js iabbr req const { X } = require('');<C-c>F'i
-autocmd BufEnter *.js iabbr it it(', () => {<CR><Tab><CR>});<C-c>2kf'i
-autocmd BufEnter *.js iabbr test test(', () => {<CR><Tab><CR>});<C-c>2kf'i
-autocmd BufEnter *.js iabbr desc describe(', () => {<CR><Tab><CR>});<C-c>2kf'i
+autocmd BufEnter *.test.js iabbr it it(', () => {<CR><Tab><CR>});<C-c>2kf'i
+autocmd BufEnter *.test.js iabbr test test(', () => {<CR><Tab><CR>});<C-c>2kf'i
+autocmd BufEnter *.test.js iabbr desc describe(', () => {<CR><Tab><CR>});<C-c>2kf'i
 autocmd BufEnter *.js iabbr imr import React from 'react';
 autocmd BufEnter *.js iabbr impt import PropTypes from 'prop-types';
 
