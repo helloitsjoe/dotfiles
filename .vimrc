@@ -83,6 +83,12 @@ let &t_EI = "\e[2 q"
 let g:ale_linters = { 'javascript': ['eslint'] } ", 'rust': ['analyzer'] }
 let g:ale_fixers = { 'javascript': ['prettier'] }
 
+" Make netrw use current selected directory as you navigate
+let g:netrw_keepdir=0
+let g:netrw_liststyle = 3
+let g:netrw_localrmdir='rm -r'
+
+
 " Adds total lint warnings/errors to the statusbar
 function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
@@ -103,8 +109,6 @@ let g:ale_echo_msg_error_str = 'Errors'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_statusline_format = ['%d errors', '%d warnings', 'OK']
 let g:ale_fix_on_save = 1
-
-let g:netrw_liststyle = 3
 
 let mapleader = " "
 
