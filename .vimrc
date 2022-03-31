@@ -4,6 +4,7 @@ call plug#begin()
   Plug 'airblade/vim-gitgutter'
   Plug 'sheerun/vim-polyglot'
   Plug 'dense-analysis/ale'
+" Plug 'rust-lang/rust.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
   Plug 'junegunn/fzf.vim'
@@ -77,7 +78,7 @@ let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
 " ALE (linting and prettier)
-let g:ale_linters = { 'javascript': ['eslint'] }
+let g:ale_linters = { 'javascript': ['eslint'] } ", 'rust': ['analyzer'] }
 let g:ale_fixers = { 'javascript': ['prettier'] }
 
 " Adds total lint warnings/errors to the statusbar
@@ -119,14 +120,21 @@ nnoremap <leader>wt :vertical terminal <CR><C-w>x<C-w>l
 " Quickfix list
 nnoremap <leader>cn :cnext<CR>
 nnoremap <leader>cp :cprev<CR>
+nnoremap <leader>z :tab split<CR>
+" Repeat last command line command
+nnoremap <leader>@ :!<Up><CR>
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
+" Split vertically and focus on right pane
 nnoremap <leader>wv <C-w>v<C-w>l
+" Fuzzy file finder
 nnoremap <C-p> :GFiles<CR>
+" Fuzzy text search
 nnoremap <leader>f :Rg<CR>
 nnoremap <leader>v <C-v>
+" Delete curly block including lines
 nnoremap <leader>{ va{Vd
 
 " Fugitive - some of these might be overkill as mappings
@@ -136,6 +144,10 @@ nnoremap <leader>gl :Git log<CR>
 nnoremap <leader>gd :Gvdiff!<CR>
 nnoremap gdh :diffget //2<CR>
 nnoremap gdl :diffget //3<CR>
+
+" Find next/previous lint errors
+nnoremap <leader>n :ALENextWrap<CR>
+nnoremap <leader>p :ALEPreviousWrap<CR>
 
 " Visual maps
 xnoremap A $A
