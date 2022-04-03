@@ -142,6 +142,7 @@ nnoremap <leader>f :Rg<CR>
 nnoremap <leader>v <C-v>
 " Delete curly block including lines
 nnoremap <leader>{ va{Vd
+nnoremap <leader>b :ls<CR>:buffer
 
 " Fugitive - some of these might be overkill as mappings
 nnoremap <leader>gb :Git blame<CR>
