@@ -140,6 +140,9 @@ nnoremap <leader>wv <C-w>v<C-w>l
 nnoremap <C-p> :GFiles<CR>
 " Fuzzy text search
 nnoremap <leader>f :Rg<CR>
+" Search the word under the cursor
+nnoremap <leader>F :Rg <C-R><C-W><CR>
+" Visual block
 nnoremap <leader>v <C-v>
 " Delete curly block including lines
 nnoremap <leader>{ va{Vd
