@@ -121,7 +121,7 @@ nnoremap <leader>sv :so ~/.vimrc<CR>
 nnoremap <leader>e :wincmd v<bar> :Ex <bar> :vertical resize 25 <bar> let g:netrw_browse_split = 4<CR>
 " Copy relative file path to clipboard
 noremap <leader>yf :let @*=expand("%")<cr>:echo "Copied file to clipboard"<cr>
-nnoremap <leader>wf :vertical wincmd f<CR>
+nnoremap <leader>wf :wincmd f<CR>
 nnoremap <leader>wt :vertical terminal <CR><C-w>x<C-w>l
 :nnoremap <leader>w <C-w>
 " Quickfix list
