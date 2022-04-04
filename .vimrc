@@ -68,11 +68,11 @@ map <C-c> "+y
 autocmd BufEnter *.js iabbr cl console.log(');<C-c>F'i
 autocmd BufEnter *.js iabbr cll console.log(', );<C-c>F'i
 autocmd BufEnter *.js iabbr modex module.exports = {<CR><Tab><CR>};<C-c>ki
-autocmd BufEnter *.js iabbr im import { X } from ';<C-c>F'i
-autocmd BufEnter *.js iabbr req const { X } = require('');<C-c>F'i
-autocmd BufEnter *.test.js iabbr it it(', () => {<CR><Tab><CR>});<C-c>2kf'i
-autocmd BufEnter *.test.js iabbr test test(', () => {<CR><Tab><CR>});<C-c>2kf'i
-autocmd BufEnter *.test.js iabbr desc describe(', () => {<CR><Tab><CR>});<C-c>2kf'i
+autocmd BufEnter *.js iabbr imn import { X } from ';<C-c>F'i
+autocmd BufEnter *.js iabbr req const { X } = require(');<C-c>F'i
+autocmd BufEnter *.test.js iabbr it( it(', () => {<CR><Tab><CR>});<C-c>2kf'i
+autocmd BufEnter *.test.js iabbr test( test(', () => {<CR><Tab><CR>});<C-c>2kf'i
+autocmd BufEnter *.test.js iabbr desc( describe(', () => {<CR><Tab><CR>});<C-c>2kf'i
 autocmd BufEnter *.js iabbr imr import React from 'react';
 autocmd BufEnter *.js iabbr impt import PropTypes from 'prop-types';
 
@@ -85,6 +85,7 @@ let g:ale_fixers = { 'javascript': ['prettier'] }
 
 " Make netrw use current selected directory as you navigate
 let g:netrw_keepdir=0
+let g:netrw_banner=0
 let g:netrw_liststyle = 3
 let g:netrw_localrmdir='rm -r'
 
@@ -142,7 +143,7 @@ nnoremap <leader>f :Rg<CR>
 nnoremap <leader>v <C-v>
 " Delete curly block including lines
 nnoremap <leader>{ va{Vd
-nnoremap <leader>b :ls<CR>:buffer
+nnoremap <leader>b :ls<CR>:buffer<space>
 
 " Fugitive - some of these might be overkill as mappings
 nnoremap <leader>gb :Git blame<CR>
