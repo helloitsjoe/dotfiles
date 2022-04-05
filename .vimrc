@@ -168,7 +168,10 @@ xnoremap A $A
 xnoremap p pgvy
 
 " Select all
-nnoremap ggg ggVG
+nnoremap <leader>ggg ggVG
+
+" Git push
+nnoremap <leader>gp :! git add . && git commit -m '' && git push<C-f>4ba
 
 " Tab autocomplete, navigate with j/k
 inoremap <tab> <C-n>
