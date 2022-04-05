@@ -157,8 +157,8 @@ nnoremap gdh :diffget //2<CR>
 nnoremap gdl :diffget //3<CR>
 
 " Find next/previous lint errors
-nnoremap <leader>n :ALENextWrap<CR>
-nnoremap <leader>p :ALEPreviousWrap<CR>
+nnoremap <leader>ej :ALENextWrap<CR>
+nnoremap <leader>ek :ALEPreviousWrap<CR>
 
 " Make Y act like C and D
 nnoremap Y y$
@@ -166,6 +166,9 @@ nnoremap Y y$
 " Visual maps
 xnoremap A $A
 xnoremap p pgvy
+
+" Select all
+nnoremap ggg ggVG
 
 " Tab autocomplete, navigate with j/k
 inoremap <tab> <C-n>
