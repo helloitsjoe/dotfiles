@@ -160,6 +160,9 @@ nnoremap gdl :diffget //3<CR>
 nnoremap <leader>n :ALENextWrap<CR>
 nnoremap <leader>p :ALEPreviousWrap<CR>
 
+" Make Y act like C and D
+nnoremap Y y$
+
 " Visual maps
 xnoremap A $A
 xnoremap p pgvy
