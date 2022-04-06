@@ -124,16 +124,22 @@ noremap <leader>yf :let @*=expand("%")<cr>:echo "Copied file to clipboard"<cr>
 nnoremap <leader>wf :wincmd f<CR>
 nnoremap <leader>wt :vertical terminal <CR><C-w>x<C-w>l
 :nnoremap <leader>w <C-w>
+
 " Quickfix list
-nnoremap <leader>cn :cnext<CR>
-nnoremap <leader>cp :cprev<CR>
+nnoremap <leader>co :copen<CR>
+nnoremap <leader>cl :cclose<CR>
+nnoremap <leader>n :cnext<CR>
+nnoremap <leader>p :cprev<CR>
 nnoremap <leader>z :tab split<CR>
 " Repeat last command line command
 nnoremap <leader>@ :!<Up><CR>
+
+" Window nav
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
+
 " Split vertically and focus on right pane
 nnoremap <leader>wv <C-w>v<C-w>l
 " Fuzzy file finder
@@ -172,6 +178,7 @@ nnoremap <leader>ggg ggVG
 
 " Git push
 nnoremap <leader>gp :! git add . && git commit -m '' && git push<C-f>4ba
+nnoremap <leader>vim <C-w>v<C-w>l:e ~/.vimrc<CR>
 
 " Tab autocomplete, navigate with j/k
 inoremap <tab> <C-n>
