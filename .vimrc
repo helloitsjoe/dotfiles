@@ -158,6 +158,7 @@ nnoremap <leader>b :ls<CR>:buffer<space>
 nnoremap <leader>gb :Git blame<CR>
 nnoremap <leader>gs :Git<CR>
 nnoremap <leader>gl :Git log<CR>
+nnoremap <leader>glo :Git log --oneline<CR>
 nnoremap <leader>gd :Gvdiff!<CR>
 nnoremap gdh :diffget //2<CR>
 nnoremap gdl :diffget //3<CR>
