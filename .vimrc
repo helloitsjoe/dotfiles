@@ -28,6 +28,10 @@ filetype plugin indent on
 
 let padding = ' | '
 
+" Show file list when tabbing in shell commands, e.g. :!mv ./<tab>
+set wildmode=longest,list,full
+set wildmenu
+
 " Add filename and lint status to the statusline
 set statusline=%t
 set statusline+=%{padding}
@@ -42,7 +46,7 @@ set number
 set tabstop=2
 set shiftwidth=2
 set smartindent
-set relativenumber
+" set relativenumber
 set scrolloff=8
 set expandtab
 set nohlsearch
@@ -164,8 +168,8 @@ nnoremap gdh :diffget //2<CR>
 nnoremap gdl :diffget //3<CR>
 
 " Find next/previous lint errors
-nnoremap <leader>ej :ALENextWrap<CR>
-nnoremap <leader>ek :ALEPreviousWrap<CR>
+nnoremap <leader>lj :ALENextWrap<CR>
+nnoremap <leader>lk :ALEPreviousWrap<CR>
 
 " Make Y act like C and D
 nnoremap Y y$
