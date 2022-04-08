@@ -7,6 +7,7 @@ call plug#begin()
 " Plug 'rust-lang/rust.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
+  Plug 'nicwest/vim-http'
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'sheerun/vim-go'
