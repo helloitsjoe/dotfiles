@@ -47,7 +47,7 @@ set number
 set tabstop=2
 set shiftwidth=2
 set smartindent
-" set relativenumber
+set relativenumber
 set scrolloff=8
 set expandtab
 set nohlsearch
@@ -181,6 +181,9 @@ xnoremap p pgvy
 
 " Select all
 nnoremap <leader>ggg ggVG
+
+" Swap relative/absolute numbers
+nnoremap <leader>rn :set relativenumber!<CR>
 
 " Git push
 nnoremap <leader>gp :! git add . && git commit -m '' && git push<C-f>4ba
