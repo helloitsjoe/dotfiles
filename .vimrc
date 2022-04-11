@@ -169,8 +169,8 @@ nnoremap gdh :diffget //2<CR>
 nnoremap gdl :diffget //3<CR>
 
 " Find next/previous lint errors
-nnoremap <leader>lj :ALENextWrap<CR>
-nnoremap <leader>lk :ALEPreviousWrap<CR>
+nnoremap <leader>ln :ALENextWrap<CR>
+nnoremap <leader>lp :ALEPreviousWrap<CR>
 
 " Make Y act like C and D
 nnoremap Y y$
