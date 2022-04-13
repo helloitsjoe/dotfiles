@@ -4,7 +4,7 @@ call plug#begin()
   Plug 'airblade/vim-gitgutter'
   Plug 'sheerun/vim-polyglot'
   Plug 'dense-analysis/ale'
-" Plug 'rust-lang/rust.vim'
+  Plug 'rust-lang/rust.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
   Plug 'nicwest/vim-http'
@@ -85,7 +85,7 @@ let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
 " ALE (linting and prettier)
-let g:ale_linters = { 'javascript': ['eslint'] } ", 'rust': ['analyzer'] }
+let g:ale_linters = { 'javascript': ['eslint'] }
 let g:ale_fixers = { 'javascript': ['prettier'] }
 
 " Make netrw use current selected directory as you navigate
@@ -94,6 +94,7 @@ let g:netrw_banner=0
 let g:netrw_liststyle = 3
 let g:netrw_localrmdir='rm -r'
 
+let g:rustfmt_autosave = 1
 
 " Adds total lint warnings/errors to the statusbar
 function! LinterStatus() abort
@@ -123,7 +124,7 @@ nnoremap <leader>? @="_xxx<C-v><Esc>j"<CR>
 nnoremap <leader>so :so%<CR>
 nnoremap <leader>sv :so ~/.vimrc<CR>
 " Open explorer in a side panel
-nnoremap <leader>e :wincmd v<bar> :Ex <bar> :vertical resize 25 <bar> let g:netrw_browse_split = 4<CR>
+nnoremap <leader>e :wincmd v<bar> :wincmd H<bar> :Ex <bar> :vertical resize 25 <bar> let g:netrw_browse_split = 4<CR>
 " Copy relative file path to clipboard
 noremap <leader>yf :let @*=expand("%")<cr>:echo "Copied file to clipboard"<cr>
 nnoremap <leader>wf :wincmd f<CR>
@@ -156,8 +157,10 @@ nnoremap <leader>F :Rg <C-R><C-W><CR>
 " Visual block
 nnoremap <leader>v <C-v>
 " Delete curly block including lines
-nnoremap <leader>{ va{Vd
+nnoremap <leader>d{ va{Vd
 nnoremap <leader>b :ls<CR>:buffer<space>
+" Remove spaces when joining lines
+nnoremap J gJ
 
 " Fugitive - some of these might be overkill as mappings
 nnoremap <leader>gb :Git blame<CR>
@@ -201,6 +204,16 @@ command! -bang -nargs=* Rg
   \   <bang>0 ? fzf#vim#with_preview('up:40%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
+
+" Focus right pane in netrw instead of new netrw pane
+augroup netrw_mapping
+  autocmd!
+  autocmd filetype netrw call NetrwMapping()
+augroup END
+
+function! NetrwMapping()
+  nnoremap <buffer> <c-l> :wincmd l<cr>
+endfunction
 
 command! -bar -nargs=* -complete=file -range=% -bang W         <line1>,<line2>write<bang> <args>
 command! -bar -nargs=* -complete=file -range=% -bang Wq        <line1>,<line2>wq<bang> <args>
