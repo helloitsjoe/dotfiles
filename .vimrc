@@ -86,7 +86,7 @@ let &t_EI = "\e[2 q"
 
 " ALE (linting and prettier)
 let g:ale_linters = { 'javascript': ['eslint'] }
-let g:ale_fixers = { 'javascript': ['prettier'], 'json': ['prettier'] }
+let g:ale_fixers = { 'javascript': ['prettier'], 'json': ['prettier'], 'markdown': ['prettier'] }
 
 " Make netrw use current selected directory as you navigate
 let g:netrw_keepdir=0
