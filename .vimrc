@@ -33,6 +33,9 @@ let padding = ' | '
 set wildmode=longest,list,full
 set wildmenu
 
+" Don't add comment under a comment
+set formatoptions-=cro
+
 " Add filename and lint status to the statusline
 set statusline=%t
 set statusline+=%{padding}
