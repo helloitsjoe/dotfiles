@@ -43,6 +43,9 @@ set statusline+=col:\ %c
 set statusline+=%{padding}
 set statusline+=%{LinterStatus()}
 
+" Don't add a comment to the line below a comment
+set formatoptions-=cro
+
 set path+=**
 set suffixesadd+=.js
 
@@ -53,7 +56,7 @@ set smartindent
 set relativenumber
 set scrolloff=8
 set expandtab
-set nohlsearch
+set hlsearch
 set ignorecase
 set smartcase
 set laststatus=2
@@ -73,23 +76,23 @@ set backspace=indent,eol,start
 map <C-c> "+y
 
 " cl' will expand to a console log with the cursor in place
-autocmd BufEnter *.js iabbr cl console.log(');<C-c>F'i
-autocmd BufEnter *.js iabbr cll console.log(', );<C-c>F'i
-autocmd BufEnter *.js iabbr modex module.exports = {<CR><Tab><CR>};<C-c>ki
-autocmd BufEnter *.js iabbr imn import { X } from ';<C-c>F'i
-autocmd BufEnter *.js iabbr req const { X } = require(');<C-c>F'i
-autocmd BufEnter *.test.js iabbr it( it(', () => {<CR><Tab><CR>});<C-c>2kf'i
-autocmd BufEnter *.test.js iabbr test( test(', () => {<CR><Tab><CR>});<C-c>2kf'i
-autocmd BufEnter *.test.js iabbr desc( describe(', () => {<CR><Tab><CR>});<C-c>2kf'i
-autocmd BufEnter *.js iabbr imr import React from 'react';
-autocmd BufEnter *.js iabbr impt import PropTypes from 'prop-types';
+autocmd BufEnter *.{js,ts} iabbr cl console.log(');<C-c>F'i
+autocmd BufEnter *.{js,ts} iabbr cll console.log(', );<C-c>F'i
+autocmd BufEnter *.{js,ts} iabbr modex module.exports = {<CR>};<C-c>kA
+autocmd BufEnter *.{js,ts} iabbr imn import { X } from ';<C-c>F'i
+autocmd BufEnter *.{js,ts} iabbr req const { X } = require(');<C-c>F'i
+autocmd BufEnter *.test.{js,ts} iabbr it( it(', () => {<CR>});<C-c>kf'i
+autocmd BufEnter *.test.{js,ts} iabbr test( test(', () => {<CR>});<C-c>kf'i
+autocmd BufEnter *.test.{js,ts} iabbr desc( describe(', () => {<CR>});<C-c>kf'i
+autocmd BufEnter *.{js,ts} iabbr imr import React from 'react';
+autocmd BufEnter *.{js,ts} iabbr impt import PropTypes from 'prop-types';
 
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
 " ALE (linting and prettier)
 let g:ale_linters = { 'javascript': ['eslint'] }
-let g:ale_fixers = { 'javascript': ['prettier'], 'json': ['prettier'], 'markdown': ['prettier'] }
+let g:ale_fixers = { 'javascript': ['prettier'], 'typescript': ['prettier'], 'json': ['prettier'], 'markdown': ['prettier'] }
 
 " Make netrw use current selected directory as you navigate
 let g:netrw_keepdir=0
@@ -132,7 +135,6 @@ nnoremap <leader>e :wincmd v<bar> :wincmd H<bar> :Ex <bar> :vertical resize 25 <
 noremap <leader>yf :let @*=expand("%")<cr>:echo "Copied file to clipboard"<cr>
 nnoremap <leader>wf :wincmd f<CR>
 nnoremap <leader>wt :vertical terminal <CR><C-w>x<C-w>l
-:nnoremap <leader>w <C-w>
 
 " Quickfix list
 nnoremap <leader>co :copen<CR>
@@ -177,6 +179,8 @@ nnoremap gdl :diffget //3<CR>
 " Find next/previous lint errors
 nnoremap <leader>ln :ALENextWrap<CR>
 nnoremap <leader>lp :ALEPreviousWrap<CR>
+nnoremap <leader>wd :ALEGoToDefinition<CR>
+nnoremap <C-w>d :ALEGoToDefinition<CR>
 
 " Make Y act like C and D
 nnoremap Y y$
@@ -199,6 +203,8 @@ nnoremap <leader>vim <C-w>v<C-w>l:e ~/.vimrc<CR>
 inoremap <tab> <C-n>
 inoremap <expr> <C-j> ((pumvisible())?("\<C-n>"):("j"))
 inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
+
+:nnoremap <leader>w <C-w>
 
 " Search across files
 command! -bang -nargs=* Rg
