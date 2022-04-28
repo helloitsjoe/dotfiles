@@ -162,8 +162,6 @@ nnoremap <leader>v <C-v>
 " Delete curly block including lines
 nnoremap <leader>d{ va{Vd
 nnoremap <leader>b :ls<CR>:buffer<space>
-" Remove spaces when joining lines
-nnoremap J gJ
 
 " Fugitive - some of these might be overkill as mappings
 nnoremap <leader>gb :Git blame<CR>
