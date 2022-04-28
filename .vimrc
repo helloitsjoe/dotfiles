@@ -90,10 +90,6 @@ autocmd BufEnter *.{js,ts} iabbr impt import PropTypes from 'prop-types';
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
-" ALE (linting and prettier)
-let g:ale_linters = { 'javascript': ['eslint'] }
-let g:ale_fixers = { 'javascript': ['prettier'], 'typescript': ['prettier'], 'json': ['prettier'], 'markdown': ['prettier'] }
-
 " Make netrw use current selected directory as you navigate
 let g:netrw_keepdir=0
 let g:netrw_banner=0
@@ -116,12 +112,24 @@ function! LinterStatus() abort
     \)
 endfunction
 
+" ALE (linting and prettier)
+let g:ale_linters = { 'javascript': ['tsserver'] }
+let g:ale_fixers = { 'javascript': ['prettier'], 'typescript': ['prettier'], 'json': ['prettier'], 'markdown': ['prettier'] }
+
 let g:ale_sign_error = '❌'
 let g:ale_sign_warning = '⚠️'
 let g:ale_echo_msg_error_str = 'Errors'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_statusline_format = ['%d errors', '%d warnings', 'OK']
 let g:ale_fix_on_save = 1
+
+let g:ale_completion_enabled = 1
+let g:ale_completion_delay = 10
+
+" Lint info in floating window
+let g:ale_floating_preview = 1
+let g:ale_cursor_detail = 1
+let g:ale_floating_window_border = []
 
 let mapleader = " "
 
