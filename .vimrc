@@ -4,6 +4,7 @@ call plug#begin()
   Plug 'airblade/vim-gitgutter'
   Plug 'sheerun/vim-polyglot'
   Plug 'dense-analysis/ale'
+  Plug 'preservim/nerdtree'
   Plug 'rust-lang/rust.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
@@ -131,6 +132,8 @@ let g:ale_floating_preview = 1
 let g:ale_cursor_detail = 1
 let g:ale_floating_window_border = []
 
+let NERDTreeShowHidden = 1
+
 let mapleader = " "
 
 nnoremap <leader>/ @="_i// <C-v><Esc>j"<CR>
@@ -138,7 +141,8 @@ nnoremap <leader>? @="_xxx<C-v><Esc>j"<CR>
 nnoremap <leader>so :so%<CR>
 nnoremap <leader>sv :so ~/.vimrc<CR>
 " Open explorer in a side panel
-nnoremap <leader>e :wincmd v<bar> :wincmd H<bar> :Ex <bar> :vertical resize 25 <bar> let g:netrw_browse_split = 4<CR>
+" nnoremap <leader>e :wincmd v<bar> :wincmd H<bar> :Ex <bar> :vertical resize 25 <bar> let g:netrw_browse_split = 4<CR>
+nnoremap <leader>e :NERDTreeToggle<CR>
 " Copy relative file path to clipboard
 noremap <leader>yf :let @*=expand("%")<cr>:echo "Copied file to clipboard"<cr>
 nnoremap <leader>wf :wincmd f<CR>
@@ -225,6 +229,14 @@ augroup netrw_mapping
   autocmd!
   autocmd filetype netrw call NetrwMapping()
 augroup END
+
+" Exit Vim if NERDTree is the only window remaining in the only tab.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+
 
 function! NetrwMapping()
   nnoremap <buffer> <c-l> :wincmd l<cr>
