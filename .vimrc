@@ -214,6 +214,10 @@ inoremap <tab> <C-n>
 inoremap <expr> <C-j> ((pumvisible())?("\<C-n>"):("j"))
 inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
 
+" Visual mode indent repeat
+vnoremap > >gv
+vnoremap < <gv
+
 :nnoremap <leader>w <C-w>
 
 " Search across files
