@@ -8,6 +8,7 @@ call plug#begin()
   Plug 'rust-lang/rust.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-commentary'
   Plug 'nicwest/vim-http'
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -136,8 +137,10 @@ let NERDTreeShowHidden = 1
 
 let mapleader = " "
 
-nnoremap <leader>/ @="_i// <C-v><Esc>j"<CR>
-nnoremap <leader>? @="_xxx<C-v><Esc>j"<CR>
+" vim-commentary
+nmap <C-_> gcc
+vmap <C-_> gcgv
+
 nnoremap <leader>so :so%<CR>
 nnoremap <leader>sv :so ~/.vimrc<CR>
 " Open explorer in a side panel
