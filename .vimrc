@@ -82,7 +82,7 @@ autocmd BufEnter *.{js,ts} iabbr cl console.log(');<C-c>F'i
 autocmd BufEnter *.{js,ts} iabbr cll console.log(', );<C-c>F'i
 autocmd BufEnter *.{js,ts} iabbr modex module.exports = {<CR>};<C-c>kA
 autocmd BufEnter *.{js,ts} iabbr imn import { X } from ';<C-c>F'i
-autocmd BufEnter *.{js,ts} iabbr req const { X } = require(');<C-c>F'i
+autocmd BufEnter *.{js,ts} iabbr reqn const { X } = require(');<C-c>F'i
 autocmd BufEnter *.test.{js,ts} iabbr it( it(', () => {<CR>});<C-c>kf'i
 autocmd BufEnter *.test.{js,ts} iabbr test( test(', () => {<CR>});<C-c>kf'i
 autocmd BufEnter *.test.{js,ts} iabbr desc( describe(', () => {<CR>});<C-c>kf'i
@@ -231,11 +231,15 @@ command! -bang -nargs=* Rg
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
 
-" Focus right pane in netrw instead of new netrw pane
-augroup netrw_mapping
-  autocmd!
-  autocmd filetype netrw call NetrwMapping()
-augroup END
+"" Focus right pane in netrw instead of new netrw pane
+"augroup netrw_mapping
+"  autocmd!
+"  autocmd filetype netrw call NetrwMapping()
+"augroup END
+
+"function! NetrwMapping()
+"  nnoremap <buffer> <c-l> :wincmd l<cr>
+"endfunction
 
 " Exit Vim if NERDTree is the only window remaining in the only tab.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
@@ -244,10 +248,6 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
 autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 
-
-function! NetrwMapping()
-  nnoremap <buffer> <c-l> :wincmd l<cr>
-endfunction
 
 command! -bar -nargs=* -complete=file -range=% -bang W         <line1>,<line2>write<bang> <args>
 command! -bar -nargs=* -complete=file -range=% -bang Wq        <line1>,<line2>wq<bang> <args>
