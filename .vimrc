@@ -39,7 +39,7 @@ set wildmenu
 set formatoptions-=cro
 
 " Add filename and lint status to the statusline
-set statusline=%t
+set statusline=%f " %t for just filename
 set statusline+=%{padding}
 set statusline+=col:\ %c
 set statusline+=%{padding}
@@ -125,6 +125,7 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_statusline_format = ['%d errors', '%d warnings', 'OK']
 let g:ale_fix_on_save = 1
 
+" Are these worth it?
 let g:ale_completion_enabled = 1
 let g:ale_completion_delay = 10
 
