@@ -94,6 +94,10 @@ autocmd BufEnter *.{js,ts} iabbr impt import PropTypes from 'prop-types';
 " specifically for cl' abbrev
 inoremap <C-l> <Esc>yi'f)P
 
+" console log the selected text with label
+vnoremap <leader>cll yoconsole.log('<Esc>pa', <Esc>pa);
+nnoremap <leader>cll yiwoconsole.log('<Esc>pa', <Esc>pa);
+
 " Make jkl; global marks
 nnoremap mj mJ
 nnoremap 'j 'J
