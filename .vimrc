@@ -79,6 +79,7 @@ map <C-c> "+y
 
 " cl' will expand to a console log with the cursor in place
 autocmd BufEnter *.{js,ts} iabbr cl console.log(');<C-c>F'i
+" autocmd BufEnter *.{js,ts} iabbr cll <Esc>bdwiconsole.log('<Esc>pi:', <Esc>pi);<C-c>
 autocmd BufEnter *.{js,ts} iabbr cll console.log(', );<C-c>F'i
 autocmd BufEnter *.{js,ts} iabbr modex module.exports = {<CR>};<C-c>kA
 autocmd BufEnter *.{js,ts} iabbr imn import { X } from ';<C-c>F'i
@@ -88,6 +89,24 @@ autocmd BufEnter *.test.{js,ts} iabbr test( test(', () => {<CR>});<C-c>kf'i
 autocmd BufEnter *.test.{js,ts} iabbr desc( describe(', () => {<CR>});<C-c>kf'i
 autocmd BufEnter *.{js,ts} iabbr imr import React from 'react';
 autocmd BufEnter *.{js,ts} iabbr impt import PropTypes from 'prop-types';
+
+" In insert mode, copy word in quotes and paste after next space,
+" specifically for cl' abbrev
+inoremap <C-l> <Esc>yi'f)P
+
+" Make jkl; global marks
+nnoremap mj mJ
+nnoremap 'j 'J
+nnoremap `j `J
+nnoremap mk mK
+nnoremap 'k 'K
+nnoremap `k `K
+nnoremap ml mL
+nnoremap 'l 'L
+nnoremap `l `L
+nnoremap m; m:
+nnoremap '; ':
+nnoremap `; `:
 
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
@@ -115,8 +134,9 @@ function! LinterStatus() abort
 endfunction
 
 " ALE (linting and prettier)
-let g:ale_linters = { 'javascript': ['tsserver'] }
+let g:ale_linters = { 'javascript': ['tsserver'], 'typescript': ['tsserver'] }
 let g:ale_fixers = { 'javascript': ['prettier'], 'typescript': ['prettier'], 'json': ['prettier'], 'markdown': ['prettier'] }
+let g:ale_deno_executable = ''
 
 let g:ale_sign_error = '❌'
 let g:ale_sign_warning = '⚠️'
@@ -142,9 +162,11 @@ let mapleader = " "
 nmap <C-_> gcc
 vmap <C-_> gcgv
 
+" source vimrc
 nnoremap <leader>so :so%<CR>
 nnoremap <leader>sv :so ~/.vimrc<CR>
-" Open explorer in a side panel
+
+" Open explorer in a side panel (not needed with NerdTree
 " nnoremap <leader>e :wincmd v<bar> :wincmd H<bar> :Ex <bar> :vertical resize 25 <bar> let g:netrw_browse_split = 4<CR>
 nnoremap <leader>e :NERDTreeToggle<CR>
 " Copy relative file path to clipboard
@@ -245,9 +267,9 @@ command! -bang -nargs=* Rg
 " Exit Vim if NERDTree is the only window remaining in the only tab.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
-" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+" " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+" autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+"     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 
 
 command! -bar -nargs=* -complete=file -range=% -bang W         <line1>,<line2>write<bang> <args>
