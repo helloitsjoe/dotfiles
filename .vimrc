@@ -78,16 +78,16 @@ set backspace=indent,eol,start
 map <C-c> "+y
 
 " cl' will expand to a console log with the cursor in place
-autocmd BufEnter *.{js,ts} iabbr cl console.log(');<C-c>F'i
+autocmd BufEnter *.{js,ts,jsx,tsx} iabbr cl console.log(');<C-c>F'i
 " autocmd BufEnter *.{js,ts} iabbr cll <Esc>bdwiconsole.log('<Esc>pi:', <Esc>pi);<C-c>
-autocmd BufEnter *.{js,ts} iabbr cll console.log(', );<C-c>F'i
-autocmd BufEnter *.{js,ts} iabbr modex module.exports = {<CR>};<C-c>kA
-autocmd BufEnter *.{js,ts} iabbr imn import { X } from ';<C-c>F'i
+autocmd BufEnter *.{js,ts,jsx,tsx} iabbr cll console.log(', );<C-c>F'i
+autocmd BufEnter *.{js,ts,jsx,tsx} iabbr modex module.exports = {<CR>};<C-c>kA
+autocmd BufEnter *.{js,ts,jsx,tsx} iabbr imn import { X } from ';<C-c>F'i
 autocmd BufEnter *.{js,ts} iabbr reqn const { X } = require(');<C-c>F'i
 autocmd BufEnter *.test.{js,ts} iabbr it( it(', () => {<CR>});<C-c>kf'i
 autocmd BufEnter *.test.{js,ts} iabbr test( test(', () => {<CR>});<C-c>kf'i
 autocmd BufEnter *.test.{js,ts} iabbr desc( describe(', () => {<CR>});<C-c>kf'i
-autocmd BufEnter *.{js,ts} iabbr imr import React from 'react';
+autocmd BufEnter *.{js,ts,jsx,tsx} iabbr imr import React from 'react';
 autocmd BufEnter *.{js,ts} iabbr impt import PropTypes from 'prop-types';
 
 " In insert mode, copy word in quotes and paste after next space,
@@ -97,6 +97,8 @@ inoremap <C-l> <Esc>yi'f)P
 " console log the selected text with label
 vnoremap <leader>cll yoconsole.log('<Esc>pa', <Esc>pa);<Esc>
 nnoremap <leader>cll yiwoconsole.log('<Esc>pa', <Esc>pa);<Esc>
+
+inoremap <C-t> <Esc>ciw<<Esc>pa></<Esc>pa><Esc>F<i
 
 " Make jkl; global marks
 nnoremap mj mJ
@@ -139,7 +141,7 @@ endfunction
 
 " ALE (linting and prettier)
 let g:ale_linters = { 'javascript': ['tsserver'], 'typescript': ['tsserver'] }
-let g:ale_fixers = { 'javascript': ['prettier'], 'typescript': ['prettier'], 'json': ['prettier'], 'markdown': ['prettier'] }
+let g:ale_fixers = { 'javascript': ['prettier'], 'typescript': ['prettier'], 'typescriptreact': ['prettier'], 'json': ['prettier'], 'markdown': ['prettier'] }
 let g:ale_deno_executable = ''
 
 let g:ale_sign_error = '❌'
@@ -173,6 +175,7 @@ nnoremap <leader>sv :so ~/.vimrc<CR>
 " Open explorer in a side panel (not needed with NerdTree
 " nnoremap <leader>e :wincmd v<bar> :wincmd H<bar> :Ex <bar> :vertical resize 25 <bar> let g:netrw_browse_split = 4<CR>
 nnoremap <leader>e :NERDTreeToggle<CR>
+nnoremap <leader>re :NERDTreeFind<CR>
 " Copy relative file path to clipboard
 noremap <leader>yf :let @*=expand("%")<cr>:echo "Copied file to clipboard"<cr>
 nnoremap <leader>wf :wincmd f<CR>
