@@ -80,7 +80,7 @@ map <C-c> "+y
 " cl' will expand to a console log with the cursor in place
 autocmd BufEnter *.{js,ts,jsx,tsx} iabbr cl console.log(');<C-c>F'i
 " autocmd BufEnter *.{js,ts} iabbr cll <Esc>bdwiconsole.log('<Esc>pi:', <Esc>pi);<C-c>
-autocmd BufEnter *.{js,ts,jsx,tsx} iabbr cll console.log(', );<C-c>F'i
+" autocmd BufEnter *.{js,ts,jsx,tsx} iabbr cll console.log(', );<C-c>F'i
 autocmd BufEnter *.{js,ts,jsx,tsx} iabbr modex module.exports = {<CR>};<C-c>kA
 autocmd BufEnter *.{js,ts,jsx,tsx} iabbr imn import { X } from ';<C-c>F'i
 autocmd BufEnter *.{js,ts} iabbr reqn const { X } = require(');<C-c>F'i
@@ -90,9 +90,9 @@ autocmd BufEnter *.test.{js,ts} iabbr desc( describe(', () => {<CR>});<C-c>kf'i
 autocmd BufEnter *.{js,ts,jsx,tsx} iabbr imr import React from 'react';
 autocmd BufEnter *.{js,ts} iabbr impt import PropTypes from 'prop-types';
 
-" In insert mode, copy word in quotes and paste after next space,
+" In insert mode, paste the variable from its label
 " specifically for cl' abbrev
-inoremap <C-l> <Esc>yi'f)P
+inoremap <C-l> <Esc>yi'f)i, <Esc>p
 
 " console log the selected text with label
 vnoremap <leader>cll yoconsole.log('<Esc>pa', <Esc>pa);<Esc>
