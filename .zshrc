@@ -164,11 +164,11 @@ function findfileswithcontents() {
 }
 
 function findandreplace() {
-  findfileswithcontents | xargs sed -i '' "s/$1/$2/"
+  grep -rl --exclude-dir={node_modules,coverage} --exclude=\*.lock "$1" . | xargs sed -i '' "s/$1/$2/"
 }
 
 #WF
-alias vm="ssh dev-gcp"
+alias vm="ssh dev-gcp" # Config at ~/.ssh/config
 alias yv!="yarn version!"
 alias n8="nvm use 8.16.2"
 alias devdoctor="bash dev_doctor/src/dev_doctor"
@@ -197,11 +197,15 @@ alias k="kubectl"
 alias kuc="k config use-context"
 alias kgc="k config get-contexts"
 function kpods() {
+  # Use current dir as namespace if no args
   namespace="${1:-$(basename $(pwd))}"
   kubectl -n $namespace get pods
 }
 function klogs() {
-  pod_id="${1:-$(kpods | grep $(basename $(pwd)) | awk {'print $1'})}"
+  # Get ID from first pod in list if no args
+  pod_id="${1:-$(kpods | grep $(basename $(pwd)) | awk 'NR==1{print $1}')}"
+  echo "Pod ID: $pod_id"
+  # Use current dir as namespace if no args
   namespace="${2:-$(basename $(pwd))}"
   kubectl logs $pod_id -n $namespace 
 }
@@ -231,3 +235,7 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Fix sed in findandreplace
+export LC_CTYPE=C
+export LANG=C
