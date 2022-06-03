@@ -222,7 +222,7 @@ nnoremap gdl :diffget //3<CR>
 " Find next/previous lint errors
 nnoremap <leader>ln :ALENextWrap<CR>
 nnoremap <leader>lp :ALEPreviousWrap<CR>
-nnoremap <leader>wd :ALEGoToDefinition<CR>
+nnoremap <leader>D :ALEGoToDefinition<CR>
 nnoremap <C-w>d :ALEGoToDefinition<CR>
 
 " Make Y act like C and D
