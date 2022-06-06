@@ -188,7 +188,7 @@ nnoremap <leader>n :cnext<CR>
 nnoremap <leader>p :cprev<CR>
 nnoremap <leader>z :tab split<CR>
 " Repeat last command line command
-nnoremap <leader>@ :!<Up><CR>
+nnoremap <leader>@ :!<Up>
 
 " Window nav
 nnoremap <C-j> <C-W>j
@@ -240,6 +240,7 @@ nnoremap <leader>rn :set relativenumber!<CR>
 
 " Git push
 nnoremap <leader>gp :! git add . && git commit -m '' && git push<C-f>4ba
+nnoremap <leader>glp :Git log -p -S ''<C-f>ba
 nnoremap <leader>vim <C-w>v<C-w>l:e ~/.vimrc<CR>
 
 " Tab autocomplete, navigate with j/k
