@@ -88,7 +88,9 @@ autocmd BufEnter *.test.{js,ts} iabbr it( it(', () => {<CR>});<C-c>kf'i
 autocmd BufEnter *.test.{js,ts} iabbr test( test(', () => {<CR>});<C-c>kf'i
 autocmd BufEnter *.test.{js,ts} iabbr desc( describe(', () => {<CR>});<C-c>kf'i
 autocmd BufEnter *.{js,ts,jsx,tsx} iabbr imr import React from 'react';
-autocmd BufEnter *.{js,ts} iabbr impt import PropTypes from 'prop-types';
+autocmd BufEnter *.{js,jsx} iabbr impt import PropTypes from 'prop-types';
+
+autocmd BufEnter *.go iabbr forr for _, y := range z {<CR>}<Esc>kt_
 
 " In insert mode, paste the variable from its label
 " specifically for cl' abbrev
@@ -98,7 +100,7 @@ inoremap <C-l> <Esc>yi'f)i, <Esc>p
 vnoremap <leader>cll yoconsole.log('<Esc>pa', <Esc>pa);<Esc>
 nnoremap <leader>cll yiwoconsole.log('<Esc>pa', <Esc>pa);<Esc>
 
-inoremap <C-t> <Esc>ciw<<Esc>pa></<Esc>pa><Esc>F<i
+inoremap <C-t> <Esc>ciw<<Esc>pa></<Esc>pa><Esc>F<i<CR><Esc>O
 
 " Make jkl; global marks
 nnoremap mj mJ
