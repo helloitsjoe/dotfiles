@@ -35,9 +35,6 @@ let padding = ' | '
 set wildmode=longest,list,full
 set wildmenu
 
-" Don't add comment under a comment
-set formatoptions-=cro
-
 " Add filename and lint status to the statusline
 set statusline=%f " %t for just filename
 set statusline+=%{padding}
@@ -76,6 +73,9 @@ set backspace=indent,eol,start
 
 " Copy visual selection to clipboard
 map <C-c> "+y
+
+" Don't add comment under a comment. This needs to be an autocmd: https://vi.stackexchange.com/a/9367
+autocmd FileType * set formatoptions-=cro
 
 " cl' will expand to a console log with the cursor in place
 autocmd BufEnter *.{js,ts,jsx,tsx} iabbr cl console.log(');<C-c>F'i
@@ -174,6 +174,9 @@ vmap <C-_> gcgv
 nnoremap <leader>so :so%<CR>
 nnoremap <leader>sv :so ~/.vimrc<CR>
 
+" open current file in Chrome (e.g. preview markdown or html)
+nnoremap <leader>ch :!open -a "Google Chrome" %<CR>
+
 " Open explorer in a side panel (not needed with NerdTree
 " nnoremap <leader>e :wincmd v<bar> :wincmd H<bar> :Ex <bar> :vertical resize 25 <bar> let g:netrw_browse_split = 4<CR>
 nnoremap <leader>e :NERDTreeToggle<CR>
@@ -210,7 +213,7 @@ nnoremap <leader>F :Rg <C-R><C-W><CR>
 nnoremap <leader>v <C-v>
 " Delete curly block including lines
 nnoremap <leader>d{ va{Vd
-nnoremap <leader>b :ls<CR>:buffer<space>
+nnoremap <leader>b :ls<CR>:b
 
 " Fugitive - some of these might be overkill as mappings
 nnoremap <leader>gb :Git blame<CR>
