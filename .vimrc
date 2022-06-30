@@ -94,7 +94,7 @@ autocmd BufEnter *.go iabbr forr for _, y := range z {<CR>}<Esc>kt_
 
 " In insert mode, paste the variable from its label
 " specifically for cl' abbrev
-inoremap <C-l> <Esc>yi'f)i, <Esc>p
+inoremap <C-l> <Esc>yi'f'a, <Esc>p
 
 " console log the selected text with label
 vnoremap <leader>cll yoconsole.log('<Esc>pa', <Esc>pa);<Esc>
@@ -171,7 +171,7 @@ nmap <C-_> gcc
 vmap <C-_> gcgv
 
 " source vimrc
-nnoremap <leader>so :so%<CR>
+nnoremap <leader>so :so ~/.vimrc<CR>
 nnoremap <leader>sv :so ~/.vimrc<CR>
 
 " open current file in Chrome (e.g. preview markdown or html)
