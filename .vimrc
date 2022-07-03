@@ -21,6 +21,8 @@ syntax on
 set termguicolors
 set background=dark
 set wildignore=node_modules/**,dist/**,coverage/**
+" Hide Omnicomplete preview window
+set completeopt-=preview
 
 " let g:gruvbox_contrast_dark = 'hard'
 " let g:gruvbox_colors = { 'bg0': ['#111111', 0] }
@@ -29,11 +31,11 @@ colorscheme quantum
 
 filetype plugin indent on
 
-let padding = ' | '
-
 " Show file list when tabbing in shell commands, e.g. :!mv ./<tab>
 set wildmode=longest,list,full
 set wildmenu
+
+let padding = ' | '
 
 " Add filename and lint status to the statusline
 set statusline=%f " %t for just filename
@@ -41,9 +43,6 @@ set statusline+=%{padding}
 set statusline+=col:\ %c
 set statusline+=%{padding}
 set statusline+=%{LinterStatus()}
-
-" Don't add a comment to the line below a comment
-set formatoptions-=cro
 
 set path+=**
 set suffixesadd+=.js
@@ -77,13 +76,11 @@ map <C-c> "+y
 " Don't add comment under a comment. This needs to be an autocmd: https://vi.stackexchange.com/a/9367
 autocmd FileType * set formatoptions-=cro
 
-" cl' will expand to a console log with the cursor in place
+" cl' (or cll'); will expand to a console log with the cursor in place
 autocmd BufEnter *.{js,ts,jsx,tsx} iabbr cl console.log(');<C-c>F'i
-" autocmd BufEnter *.{js,ts} iabbr cll <Esc>bdwiconsole.log('<Esc>pi:', <Esc>pi);<C-c>
-" autocmd BufEnter *.{js,ts,jsx,tsx} iabbr cll console.log(', );<C-c>F'i
+autocmd BufEnter *.{js,ts,jsx,tsx} iabbr cll console.log(');<C-c>F'i
 autocmd BufEnter *.{js,ts,jsx,tsx} iabbr modex module.exports = {<CR>};<C-c>kA
 autocmd BufEnter *.{js,ts,jsx,tsx} iabbr imn import { X } from ';<C-c>F'i
-autocmd BufEnter *.{js,ts} iabbr reqn const { X } = require(');<C-c>F'i
 autocmd BufEnter *.test.{js,ts} iabbr it( it(', () => {<CR>});<C-c>kf'i
 autocmd BufEnter *.test.{js,ts} iabbr test( test(', () => {<CR>});<C-c>kf'i
 autocmd BufEnter *.test.{js,ts} iabbr desc( describe(', () => {<CR>});<C-c>kf'i
@@ -92,14 +89,10 @@ autocmd BufEnter *.{js,jsx} iabbr impt import PropTypes from 'prop-types';
 
 autocmd BufEnter *.go iabbr forr for _, y := range z {<CR>}<Esc>kt_
 
-" In insert mode, paste the variable from its label
-" specifically for cl' abbrev
+" In insert mode, paste the variable from its label (for cll' abbrev)
 inoremap <C-l> <Esc>yi'f'a, <Esc>p
 
-" console log the selected text with label
-vnoremap <leader>cll yoconsole.log('<Esc>pa', <Esc>pa);<Esc>
-nnoremap <leader>cll yiwoconsole.log('<Esc>pa', <Esc>pa);<Esc>
-
+" nnoremap <leader>cll yiwoconsole.log('<Esc>pa', <Esc>pa);<Esc>
 inoremap <C-t> <Esc>ciw<<Esc>pa></<Esc>pa><Esc>F<i<CR><Esc>O
 
 " Make jkl; global marks
@@ -120,10 +113,10 @@ let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
 " Make netrw use current selected directory as you navigate
-let g:netrw_keepdir=0
-let g:netrw_banner=0
-let g:netrw_liststyle = 3
-let g:netrw_localrmdir='rm -r'
+" let g:netrw_keepdir=0
+" let g:netrw_banner=0
+" let g:netrw_liststyle = 3
+" let g:netrw_localrmdir='rm -r'
 
 let g:rustfmt_autosave = 1
 
@@ -183,14 +176,15 @@ nnoremap <leader>e :NERDTreeToggle<CR>
 nnoremap <leader>re :NERDTreeFind<CR>
 " Copy relative file path to clipboard
 noremap <leader>yf :let @*=expand("%")<cr>:echo "Copied file to clipboard"<cr>
-nnoremap <leader>wf :wincmd f<CR>
-nnoremap <leader>wt :vertical terminal <CR><C-w>x<C-w>l
+" Probably delete this, seems like gf does the trick
+" nnoremap <leader>wf :wincmd f<CR>
 
 " Quickfix list
 nnoremap <leader>co :copen<CR>
 nnoremap <leader>cl :cclose<CR>
 nnoremap <leader>n :cnext<CR>
 nnoremap <leader>p :cprev<CR>
+" Zoom into current tab, :q to close
 nnoremap <leader>z :tab split<CR>
 " Repeat last command line command
 nnoremap <leader>@ :!<Up>
@@ -209,10 +203,7 @@ nnoremap <C-p> :GFiles<CR>
 nnoremap <leader>f :Rg<CR>
 " Search the word under the cursor
 nnoremap <leader>F :Rg <C-R><C-W><CR>
-" Visual block
-nnoremap <leader>v <C-v>
-" Delete curly block including lines
-nnoremap <leader>d{ va{Vd
+" List buffers
 nnoremap <leader>b :ls<CR>:b
 
 " Fugitive - some of these might be overkill as mappings
@@ -220,6 +211,8 @@ nnoremap <leader>gb :Git blame<CR>
 nnoremap <leader>gs :Git<CR>
 nnoremap <leader>gl :Git log<CR>
 nnoremap <leader>glo :Git log --oneline<CR>
+" Pickaxe
+nnoremap <leader>glp :Git log -p -S ''<C-f>ba
 nnoremap <leader>gd :Gvdiff!<CR>
 nnoremap gdh :diffget //2<CR>
 nnoremap gdl :diffget //3<CR>
@@ -228,7 +221,6 @@ nnoremap gdl :diffget //3<CR>
 nnoremap <leader>ln :ALENextWrap<CR>
 nnoremap <leader>lp :ALEPreviousWrap<CR>
 nnoremap <leader>D :ALEGoToDefinition<CR>
-nnoremap <C-w>d :ALEGoToDefinition<CR>
 
 " Make Y act like C and D
 nnoremap Y y$
@@ -236,6 +228,9 @@ nnoremap Y y$
 " Visual maps
 xnoremap A $A
 xnoremap p pgvy
+" Visual mode indent repeat
+vnoremap > >gv
+vnoremap < <gv
 
 " Select all
 nnoremap <leader>ggg ggVG
@@ -245,17 +240,12 @@ nnoremap <leader>rn :set relativenumber!<CR>
 
 " Git push
 nnoremap <leader>gp :! git add . && git commit -m '' && git push<C-f>4ba
-nnoremap <leader>glp :Git log -p -S ''<C-f>ba
 nnoremap <leader>vim <C-w>v<C-w>l:e ~/.vimrc<CR>
 
 " Tab autocomplete, navigate with j/k
 inoremap <tab> <C-n>
 inoremap <expr> <C-j> ((pumvisible())?("\<C-n>"):("j"))
 inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
-
-" Visual mode indent repeat
-vnoremap > >gv
-vnoremap < <gv
 
 :nnoremap <leader>w <C-w>
 
@@ -280,7 +270,8 @@ command! -bang -nargs=* Rg
 " Exit Vim if NERDTree is the only window remaining in the only tab.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
-" " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+" This is nice in theory but ends up messing with <C-w>l when in NERDTree.
+" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
 " autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
 "     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 
