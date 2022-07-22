@@ -86,6 +86,8 @@ autocmd BufEnter *.test.{js,ts} iabbr test( test(', () => {<CR>});<C-c>kf'i
 autocmd BufEnter *.test.{js,ts} iabbr desc( describe(', () => {<CR>});<C-c>kf'i
 autocmd BufEnter *.{js,ts,jsx,tsx} iabbr imr import React from 'react';
 autocmd BufEnter *.{js,jsx} iabbr impt import PropTypes from 'prop-types';
+autocmd BufEnter *.html iabbr html <html><CR><head><CR><title></title><CR></head><CR><body><CR></body><CR></html><Esc>/title<CR>wa
+
 
 autocmd BufEnter *.go iabbr forr for _, y := range z {<CR>}<Esc>kt_
 
