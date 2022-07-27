@@ -66,6 +66,9 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+bindkey '^k' up-line-or-search
+bindkey '^j' down-line-or-search
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
