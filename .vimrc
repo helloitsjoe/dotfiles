@@ -76,7 +76,7 @@ map <C-c> "+y
 " Don't add comment under a comment. This needs to be an autocmd: https://vi.stackexchange.com/a/9367
 autocmd FileType * set formatoptions-=cro
 
-" cl' (or cll'); will expand to a console log with the cursor in place
+" cl' or cll' will expand to a console log with the cursor in place
 autocmd BufEnter *.{js,ts,jsx,tsx} iabbr cl console.log(');<C-c>F'i
 autocmd BufEnter *.{js,ts,jsx,tsx} iabbr cll console.log(');<C-c>F'i
 autocmd BufEnter *.{js,ts,jsx,tsx} iabbr modex module.exports = {<CR>};<C-c>kA
@@ -88,10 +88,10 @@ autocmd BufEnter *.{js,ts,jsx,tsx} iabbr imr import React from 'react';
 autocmd BufEnter *.{js,jsx} iabbr impt import PropTypes from 'prop-types';
 autocmd BufEnter *.html iabbr html <html><CR><head><CR><title></title><CR></head><CR><body><CR></body><CR></html><Esc>/title<CR>wa
 
-
 autocmd BufEnter *.go iabbr forr for _, y := range z {<CR>}<Esc>kt_
 
-" In insert mode, paste the variable from its label (for cll' abbrev)
+" In insert mode, paste the variable from its label
+" specifically for cl' abbrev
 inoremap <C-l> <Esc>yi'f'a, <Esc>p
 
 " nnoremap <leader>cll yiwoconsole.log('<Esc>pa', <Esc>pa);<Esc>
@@ -124,20 +124,20 @@ let g:rustfmt_autosave = 1
 
 " Adds total lint warnings/errors to the statusbar
 function! LinterStatus() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
+  let l:counts = ale#statusline#Count(bufnr(''))
 
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
 
-    return l:counts.total == 0 ? '' : printf(
-    \   '⚠️  %d ❌ %d',
-    \   all_non_errors,
-    \   all_errors
-    \)
+  return l:counts.total == 0 ? '' : printf(
+  \   '⚠️  %d ❌ %d',
+  \   all_non_errors,
+  \   all_errors
+  \)
 endfunction
 
 " ALE (linting and prettier)
-let g:ale_linters = { 'javascript': ['tsserver'], 'typescript': ['tsserver'] }
+let g:ale_linters = { 'javascript': ['tsserver'], 'typescript': ['tsserver'],  'javascriptreact': ['tsserver'], 'typescriptreact': ['tsserver']  }
 let g:ale_fixers = { 'javascript': ['prettier'], 'typescript': ['prettier'], 'typescriptreact': ['prettier'], 'json': ['prettier'], 'markdown': ['prettier'] }
 let g:ale_deno_executable = ''
 
@@ -218,6 +218,12 @@ nnoremap <leader>glp :Git log -p -S ''<C-f>ba
 nnoremap <leader>gd :Gvdiff!<CR>
 nnoremap gdh :diffget //2<CR>
 nnoremap gdl :diffget //3<CR>
+
+" Find and replace in quick fix list:
+" `e` flag is 'no error if pattern not found'
+" `update` saves (only writes if changes were made)
+" Can also use `bufdo` do find/replace in open buffers
+" :cdo %s/pattern/replace/ge | update
 
 " Find next/previous lint errors
 nnoremap <leader>ln :ALENextWrap<CR>
