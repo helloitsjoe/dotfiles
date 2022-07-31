@@ -133,7 +133,7 @@ function! LinterStatus() abort
   let l:all_non_errors = l:counts.total - l:all_errors
 
   return l:counts.total == 0 ? '' : printf(
-  \   '⚠️  %d ❌ %d',
+  \   '⚠️  %d 🔴 %d',
   \   all_non_errors,
   \   all_errors
   \)
@@ -144,7 +144,7 @@ let g:ale_linters = { 'javascript': ['tsserver'], 'typescript': ['tsserver'],  '
 let g:ale_fixers = { 'javascript': ['prettier'], 'typescript': ['prettier'], 'typescriptreact': ['prettier'], 'json': ['prettier'], 'markdown': ['prettier'], 'html': ['prettier'] }
 let g:ale_deno_executable = ''
 
-let g:ale_sign_error = '❌'
+let g:ale_sign_error = '🔴'
 let g:ale_sign_warning = '⚠️'
 let g:ale_echo_msg_error_str = 'Errors'
 let g:ale_echo_msg_warning_str = 'W'
