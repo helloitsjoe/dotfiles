@@ -28,6 +28,8 @@ set completeopt-=preview
 " let g:gruvbox_colors = { 'bg0': ['#111111', 0] }
 
 colorscheme quantum
+" Transparent background
+hi Normal guibg=NONE ctermbg=NONE
 
 filetype plugin indent on
 
@@ -95,7 +97,8 @@ autocmd BufEnter *.go iabbr forr for _, y := range z {<CR>}<Esc>kt_
 inoremap <C-l> <Esc>yi'f'a, <Esc>p
 
 " nnoremap <leader>cll yiwoconsole.log('<Esc>pa', <Esc>pa);<Esc>
-inoremap <C-t> <Esc>ciw<<Esc>pa></<Esc>pa><Esc>F<i<CR><Esc>O
+" Auto-wrap tags ("t register)
+inoremap <C-t> <Esc>"tciw<<Esc>"tpa></<Esc>"tpa><Esc>F<i<CR><Esc>O
 
 " Make jkl; global marks
 nnoremap mj mJ
@@ -138,7 +141,7 @@ endfunction
 
 " ALE (linting and prettier)
 let g:ale_linters = { 'javascript': ['tsserver'], 'typescript': ['tsserver'],  'javascriptreact': ['tsserver'], 'typescriptreact': ['tsserver']  }
-let g:ale_fixers = { 'javascript': ['prettier'], 'typescript': ['prettier'], 'typescriptreact': ['prettier'], 'json': ['prettier'], 'markdown': ['prettier'] }
+let g:ale_fixers = { 'javascript': ['prettier'], 'typescript': ['prettier'], 'typescriptreact': ['prettier'], 'json': ['prettier'], 'markdown': ['prettier'], 'html': ['prettier'] }
 let g:ale_deno_executable = ''
 
 let g:ale_sign_error = '❌'
