@@ -140,7 +140,7 @@ function! LinterStatus() abort
 endfunction
 
 " ALE (linting and prettier)
-let g:ale_linters = { 'javascript': ['tsserver'], 'typescript': ['tsserver'],  'javascriptreact': ['tsserver'], 'typescriptreact': ['tsserver']  }
+let g:ale_linters = { 'javascript': ['tsserver', 'eslint'], 'typescript': ['tsserver', 'eslint'],  'javascriptreact': ['tsserver', 'eslint'], 'typescriptreact': ['tsserver', 'eslint']  }
 let g:ale_fixers = { 'javascript': ['prettier'], 'typescript': ['prettier'], 'typescriptreact': ['prettier'], 'json': ['prettier'], 'markdown': ['prettier'], 'html': ['prettier'] }
 let g:ale_deno_executable = ''
 
