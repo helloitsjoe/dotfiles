@@ -202,8 +202,8 @@ nnoremap <C-l> <C-W>l
 
 " Split vertically and focus on right pane
 nnoremap <leader>wv <C-w>v<C-w>l
-" Fuzzy file finder
-nnoremap <C-p> :GFiles<CR>
+" Fuzzy file finder, exclude .yarn cache
+nnoremap <C-p> :GFiles ':!:.yarn/cache'<CR>
 " Fuzzy text search
 nnoremap <leader>f :Rg<CR>
 " Search the word under the cursor
