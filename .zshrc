@@ -199,12 +199,12 @@ alias drmall="docker rm $(dlist)"
 alias k="kubectl"
 alias kuc="k config use-context"
 alias kgc="k config get-contexts"
-function kpods() {
+function kp() {
   # Use current dir as namespace if no args
   namespace="${1:-$(basename $(pwd))}"
   kubectl -n $namespace get pods
 }
-function klogs() {
+function kl() {
   # Get ID from first pod in list if no args
   pod_id="${1:-$(kpods | grep $(basename $(pwd)) | awk 'NR==1{print $1}')}"
   echo "Pod ID: $pod_id"
