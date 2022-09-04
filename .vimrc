@@ -3,12 +3,14 @@ call plug#begin()
   Plug 'helloitsjoe/quantum.vim'
   Plug 'airblade/vim-gitgutter'
   Plug 'sheerun/vim-polyglot'
+  Plug 'tpope/vim-commentary'
   Plug 'dense-analysis/ale'
   Plug 'preservim/nerdtree'
   Plug 'rust-lang/rust.vim'
+  Plug 'markonm/traces.vim'
+  Plug 'wellle/context.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
-  Plug 'tpope/vim-commentary'
   Plug 'nicwest/vim-http'
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -16,6 +18,8 @@ call plug#begin()
 call plug#end()
 
 let $FZF_DEFAULT_OPTS='--reverse'
+
+let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 syntax on
 set termguicolors
@@ -172,6 +176,11 @@ vmap <C-_> gcgv
 nnoremap <leader>so :so ~/.vimrc<CR>
 nnoremap <leader>sv :so ~/.vimrc<CR>
 
+" search across file
+nnoremap <leader>s :%s/
+" search for word under cursor across file
+nnoremap <leader>S :%s/<C-r><C-w>//g<C-f>hi<C-c>
+
 " open current file in Chrome (e.g. preview markdown or html)
 nnoremap <leader>ch :!open -a "Google Chrome" %<CR>
 
@@ -219,6 +228,7 @@ nnoremap <leader>glo :Git log --oneline<CR>
 " Pickaxe
 nnoremap <leader>glp :Git log -p -S ''<C-f>ba
 nnoremap <leader>gd :Gvdiff!<CR>
+nnoremap <leader>ga :Git add .<CR>
 nnoremap gdh :diffget //2<CR>
 nnoremap gdl :diffget //3<CR>
 
