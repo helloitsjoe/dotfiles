@@ -89,7 +89,7 @@ autocmd BufEnter *.{js,ts,jsx,tsx} iabbr modex module.exports = {<CR>};<C-c>kA
 autocmd BufEnter *.{js,ts,jsx,tsx} iabbr imn import { X } from ';<C-c>F'i
 autocmd BufEnter *.test.{js,ts} iabbr it( it(', () => {<CR>});<C-c>kf'i
 autocmd BufEnter *.test.{js,ts} iabbr test( test(', () => {<CR>});<C-c>kf'i
-autocmd BufEnter *.test.{js,ts} iabbr desc( describe(', () => {<CR>});<C-c>kf'i
+autocmd BufEnter *.test.{js,ts} iabbr describe( describe(', () => {<CR>});<C-c>kf'i
 autocmd BufEnter *.{js,ts,jsx,tsx} iabbr imr import React from 'react';
 autocmd BufEnter *.{js,jsx} iabbr impt import PropTypes from 'prop-types';
 autocmd BufEnter *.html iabbr html <html><CR><head><CR><title></title><CR></head><CR><body><CR></body><CR></html><Esc>/title<CR>wa
