@@ -111,6 +111,9 @@ nnoremap `j `J
 nnoremap mk mK
 nnoremap 'k 'K
 nnoremap `k `K
+nnoremap mf mF
+nnoremap 'f 'F
+nnoremap `f `F
 nnoremap ml mL
 nnoremap 'l 'L
 nnoremap `l `L

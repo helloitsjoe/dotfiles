@@ -222,6 +222,10 @@ function kauth() {
   mv ~/Downloads/kubecfg.yaml ~/.kube/config
 }
 
+# Garden.io
+alias glogs="garden logs"
+alias gdeploy="garden deploy"
+
 # GIF
 function gif() {
   # ffmpeg -i $1.mov -vf scale=480:-1 -r 15 gif/ffout%3d.png
