@@ -81,6 +81,7 @@ map <C-c> "+y
 
 " Don't add comment under a comment. This needs to be an autocmd: https://vi.stackexchange.com/a/9367
 autocmd FileType * set formatoptions-=cro
+autocmd FileType *.md set conceallevel=0
 
 " cl' or cll' will expand to a console log with the cursor in place
 autocmd BufEnter *.{js,ts,jsx,tsx} iabbr cl console.log(');<C-c>F'i
