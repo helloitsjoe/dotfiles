@@ -27,6 +27,8 @@ set background=dark
 set wildignore=node_modules/**,dist/**,coverage/**
 " Hide Omnicomplete preview window
 set completeopt-=preview
+set foldmethod=indent
+set nofoldenable
 
 " let g:gruvbox_contrast_dark = 'hard'
 " let g:gruvbox_colors = { 'bg0': ['#111111', 0] }
@@ -226,7 +228,7 @@ nnoremap <leader>b :ls<CR>:b
 
 " Fugitive - some of these might be overkill as mappings
 nnoremap <leader>gb :Git blame<CR>
-nnoremap <leader>gs :Git<CR>
+nnoremap <leader>gs :Git<CR> <C-w>10_
 nnoremap <leader>gl :Git log<CR>
 nnoremap <leader>glo :Git log --oneline<CR>
 " Pickaxe
