@@ -86,14 +86,17 @@ autocmd BufEnter *.{js,ts,jsx,tsx} iabbr cl console.log(');<C-c>F'i
 autocmd BufEnter *.{js,ts,jsx,tsx} iabbr cll console.log(');<C-c>F'i
 autocmd BufEnter *.{js,ts,jsx,tsx} iabbr modex module.exports = {<CR>};<C-c>kA
 autocmd BufEnter *.{js,ts,jsx,tsx} iabbr imn import { X } from ';<C-c>F'i
-autocmd BufEnter *.test.{js,ts} iabbr it( it(', () => {<CR>});<C-c>kf'i
-autocmd BufEnter *.test.{js,ts} iabbr test( test(', () => {<CR>});<C-c>kf'i
-autocmd BufEnter *.test.{js,ts} iabbr desc( describe(', () => {<CR>});<C-c>kf'i
+autocmd BufEnter *.test.{js,ts,jsx,tsx} iabbr it( it(', () => {<CR>});<C-c>kf'i
+autocmd BufEnter *.test.{js,ts,jsx,tsx} iabbr test( test(', () => {<CR>});<C-c>kf'i
+autocmd BufEnter *.test.{js,ts,jsx,tsx} iabbr desc( describe(', () => {<CR>});<C-c>kf'i
 autocmd BufEnter *.{js,ts,jsx,tsx} iabbr imr import React from 'react';
 autocmd BufEnter *.{js,jsx} iabbr impt import PropTypes from 'prop-types';
 autocmd BufEnter *.html iabbr html <html><CR><head><CR><title></title><CR></head><CR><body><CR></body><CR></html><Esc>/title<CR>wa
 
 autocmd BufEnter *.go iabbr forr for _, y := range z {<CR>}<Esc>kt_
+
+" React useState
+noremap <C-s> <Esc>diwi []<Esc>Pa, <Esc>pbvUiset<Esc>A = useState();
 
 " In insert mode, paste the variable from its label
 " specifically for cl' abbrev
