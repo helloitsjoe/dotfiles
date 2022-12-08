@@ -96,7 +96,8 @@ autocmd BufEnter *.html iabbr html <html><CR><head><CR><title></title><CR></head
 autocmd BufEnter *.go iabbr forr for _, y := range z {<CR>}<Esc>kt_
 
 " React useState
-noremap <C-s> <Esc>diwi []<Esc>Pa, <Esc>pbvUiset<Esc>A = useState();
+nnoremap <C-s> <Esc>diwi []<Esc>Pa, <Esc>pbvUiset<Esc>A = useState();<Esc>F)i
+inoremap <C-s> <Esc>diwi []<Esc>Pa, <Esc>pbvUiset<Esc>A = useState();<Esc>F)i
 
 " In insert mode, paste the variable from its label
 " specifically for cl' abbrev
