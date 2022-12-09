@@ -82,14 +82,14 @@ autocmd FileType * set formatoptions-=cro
 autocmd BufEnter *.md set conceallevel=0
 
 " cl' or cll' will expand to a console log with the cursor in place
-autocmd BufEnter *.{js,ts,jsx,tsx} iabbr cl console.log(');<C-c>F'i
-autocmd BufEnter *.{js,ts,jsx,tsx} iabbr cll console.log(');<C-c>F'i
-autocmd BufEnter *.{js,ts,jsx,tsx} iabbr modex module.exports = {<CR>};<C-c>kA
-autocmd BufEnter *.{js,ts,jsx,tsx} iabbr imn import { X } from ';<C-c>F'i
-autocmd BufEnter *.test.{js,ts,jsx,tsx} iabbr it( it(', () => {<CR>});<C-c>kf'i
-autocmd BufEnter *.test.{js,ts,jsx,tsx} iabbr test( test(', () => {<CR>});<C-c>kf'i
-autocmd BufEnter *.test.{js,ts,jsx,tsx} iabbr desc( describe(', () => {<CR>});<C-c>kf'i
-autocmd BufEnter *.{js,ts,jsx,tsx} iabbr imr import React from 'react';
+autocmd BufEnter *.{js,ts,jsx,tsx,mjs} iabbr cl console.log(');<C-c>F'i
+autocmd BufEnter *.{js,ts,jsx,tsx,mjs} iabbr cll console.log(');<C-c>F'i
+autocmd BufEnter *.{js,ts,jsx,tsx,mjs} iabbr modex module.exports = {<CR>};<C-c>kA
+autocmd BufEnter *.{js,ts,jsx,tsx,mjs} iabbr imn import { X } from ';<C-c>F'i
+autocmd BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr it( it(', () => {<CR>});<C-c>kf'i
+autocmd BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr test( test(', () => {<CR>});<C-c>kf'i
+autocmd BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr desc( describe(', () => {<CR>});<C-c>kf'i
+autocmd BufEnter *.{js,ts,jsx,tsx,mjs} iabbr imr import React from 'react';
 autocmd BufEnter *.{js,jsx} iabbr impt import PropTypes from 'prop-types';
 autocmd BufEnter *.html iabbr html <html><CR><head><CR><title></title><CR></head><CR><body><CR></body><CR></html><Esc>/title<CR>wa
 
