@@ -20,6 +20,10 @@ let $FZF_DEFAULT_OPTS='--reverse'
 
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
+" Local .viminfo per project for global marks
+" Remember to gitignore!
+set viminfo+=n.viminfo
+
 syntax on
 set termguicolors
 set background=dark
@@ -77,23 +81,36 @@ set backspace=indent,eol,start
 " Copy visual selection to clipboard
 map <C-c> "+y
 
+" https://gist.github.com/romainl/6e4c15dfc4885cb4bd64688a71aa7063#risky-business
+augroup group
+  autocmd!
+augroup END
+
 " Don't add comment under a comment. This needs to be an autocmd: https://vi.stackexchange.com/a/9367
-autocmd FileType * set formatoptions-=cro
-autocmd BufEnter *.md set conceallevel=0
+autocmd group FileType * set formatoptions-=cro
+autocmd group BufEnter *.md set conceallevel=0
 
 " cl' or cll' will expand to a console log with the cursor in place
-autocmd BufEnter *.{js,ts,jsx,tsx,mjs} iabbr cl console.log(');<C-c>F'i
-autocmd BufEnter *.{js,ts,jsx,tsx,mjs} iabbr cll console.log(');<C-c>F'i
-autocmd BufEnter *.{js,ts,jsx,tsx,mjs} iabbr modex module.exports = {<CR>};<C-c>kA
-autocmd BufEnter *.{js,ts,jsx,tsx,mjs} iabbr imn import { X } from ';<C-c>F'i
-autocmd BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr it( it(', () => {<CR>});<C-c>kf'i
-autocmd BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr test( test(', () => {<CR>});<C-c>kf'i
-autocmd BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr desc( describe(', () => {<CR>});<C-c>kf'i
-autocmd BufEnter *.{js,ts,jsx,tsx,mjs} iabbr imr import React from 'react';
-autocmd BufEnter *.{js,jsx} iabbr impt import PropTypes from 'prop-types';
-autocmd BufEnter *.html iabbr html <html><CR><head><CR><title></title><CR></head><CR><body><CR></body><CR></html><Esc>/title<CR>wa
+autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr cl console.log(');<C-c>F'i
+autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr cll console.log(');<C-c>F'i
+autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr modex module.exports = {<CR>};<C-c>kA
+autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr imn import { X } from ';<C-c>F'i
+autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr it( it(', () => {<CR>});<C-c>kf'i
+autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr test( test(', () => {<CR>});<C-c>kf'i
+autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr desc( describe(', () => {<CR>});<C-c>kf'i
+autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr imr import React from 'react';
+autocmd group BufEnter *.{js,jsx} iabbr impt import PropTypes from 'prop-types';
+autocmd group BufEnter *.html iabbr html <html><CR><head><CR><title></title><CR></head><CR><body><CR></body><CR></html><Esc>/title<CR>wa
 
-autocmd BufEnter *.go iabbr forr for _, y := range z {<CR>}<Esc>kt_
+autocmd group BufEnter *.go iabbr forr for _, y := range z {<CR>}<Esc>kt_
+
+" Exit Vim if NERDTree is the only window remaining in the only tab.
+autocmd group BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+" This is nice in theory but ends up messing with <C-w>l when in NERDTree.
+" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+" autocmd group BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+"     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 
 " React useState
 nnoremap <C-s> <Esc>diwi []<Esc>Pa, <Esc>pbvUiset<Esc>A = useState();<Esc>F)i
@@ -293,14 +310,6 @@ command! -bang -nargs=* Rg
 "function! NetrwMapping()
 "  nnoremap <buffer> <c-l> :wincmd l<cr>
 "endfunction
-
-" Exit Vim if NERDTree is the only window remaining in the only tab.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-
-" This is nice in theory but ends up messing with <C-w>l when in NERDTree.
-" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-" autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-"     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 
 
 command! -bar -nargs=* -complete=file -range=% -bang W         <line1>,<line2>write<bang> <args>
