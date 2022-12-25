@@ -101,7 +101,6 @@ autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr desc( describe(', () => 
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr imr import React from 'react';
 autocmd group BufEnter *.{js,jsx} iabbr impt import PropTypes from 'prop-types';
 autocmd group BufEnter *.html iabbr html <html><CR><head><CR><title></title><CR></head><CR><body><CR></body><CR></html><Esc>/title<CR>wa
-
 autocmd group BufEnter *.go iabbr forr for _, y := range z {<CR>}<Esc>kt_
 
 " Exit Vim if NERDTree is the only window remaining in the only tab.
@@ -120,26 +119,39 @@ inoremap <C-s> <Esc>diwi []<Esc>Pa, <Esc>pbvUiset<Esc>A = useState();<Esc>F)i
 " specifically for cl' abbrev
 inoremap <C-l> <Esc>yi'f'a, <Esc>p
 
+" Function body, type { then C-]
+inoremap <C-]> <CR>}<Esc>O
+
 " nnoremap <leader>cll yiwoconsole.log('<Esc>pa', <Esc>pa);<Esc>
+
 " Auto-wrap tags ("t register)
 inoremap <C-t> <Esc>"tciw<<Esc>"tpa></<Esc>"tpa><Esc>F<i<CR><Esc>O
 
-" Make jkl; global marks
+" Make home row global marks
 nnoremap mj mJ
 nnoremap 'j 'J
 nnoremap `j `J
 nnoremap mk mK
 nnoremap 'k 'K
 nnoremap `k `K
-nnoremap mf mF
-nnoremap 'f 'F
-nnoremap `f `F
 nnoremap ml mL
 nnoremap 'l 'L
 nnoremap `l `L
 nnoremap m; m:
 nnoremap '; ':
 nnoremap `; `:
+nnoremap mf mF
+nnoremap 'f 'F
+nnoremap `f `F
+nnoremap md mD
+nnoremap 'd 'D
+nnoremap `d `D
+nnoremap ms mS
+nnoremap 's 'S
+nnoremap `s `S
+nnoremap ma mA
+nnoremap 'a 'A
+nnoremap `a `A
 
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
@@ -188,6 +200,7 @@ let g:ale_cursor_detail = 1
 let g:ale_floating_window_border = []
 
 let NERDTreeShowHidden = 1
+let NERDTreeMapMenu = 'n'
 
 let mapleader = " "
 
