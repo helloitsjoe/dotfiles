@@ -60,7 +60,7 @@ set tabstop=2
 set shiftwidth=2
 set smartindent
 set relativenumber
-set scrolloff=8
+set scrolloff=5
 set expandtab
 set hlsearch
 set ignorecase
@@ -101,7 +101,9 @@ autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr desc( describe(', () => 
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr imr import React from 'react';
 autocmd group BufEnter *.{js,jsx} iabbr impt import PropTypes from 'prop-types';
 autocmd group BufEnter *.html iabbr html <html><CR><head><CR><title></title><CR></head><CR><body><CR></body><CR></html><Esc>/title<CR>wa
-autocmd group BufEnter *.go iabbr forr for _, y := range z {<CR>}<Esc>kt_
+autocmd group BufEnter *.go iabbr forr for _,X := range k {<CR>}<Esc>kfXs
+autocmd group BufEnter *.go iabbr fmtp fmt.Println("")<Esc>F"i
+autocmd group BufEnter *.rs iabbr pr println!("{:?}",);<Esc>F)i
 
 " Exit Vim if NERDTree is the only window remaining in the only tab.
 autocmd group BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
@@ -119,13 +121,16 @@ inoremap <C-s> <Esc>diwi []<Esc>Pa, <Esc>pbvUiset<Esc>A = useState();<Esc>F)i
 " specifically for cl' abbrev
 inoremap <C-l> <Esc>yi'f'a, <Esc>p
 
-" Function body, type { then C-]
-inoremap <C-]> <CR>}<Esc>O
+" Open brackets
+inoremap <C-]> {<CR>}<Esc>O
 
 " nnoremap <leader>cll yiwoconsole.log('<Esc>pa', <Esc>pa);<Esc>
 
 " Auto-wrap tags ("t register)
 inoremap <C-t> <Esc>"tciw<<Esc>"tpa></<Esc>"tpa><Esc>F<i<CR><Esc>O
+
+" jk -> esc
+inoremap jk <Esc>
 
 " Make home row global marks
 nnoremap mj mJ
@@ -238,6 +243,7 @@ nnoremap <leader>p :cprev<CR>
 nnoremap <leader>z :tab split<CR>
 " Repeat last command line command
 nnoremap <leader>@ :!<Up>
+nnoremap ; :
 
 " Window nav
 nnoremap <C-j> <C-W>j
@@ -255,6 +261,9 @@ nnoremap <leader>f :Rg<CR>
 nnoremap <leader>F :Rg <C-R><C-W><CR>
 " List buffers
 nnoremap <leader>b :ls<CR>:b
+
+nnoremap <C-u> <C-u>zz
+nnoremap <C-d> <C-d>zz
 
 " Fugitive - some of these might be overkill as mappings
 nnoremap <leader>gb :Git blame<CR>
