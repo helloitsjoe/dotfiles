@@ -113,51 +113,6 @@ autocmd group BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:
 " autocmd group BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
 "     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 
-" React useState
-nnoremap <C-s> <Esc>diwi []<Esc>Pa, <Esc>pbvUiset<Esc>A = useState();<Esc>F)i
-inoremap <C-s> <Esc>diwi []<Esc>Pa, <Esc>pbvUiset<Esc>A = useState();<Esc>F)i
-
-" In insert mode, paste the variable from its label
-" specifically for cl' abbrev
-inoremap <C-l> <Esc>yi'f'a, <Esc>p
-
-" Open brackets
-inoremap <C-]> {<CR>}<Esc>O
-
-" nnoremap <leader>cll yiwoconsole.log('<Esc>pa', <Esc>pa);<Esc>
-
-" Auto-wrap tags ("t register)
-inoremap <C-t> <Esc>"tciw<<Esc>"tpa></<Esc>"tpa><Esc>F<i<CR><Esc>O
-
-" jk -> esc
-inoremap jk <Esc>
-
-" Make home row global marks
-nnoremap mj mJ
-nnoremap 'j 'J
-nnoremap `j `J
-nnoremap mk mK
-nnoremap 'k 'K
-nnoremap `k `K
-nnoremap ml mL
-nnoremap 'l 'L
-nnoremap `l `L
-nnoremap m; m:
-nnoremap '; ':
-nnoremap `; `:
-nnoremap mf mF
-nnoremap 'f 'F
-nnoremap `f `F
-nnoremap md mD
-nnoremap 'd 'D
-nnoremap `d `D
-nnoremap ms mS
-nnoremap 's 'S
-nnoremap `s `S
-nnoremap ma mA
-nnoremap 'a 'A
-nnoremap `a `A
-
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
@@ -208,6 +163,51 @@ let NERDTreeShowHidden = 1
 let NERDTreeMapMenu = 'n'
 
 let mapleader = " "
+
+" React useState
+nnoremap <C-s> <Esc>diwi []<Esc>Pa, <Esc>pbvUiset<Esc>A = useState();<Esc>F)i
+inoremap <C-s> <Esc>diwi []<Esc>Pa, <Esc>pbvUiset<Esc>A = useState();<Esc>F)i
+
+" In insert mode, paste the variable from its label
+" specifically for cl' abbrev
+inoremap <C-l> <Esc>yi'f'a, <Esc>p
+
+" Open brackets
+inoremap <C-]> {<CR>}<Esc>O
+
+" nnoremap <leader>cll yiwoconsole.log('<Esc>pa', <Esc>pa);<Esc>
+
+" Auto-wrap tags ("t register)
+inoremap <C-t> <Esc>"tciw<<Esc>"tpa></<Esc>"tpa><Esc>F<i<CR><Esc>O
+
+" jk -> esc
+inoremap jk <Esc>
+
+" Make home row global marks
+nnoremap mj mJ
+nnoremap 'j 'J
+nnoremap `j `J
+nnoremap mk mK
+nnoremap 'k 'K
+nnoremap `k `K
+nnoremap ml mL
+nnoremap 'l 'L
+nnoremap `l `L
+nnoremap m; m:
+nnoremap '; ':
+nnoremap `; `:
+nnoremap mf mF
+nnoremap 'f 'F
+nnoremap `f `F
+nnoremap md mD
+nnoremap 'd 'D
+nnoremap `d `D
+nnoremap ms mS
+nnoremap 's 'S
+nnoremap `s `S
+nnoremap ma mA
+nnoremap 'a 'A
+nnoremap `a `A
 
 " vim-commentary
 nmap <C-_> gcc
@@ -276,6 +276,12 @@ nnoremap <leader>gd :Gvdiff!<CR>
 nnoremap <leader>ga :Git add .<CR>
 nnoremap gdh :diffget //2<CR>
 nnoremap gdl :diffget //3<CR>
+
+" fzf :History command to open recently opend files
+nnoremap <leader>hi :History<CR>
+
+" Turn off current highlight selection
+nnoremap <leader>no :noh<CR>
 
 " Find and replace in quick fix list:
 " `e` flag is 'no error if pattern not found'
