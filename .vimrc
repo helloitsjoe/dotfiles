@@ -22,7 +22,7 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 " Local .viminfo per project for global marks
 " Remember to gitignore!
-set viminfo+=n.viminfo
+" set viminfo+=n.viminfo
 
 syntax on
 set termguicolors
@@ -160,9 +160,62 @@ let g:ale_cursor_detail = 1
 let g:ale_floating_window_border = []
 
 let NERDTreeShowHidden = 1
-let NERDTreeMapMenu = 'n'
+" let NERDTreeMapMenu = 'n'
 
 let mapleader = " "
+
+" React useState
+nnoremap <C-s> <Esc>diwi []<Esc>Pa, <Esc>pbvUiset<Esc>A = useState();<Esc>F)i
+inoremap <C-s> <Esc>diwi []<Esc>Pa, <Esc>pbvUiset<Esc>A = useState();<Esc>F)i
+
+nnoremap <C-n> :m .+1<CR>==
+nnoremap <C-m> :m .-2<CR>==
+" inoremap <C-n> <Esc>:m .+1<CR>==gi
+" inoremap <C-m> <Esc>:m .-2<CR>==gi
+vnoremap <C-n> :m '>+1<CR>gv=gv
+vnoremap <C-m> :m '<-2<CR>gv=gv
+
+" In insert mode, paste the variable from its label
+" specifically for cl' abbrev
+inoremap <C-l> <Esc>yi'f'a, <Esc>p
+
+" Open brackets
+inoremap <C-]> {<CR>}<Esc>O
+
+" nnoremap <leader>cll yiwoconsole.log('<Esc>pa', <Esc>pa);<Esc>
+
+" Auto-wrap tags ("t register)
+inoremap <C-t> <Esc>"tciw<<Esc>"tpa></<Esc>"tpa><Esc>F<i<CR><Esc>O
+
+" jk -> esc
+inoremap jk <Esc>
+
+" Make home row global marks
+nnoremap mj mJ
+nnoremap 'j 'J
+nnoremap `j `J
+nnoremap mk mK
+nnoremap 'k 'K
+nnoremap `k `K
+nnoremap ml mL
+nnoremap 'l 'L
+nnoremap `l `L
+nnoremap m; m:
+nnoremap '; ':
+nnoremap `; `:
+nnoremap mf mF
+nnoremap 'f 'F
+nnoremap `f `F
+" Interferes with NerdTree
+" nnoremap md mD
+" nnoremap 'd 'D
+" nnoremap `d `D
+nnoremap ms mS
+nnoremap 's 'S
+nnoremap `s `S
+nnoremap ma mA
+nnoremap 'a 'A
+nnoremap `a `A
 
 " React useState
 nnoremap <C-s> <Esc>diwi []<Esc>Pa, <Esc>pbvUiset<Esc>A = useState();<Esc>F)i
