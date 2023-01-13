@@ -9,6 +9,7 @@ export ZSH=~/.oh-my-zsh
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="gianu"
 # ZSH_THEME="robbyrussell"
+# ZSH_THEME="darkblood"
 ZSH_THEME="crunch"
 
 # Set list of themes to load
@@ -199,12 +200,12 @@ alias drmall="docker rm $(dlist)"
 alias k="kubectl"
 alias kuc="k config use-context"
 alias kgc="k config get-contexts"
-function kp() {
+function kpods() {
   # Use current dir as namespace if no args
   namespace="${1:-$(basename $(pwd))}"
   kubectl -n $namespace get pods
 }
-function kl() {
+function klogs() {
   # Get ID from first pod in list if no args
   pod_id="${1:-$(kpods | grep $(basename $(pwd)) | awk 'NR==1{print $1}')}"
   echo "Pod ID: $pod_id"
@@ -212,7 +213,7 @@ function kl() {
   namespace="${2:-$(basename $(pwd))}"
   kubectl logs $pod_id -n $namespace 
 }
-function kh() {
+function khpa() {
   namespace="${1:-$(basename $(pwd))}"
   echo $namespace
   kubectl -n $namespace describe hpa
