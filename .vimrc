@@ -191,76 +191,31 @@ inoremap <C-t> <Esc>"tciw<<Esc>"tpa></<Esc>"tpa><Esc>F<i<CR><Esc>O
 inoremap jk <Esc>
 
 " Make home row global marks
-nnoremap mj mJ
-nnoremap 'j 'J
-nnoremap `j `J
-nnoremap mk mK
-nnoremap 'k 'K
-nnoremap `k `K
-nnoremap ml mL
-nnoremap 'l 'L
-nnoremap `l `L
-nnoremap m; m:
-nnoremap '; ':
-nnoremap `; `:
-nnoremap mf mF
-nnoremap 'f 'F
-nnoremap `f `F
+" nnoremap mj mJ
+" nnoremap 'j 'J
+" nnoremap `j `J
+" nnoremap mk mK
+" nnoremap 'k 'K
+" nnoremap `k `K
+" nnoremap ml mL
+" nnoremap 'l 'L
+" nnoremap `l `L
+" nnoremap m; m:
+" nnoremap '; ':
+" nnoremap `; `:
+" nnoremap mf mF
+" nnoremap 'f 'F
+" nnoremap `f `F
 " Interferes with NerdTree
 " nnoremap md mD
 " nnoremap 'd 'D
 " nnoremap `d `D
-nnoremap ms mS
-nnoremap 's 'S
-nnoremap `s `S
-nnoremap ma mA
-nnoremap 'a 'A
-nnoremap `a `A
-
-" React useState
-nnoremap <C-s> <Esc>diwi []<Esc>Pa, <Esc>pbvUiset<Esc>A = useState();<Esc>F)i
-inoremap <C-s> <Esc>diwi []<Esc>Pa, <Esc>pbvUiset<Esc>A = useState();<Esc>F)i
-
-" In insert mode, paste the variable from its label
-" specifically for cl' abbrev
-inoremap <C-l> <Esc>yi'f'a, <Esc>p
-
-" Open brackets
-inoremap <C-]> {<CR>}<Esc>O
-
-" nnoremap <leader>cll yiwoconsole.log('<Esc>pa', <Esc>pa);<Esc>
-
-" Auto-wrap tags ("t register)
-inoremap <C-t> <Esc>"tciw<<Esc>"tpa></<Esc>"tpa><Esc>F<i<CR><Esc>O
-
-" jk -> esc
-inoremap jk <Esc>
-
-" Make home row global marks
-nnoremap mj mJ
-nnoremap 'j 'J
-nnoremap `j `J
-nnoremap mk mK
-nnoremap 'k 'K
-nnoremap `k `K
-nnoremap ml mL
-nnoremap 'l 'L
-nnoremap `l `L
-nnoremap m; m:
-nnoremap '; ':
-nnoremap `; `:
-nnoremap mf mF
-nnoremap 'f 'F
-nnoremap `f `F
-nnoremap md mD
-nnoremap 'd 'D
-nnoremap `d `D
-nnoremap ms mS
-nnoremap 's 'S
-nnoremap `s `S
-nnoremap ma mA
-nnoremap 'a 'A
-nnoremap `a `A
+" nnoremap ms mS
+" nnoremap 's 'S
+" nnoremap `s `S
+" nnoremap ma mA
+" nnoremap 'a 'A
+" nnoremap `a `A
 
 " vim-commentary
 nmap <C-_> gcc
