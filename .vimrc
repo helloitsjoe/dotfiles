@@ -181,6 +181,8 @@ inoremap <C-l> <Esc>yi'f'a, <Esc>p
 
 " Open brackets
 inoremap <C-]> {<CR>}<Esc>O
+" Arrow function
+nnoremap <leader>9 a() => {<CR>}<Esc>O
 
 " nnoremap <leader>cll yiwoconsole.log('<Esc>pa', <Esc>pa);<Esc>
 
