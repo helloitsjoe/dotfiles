@@ -20,10 +20,6 @@ let $FZF_DEFAULT_OPTS='--reverse'
 
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
-" Local .viminfo per project for global marks
-" Remember to gitignore!
-" set viminfo+=n.viminfo
-
 syntax on
 set termguicolors
 set background=dark
@@ -97,7 +93,7 @@ autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr modex module.exports = {<CR>}
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr imn import { X } from ';<C-c>F'i
 autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr it( it(', () => {<CR>});<C-c>kf'i
 autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr test( test(', () => {<CR>});<C-c>kf'i
-autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr desc( describe(', () => {<CR>});<C-c>kf'i
+autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr d( describe(', () => {<CR>});<C-c>kf'i
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr imr import React from 'react';
 autocmd group BufEnter *.{js,jsx} iabbr impt import PropTypes from 'prop-types';
 autocmd group BufEnter *.html iabbr html <html><CR><head><CR><title></title><CR></head><CR><body><CR></body><CR></html><Esc>/title<CR>wa
@@ -105,22 +101,8 @@ autocmd group BufEnter *.go iabbr forr for _,X := range k {<CR>}<Esc>kfXs
 autocmd group BufEnter *.go iabbr fmtp fmt.Println("")<Esc>F"i
 autocmd group BufEnter *.rs iabbr pr println!("{:?}",);<Esc>F)i
 
-" Exit Vim if NERDTree is the only window remaining in the only tab.
-autocmd group BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-
-" This is nice in theory but ends up messing with <C-w>l when in NERDTree.
-" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-" autocmd group BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-"     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
-
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
-
-" Make netrw use current selected directory as you navigate
-" let g:netrw_keepdir=0
-" let g:netrw_banner=0
-" let g:netrw_liststyle = 3
-" let g:netrw_localrmdir='rm -r'
 
 let g:rustfmt_autosave = 1
 
@@ -159,10 +141,18 @@ let g:ale_floating_preview = 1
 let g:ale_cursor_detail = 1
 let g:ale_floating_window_border = []
 
-let NERDTreeShowHidden = 1
-" let NERDTreeMapMenu = 'n'
-
 let mapleader = " "
+
+" Find and replace in quick fix list:
+" `e` flag is 'no error if pattern not found'
+" `update` saves (only writes if changes were made)
+" Can also use `bufdo` do find/replace in open buffers
+" :cdo %s/pattern/replace/ge | update
+
+" Find next/previous lint errors
+nnoremap <leader>ln :ALENextWrap<CR>
+nnoremap <leader>lp :ALEPreviousWrap<CR>
+nnoremap <leader>D :ALEGoToDefinition<CR>
 
 " React useState
 nnoremap <C-s> <Esc>diwi []<Esc>Pa, <Esc>pbvUiset<Esc>A = useState();<Esc>F)i
@@ -184,40 +174,11 @@ inoremap <C-]> {<CR>}<Esc>O
 " Arrow function
 nnoremap <leader>9 a() => {<CR>}<Esc>O
 
-" nnoremap <leader>cll yiwoconsole.log('<Esc>pa', <Esc>pa);<Esc>
-
 " Auto-wrap tags ("t register)
-inoremap <C-t> <Esc>"tciw<<Esc>"tpa></<Esc>"tpa><Esc>F<i<CR><Esc>O
+inoremap <C-t> <Esc>"tciW<<Esc>"tpa></<Esc>"tpa><Esc>F<i<CR><Esc>O
 
 " jk -> esc
 inoremap jk <Esc>
-
-" Make home row global marks
-" nnoremap mj mJ
-" nnoremap 'j 'J
-" nnoremap `j `J
-" nnoremap mk mK
-" nnoremap 'k 'K
-" nnoremap `k `K
-" nnoremap ml mL
-" nnoremap 'l 'L
-" nnoremap `l `L
-" nnoremap m; m:
-" nnoremap '; ':
-" nnoremap `; `:
-" nnoremap mf mF
-" nnoremap 'f 'F
-" nnoremap `f `F
-" Interferes with NerdTree
-" nnoremap md mD
-" nnoremap 'd 'D
-" nnoremap `d `D
-" nnoremap ms mS
-" nnoremap 's 'S
-" nnoremap `s `S
-" nnoremap ma mA
-" nnoremap 'a 'A
-" nnoremap `a `A
 
 " vim-commentary
 nmap <C-_> gcc
@@ -293,17 +254,6 @@ nnoremap <leader>hi :History<CR>
 " Turn off current highlight selection
 nnoremap <leader>no :noh<CR>
 
-" Find and replace in quick fix list:
-" `e` flag is 'no error if pattern not found'
-" `update` saves (only writes if changes were made)
-" Can also use `bufdo` do find/replace in open buffers
-" :cdo %s/pattern/replace/ge | update
-
-" Find next/previous lint errors
-nnoremap <leader>ln :ALENextWrap<CR>
-nnoremap <leader>lp :ALEPreviousWrap<CR>
-nnoremap <leader>D :ALEGoToDefinition<CR>
-
 " Make Y act like C and D
 nnoremap Y y$
 
@@ -338,6 +288,22 @@ command! -bang -nargs=* Rg
   \   <bang>0 ? fzf#vim#with_preview('up:40%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
+
+let NERDTreeShowHidden = 1
+
+" Exit Vim if NERDTree is the only window remaining in the only tab.
+autocmd group BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+" This is nice in theory but ends up messing with <C-w>l when in NERDTree.
+" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+" autocmd group BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+"     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+
+" Make netrw use current selected directory as you navigate
+" let g:netrw_keepdir=0
+" let g:netrw_banner=0
+" let g:netrw_liststyle = 3
+" let g:netrw_localrmdir='rm -r'
 
 "" Focus right pane in netrw instead of new netrw pane
 "augroup netrw_mapping
