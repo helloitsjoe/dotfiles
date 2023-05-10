@@ -13,7 +13,7 @@ call plug#begin()
   Plug 'nicwest/vim-http'
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-  Plug 'sheerun/vim-go'
+  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
 let $FZF_DEFAULT_OPTS='--reverse'
@@ -95,6 +95,7 @@ autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr it( it(', () => {<CR>});
 autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr test( test(', () => {<CR>});<C-c>kf'i
 autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr d( describe(', () => {<CR>});<C-c>kf'i
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr imr import React from 'react';
+autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr /** /**<CR> *<CR>*/<C-c>kA
 autocmd group BufEnter *.{js,jsx} iabbr impt import PropTypes from 'prop-types';
 autocmd group BufEnter *.html iabbr html <html><CR><head><CR><title></title><CR></head><CR><body><CR></body><CR></html><Esc>/title<CR>wa
 autocmd group BufEnter *.go iabbr forr for _,X := range k {<CR>}<Esc>kfXs
@@ -121,7 +122,7 @@ function! LinterStatus() abort
 endfunction
 
 " ALE (linting and prettier)
-let g:ale_linters = { 'javascript': ['tsserver', 'eslint'], 'typescript': ['tsserver', 'eslint'],  'javascriptreact': ['tsserver', 'eslint'], 'typescriptreact': ['tsserver', 'eslint'], 'sh': ['shellcheck'] }
+let g:ale_linters = { 'javascript': ['tsserver', 'eslint'], 'typescript': ['tsserver', 'eslint'],  'javascriptreact': ['tsserver', 'eslint'], 'typescriptreact': ['tsserver', 'eslint'], 'sh': ['shellcheck'], 'rust': ['analyzer', 'cargo'] }
 let g:ale_fixers = { 'javascript': ['prettier'], 'typescript': ['prettier'], 'typescriptreact': ['prettier'], 'json': ['prettier'], 'markdown': ['prettier'], 'html': ['prettier'] }
 let g:ale_deno_executable = ''
 
@@ -130,11 +131,14 @@ let g:ale_sign_warning = '⚠️'
 let g:ale_echo_msg_error_str = 'Errors'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_statusline_format = ['%d errors', '%d warnings', 'OK']
+" let g:ale_lint_on_text_changed = 'always'
 let g:ale_fix_on_save = 1
+let g:ale_rust_cargo_use_clippy = 1
 
 " Are these worth it?
 let g:ale_completion_enabled = 1
 let g:ale_completion_delay = 10
+let g:ale_lint_delay = 10
 
 " Lint info in floating window
 let g:ale_floating_preview = 1
