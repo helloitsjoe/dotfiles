@@ -7,7 +7,7 @@ call plug#begin()
   Plug 'preservim/nerdtree'
   Plug 'rust-lang/rust.vim'
   Plug 'markonm/traces.vim'
-  Plug 'wellle/context.vim'
+  " Plug 'wellle/context.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
   Plug 'nicwest/vim-http'
@@ -95,6 +95,8 @@ autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr it( it(', () => {<CR>});
 autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr test( test(', () => {<CR>});<C-c>kf'i
 autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr d( describe(', () => {<CR>});<C-c>kf'i
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr imr import React from 'react';
+autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr func function() {<CR><CR>}<C-c>kk0f(i
+autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr )) () => {<CR><CR>})<C-c>kA
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr /** /**<CR> *<CR>*/<C-c>kA
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr /*/ /* */<C-c>hhi
 autocmd group BufEnter *.{js,jsx} iabbr impt import PropTypes from 'prop-types';
@@ -136,7 +138,6 @@ let g:ale_statusline_format = ['%d errors', '%d warnings', 'OK']
 let g:ale_fix_on_save = 1
 let g:ale_rust_cargo_use_clippy = 1
 
-" Are these worth it?
 let g:ale_completion_enabled = 1
 let g:ale_completion_delay = 10
 let g:ale_lint_delay = 10
@@ -176,8 +177,6 @@ inoremap <C-l> <Esc>yi'f'a, <Esc>p
 
 " Open brackets
 inoremap <C-]> {<CR>}<Esc>O
-" Arrow function
-nnoremap <leader>9 a() => {<CR>}<Esc>O
 
 " Auto-wrap tags ("t register)
 inoremap <C-t> <Esc>"tciW<<Esc>"tpa></<Esc>"tpa><Esc>F<i<CR><Esc>O
@@ -258,6 +257,10 @@ nnoremap <leader>hi :History<CR>
 
 " Turn off current highlight selection
 nnoremap <leader>no :noh<CR>
+
+" Spell check
+nnoremap <leader>spp :set spell spelllang=en_us<CR>
+nnoremap <leader>spx :set nospell<CR>
 
 " Make Y act like C and D
 nnoremap Y y$
