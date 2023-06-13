@@ -71,8 +71,6 @@ set colorcolumn=80
 set signcolumn=yes
 set updatetime=500
 set backspace=indent,eol,start
-" set cursorline
-" set cursorcolumn
 
 " Copy visual selection to clipboard
 map <C-c> "+y
@@ -134,7 +132,6 @@ let g:ale_sign_warning = '⚠️'
 let g:ale_echo_msg_error_str = 'Errors'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_statusline_format = ['%d errors', '%d warnings', 'OK']
-" let g:ale_lint_on_text_changed = 'always'
 let g:ale_fix_on_save = 1
 let g:ale_rust_cargo_use_clippy = 1
 
