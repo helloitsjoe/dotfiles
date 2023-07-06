@@ -87,8 +87,10 @@ autocmd group BufEnter *.md set conceallevel=0
 " cl' or cll' will expand to a console log with the cursor in place
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr cl console.log(');<C-c>F'i
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr cll console.log(');<C-c>F'i
-autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr modex module.exports = {<CR>};<C-c>kA
+autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr modex module.exports = {};<C-c>F{a
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr imn import { X } from ';<C-c>F'i
+autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr import import { X } from '';<C-c>F'i
+autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr require const { X } = require('');<C-c>F'i
 autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr it( it(', () => {<CR>});<C-c>kf'i
 autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr test( test(', () => {<CR>});<C-c>kf'i
 autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr d( describe(', () => {<CR>});<C-c>kf'i
