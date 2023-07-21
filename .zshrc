@@ -67,8 +67,8 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-bindkey '^k' up-line-or-search
-bindkey '^j' down-line-or-search
+bindkey '^k' up-line-or-beginning-search
+bindkey '^j' down-line-or-beginning-search
 
 # User configuration
 
@@ -145,6 +145,8 @@ alias pruneLocal="git branch -vv | grep origin | grep ': gone' | awk '{print $1}
 # alias prunelocal="git branch --merged main | grep -v "main" | xargs -n 1 git branch -d"
 alias pruneRemote="git remote prune origin"
 alias deleteremote="git push -d origin"
+alias python="python3"
+alias pip="pip3"
 
 function gcamp() { gcam $1 && git push; }
 function mk() { mkdir -p $1 && cd $1; }

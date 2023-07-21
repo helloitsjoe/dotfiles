@@ -4,3 +4,4 @@ pack
 *.swp
 *.swo
 .vim/%Users%joe*
+.vim/spell

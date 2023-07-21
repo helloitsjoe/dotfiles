@@ -8,10 +8,12 @@ call plug#begin()
   Plug 'rust-lang/rust.vim'
   Plug 'markonm/traces.vim'
   " Plug 'wellle/context.vim'
+  Plug 'github/copilot.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
   Plug 'nicwest/vim-http'
   Plug 'junegunn/fzf.vim'
+  Plug 'evanleck/vim-svelte', {'branch': 'main'}
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
@@ -197,7 +199,7 @@ nnoremap <leader>sv :so ~/.vimrc<CR>
 " search across file
 nnoremap <leader>s :%s/
 " search for word under cursor across file
-nnoremap <leader>S :%s/<C-r><C-w>//g<C-f>hi<C-c>
+nnoremap <leader>S :%s/<C-r><C-w>//g<C-f>hhi<C-c>
 
 " open current file in Chrome (e.g. preview markdown or html)
 nnoremap <leader>ch :!open -a "Google Chrome" %<CR>
