@@ -127,8 +127,9 @@ function! LinterStatus() abort
 endfunction
 
 " ALE (linting and prettier)
-let g:ale_linters = { 'javascript': ['tsserver', 'eslint'], 'typescript': ['tsserver', 'eslint'],  'javascriptreact': ['tsserver', 'eslint'], 'typescriptreact': ['tsserver', 'eslint'], 'sh': ['shellcheck'], 'rust': ['analyzer', 'cargo'] }
-let g:ale_fixers = { 'javascript': ['prettier'], 'typescript': ['prettier'], 'typescriptreact': ['prettier'], 'json': ['prettier'], 'markdown': ['prettier'], 'html': ['prettier'] }
+let g:ale_linter_aliases = {'svelte': ['css', 'javascript', 'html']}
+let g:ale_linters = { 'javascript': ['tsserver', 'eslint'], 'typescript': ['tsserver', 'eslint'],  'javascriptreact': ['tsserver', 'eslint'], 'typescriptreact': ['tsserver', 'eslint'], 'sh': ['shellcheck'], 'rust': ['analyzer', 'cargo'], 'svelte': ['tsserver', 'eslint'] }
+let g:ale_fixers = { 'javascript': ['prettier'], 'typescript': ['prettier'], 'typescriptreact': ['prettier'], 'json': ['prettier'], 'markdown': ['prettier'], 'html': ['prettier'], 'svelte': ['prettier'] }
 let g:ale_deno_executable = ''
 
 let g:ale_sign_error = '🔴'
@@ -160,6 +161,8 @@ let mapleader = " "
 nnoremap <leader>ln :ALENextWrap<CR>
 nnoremap <leader>lp :ALEPreviousWrap<CR>
 nnoremap <leader>D :ALEGoToDefinition<CR>
+" Toggle completion so it doesn't get in the way of copilot
+nnoremap <leader>au :let g:ale_completion_enabled = !g:ale_completion_enabled<CR>
 
 " React useState
 nnoremap <C-s> <Esc>diwi []<Esc>Pa, <Esc>pbvUiset<Esc>A = useState();<Esc>F)i
