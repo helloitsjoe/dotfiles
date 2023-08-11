@@ -11,6 +11,7 @@ export ZSH=~/.oh-my-zsh
 # ZSH_THEME="robbyrussell"
 # ZSH_THEME="darkblood"
 ZSH_THEME="crunch"
+# ZSH_THEME="cloud"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -188,17 +189,17 @@ function cdp() {
 }
 
 # Docker
-alias d="docker"
-alias dps="docker ps"
-alias dc="docker-compose"
-alias dcu="docker-compose up"
-alias dcr="docker-compose run --rm"
-alias dsize="la ~/Library/Containers/com.docker.docker/Data/vms/0/data/"
-alias dprune="docker image prune -a"
-alias dpruneall="docker system prune -a"
-alias dlist="docker ps -a -q"
-alias dstopall="docker stop $(dlist)"
-alias drmall="docker rm $(dlist)"
+# alias d="docker"
+# alias dps="docker ps"
+# alias dc="docker-compose"
+# alias dcu="docker-compose up"
+# alias dcr="docker-compose run --rm"
+# alias dsize="la ~/Library/Containers/com.docker.docker/Data/vms/0/data/"
+# alias dprune="docker image prune -a"
+# alias dpruneall="docker system prune -a"
+# alias dlist="docker ps -a -q"
+# alias dstopall="docker stop $(dlist)"
+# alias drmall="docker rm $(dlist)"
 
 # k8s
 alias k="kubectl"

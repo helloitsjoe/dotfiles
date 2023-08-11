@@ -129,7 +129,7 @@ endfunction
 " ALE (linting and prettier)
 let g:ale_linter_aliases = {'svelte': ['css', 'javascript', 'html']}
 let g:ale_linters = { 'javascript': ['tsserver', 'eslint'], 'typescript': ['tsserver', 'eslint'],  'javascriptreact': ['tsserver', 'eslint'], 'typescriptreact': ['tsserver', 'eslint'], 'sh': ['shellcheck'], 'rust': ['analyzer', 'cargo'], 'svelte': ['tsserver', 'eslint'] }
-let g:ale_fixers = { 'javascript': ['prettier'], 'typescript': ['prettier'], 'typescriptreact': ['prettier'], 'json': ['prettier'], 'markdown': ['prettier'], 'html': ['prettier'], 'svelte': ['prettier'] }
+let g:ale_fixers = { 'javascript': ['prettier'], 'typescript': ['prettier'], 'javascriptreact': ['prettier'], 'typescriptreact': ['prettier'], 'json': ['prettier'], 'markdown': ['prettier'], 'html': ['prettier'], 'svelte': ['prettier'] }
 let g:ale_deno_executable = ''
 
 let g:ale_sign_error = '🔴'
