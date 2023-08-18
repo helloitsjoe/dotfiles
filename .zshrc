@@ -93,6 +93,20 @@ bindkey '^j' down-line-or-beginning-search
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+if type rg &> /dev/null; then
+    export FZF_DEFAULT_COMMAND='rg --files --hidden'
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
+
+    _fzf_compgen_path() {
+      rg --files --hidden . "$1"
+    }
+
+    _fzf_compgen_dir() {
+      find . -name node_modules -type d -prune -o -type d -print
+    }
+fi
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
