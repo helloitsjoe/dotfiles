@@ -102,7 +102,7 @@ autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr )) () => {<CR><CR>})<C-c>kA
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr /** /**<CR> *<CR>*/<C-c>kA
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr /*/ /* */<C-c>hhi
 autocmd group BufEnter *.{js,jsx} iabbr impt import PropTypes from 'prop-types';
-autocmd group BufEnter *.html iabbr html <html><CR><head><CR><title></title><CR></head><CR><body><CR></body><CR></html><Esc>/title<CR>wa
+autocmd group BufEnter *.html iabbr htmll <html><CR><head><CR><title></title><CR></head><CR><body><CR></body><CR></html><Esc>/title<CR>wa
 autocmd group BufEnter *.go iabbr forr for _,X := range k {<CR>}<Esc>kfXs
 autocmd group BufEnter *.go iabbr fmtp fmt.Println("")<Esc>F"i
 autocmd group BufEnter *.rs iabbr pr println!("{:?}",);<Esc>F)i
@@ -148,6 +148,8 @@ let g:ale_lint_delay = 10
 let g:ale_floating_preview = 1
 let g:ale_cursor_detail = 1
 let g:ale_floating_window_border = []
+" Workaround for Go linting, see https://github.com/golangci/golangci-lint/issues/536
+let g:ale_go_golangci_lint_package = 1
 
 let mapleader = " "
 
@@ -163,6 +165,8 @@ nnoremap <leader>lp :ALEPreviousWrap<CR>
 nnoremap <leader>D :ALEGoToDefinition<CR>
 " Toggle completion so it doesn't get in the way of copilot
 nnoremap <leader>au :let g:ale_completion_enabled = !g:ale_completion_enabled<CR>
+nnoremap <leader>cpe :Copilot enable<CR>
+nnoremap <leader>cpd :Copilot disable<CR>
 
 " React useState
 nnoremap <C-s> <Esc>diwi []<Esc>Pa, <Esc>pbvUiset<Esc>A = useState();<Esc>F)i
