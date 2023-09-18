@@ -1,4 +1,5 @@
 call plug#begin()
+  Plug 'machakann/vim-highlightedyank'
   Plug 'helloitsjoe/quantum.vim'
   Plug 'airblade/vim-gitgutter'
   Plug 'sheerun/vim-polyglot'
@@ -34,6 +35,9 @@ set nofoldenable
 colorscheme quantum
 " Transparent background
 hi Normal guibg=NONE ctermbg=NONE
+
+highlight HighlightedyankRegion cterm=reverse gui=reverse
+let g:highlightedyank_highlight_duration = 50
 
 filetype plugin indent on
 
