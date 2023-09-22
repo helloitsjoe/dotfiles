@@ -191,7 +191,7 @@ inoremap <C-l> <Esc>yi'f'a, <Esc>p
 inoremap <C-]> {<CR>}<Esc>O
 
 " One-eyed Kirby
-cnoremap <C-k> s/\(.*\)
+cnoremap <C-k> \(.*\)
 
 " Auto-wrap tags ("t register)
 inoremap <C-t> <Esc>"tciW<<Esc>"tpa></<Esc>"tpa><Esc>F<i<CR><Esc>O
