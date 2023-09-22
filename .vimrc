@@ -33,6 +33,7 @@ set foldmethod=indent
 set nofoldenable
 
 colorscheme quantum
+
 " Transparent background
 hi Normal guibg=NONE ctermbg=NONE
 
@@ -44,6 +45,11 @@ filetype plugin indent on
 " Show file list when tabbing in shell commands, e.g. :!mv ./<tab>
 set wildmode=longest,list,full
 set wildmenu
+
+highlight ALEError ctermbg=none ctermfg=red cterm=underline gui=undercurl
+highlight ALEWarning ctermbg=none ctermfg=yellow cterm=underline gui=undercurl
+highlight HighlightedyankRegion cterm=reverse gui=reverse
+let g:highlightedyank_highlight_duration = 50
 
 let padding = ' | '
 
@@ -132,8 +138,25 @@ endfunction
 
 " ALE (linting and prettier)
 let g:ale_linter_aliases = {'svelte': ['css', 'javascript', 'html']}
-let g:ale_linters = { 'javascript': ['tsserver', 'eslint'], 'typescript': ['tsserver', 'eslint'],  'javascriptreact': ['tsserver', 'eslint'], 'typescriptreact': ['tsserver', 'eslint'], 'sh': ['shellcheck'], 'rust': ['analyzer', 'cargo'], 'svelte': ['tsserver', 'eslint'] }
-let g:ale_fixers = { 'javascript': ['prettier'], 'typescript': ['prettier'], 'javascriptreact': ['prettier'], 'typescriptreact': ['prettier'], 'json': ['prettier'], 'markdown': ['prettier'], 'html': ['prettier'], 'svelte': ['prettier'] }
+let g:ale_linters = {
+  \'javascript': ['tsserver', 'eslint'],
+  \'typescript': ['tsserver', 'eslint'],
+  \'javascriptreact': ['tsserver', 'eslint'],
+  \'typescriptreact': ['tsserver', 'eslint'],
+  \'sh': ['shellcheck'],
+  \'rust': ['analyzer', 'cargo'],
+  \'svelte': ['tsserver', 'eslint']
+  \}
+let g:ale_fixers = {
+  \'javascript': ['prettier'],
+  \'typescript': ['prettier'],
+  \'javascriptreact': ['prettier'],
+  \'typescriptreact': ['prettier'],
+  \'json': ['prettier'],
+  \'markdown': ['prettier'],
+  \'html': ['prettier'],
+  \'svelte': ['prettier']
+  \}
 let g:ale_deno_executable = ''
 
 let g:ale_sign_error = '🔴'
@@ -193,8 +216,8 @@ inoremap <C-]> {<CR>}<Esc>O
 " One-eyed Kirby
 cnoremap <C-k> \(.*\)
 
-" Auto-wrap tags ("t register)
-inoremap <C-t> <Esc>"tciW<<Esc>"tpa></<Esc>"tpa><Esc>F<i<CR><Esc>O
+" Auto-wrap tags (replaces default register with previously cut content)
+inoremap <C-t> <Esc>ciW<<Esc>pa></<Esc>pa><Esc>F<:let @"=@0<CR>i
 
 " jk -> esc
 inoremap jk <Esc>
