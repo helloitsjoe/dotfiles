@@ -190,6 +190,7 @@ let mapleader = " "
 nnoremap <leader>ln :ALENextWrap<CR>
 nnoremap <leader>lp :ALEPreviousWrap<CR>
 nnoremap <leader>D :ALEGoToDefinition<CR>
+nnoremap <leader>ty :ALEHover<CR>
 " Toggle completion so it doesn't get in the way of copilot
 nnoremap <leader>au :let g:ale_completion_enabled = !g:ale_completion_enabled<CR>
 nnoremap <leader>cpe :Copilot enable<CR>
