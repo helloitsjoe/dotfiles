@@ -137,7 +137,7 @@ function! LinterStatus() abort
 endfunction
 
 " ALE (linting and prettier)
-let g:ale_linter_aliases = {'svelte': ['css', 'javascript', 'html']}
+let g:ale_linter_aliases = {'svelte': ['css', 'javascript', 'typescript', 'html']}
 let g:ale_linters = {
   \'javascript': ['tsserver', 'eslint'],
   \'typescript': ['tsserver', 'eslint'],
@@ -177,6 +177,8 @@ let g:ale_cursor_detail = 1
 let g:ale_floating_window_border = []
 " Workaround for Go linting, see https://github.com/golangci/golangci-lint/issues/536
 let g:ale_go_golangci_lint_package = 1
+
+let g:svelte_preprocessors = ['typescript']
 
 let mapleader = " "
 

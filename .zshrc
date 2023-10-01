@@ -266,3 +266,10 @@ export NVM_DIR="$HOME/.nvm"
 # Fix sed in findandreplace
 export LC_CTYPE=C
 export LANG=C
+
+# bun completions
+[ -s "/Users/joe/.bun/_bun" ] && source "/Users/joe/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
