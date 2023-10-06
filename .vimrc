@@ -31,6 +31,8 @@ set wildignore=node_modules/**,dist/**,coverage/**
 set completeopt-=preview
 set foldmethod=indent
 set nofoldenable
+" Use new syntax highlighting engine because TS is slow
+set re=0
 
 colorscheme quantum
 
@@ -97,8 +99,12 @@ autocmd group FileType * set formatoptions-=cro
 autocmd group BufEnter *.md set conceallevel=0
 
 " cl' or cll' will expand to a console log with the cursor in place
+autocmd group BufEnter *.go iabbr forr for _,X := range k {<CR>}<Esc>kfXs
+autocmd group BufEnter *.go iabbr fmtp fmt.Println("")<Esc>F"i
+autocmd group BufEnter *.rs iabbr pr println!("{:?}",);<Esc>F)i
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr cl console.log(');<C-c>F'i
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr cll console.log(');<C-c>F'i
+autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr clll console.log(');<C-c>F'i
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr modex module.exports = {};<C-c>F{a
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr imn import { X } from ';<C-c>F'i
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr import import { X } from '';<C-c>F'i
@@ -113,9 +119,6 @@ autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr /** /**<CR> *<CR>*/<C-c>kA
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr /*/ /* */<C-c>hhi
 autocmd group BufEnter *.{js,jsx} iabbr impt import PropTypes from 'prop-types';
 autocmd group BufEnter *.html iabbr htmll <html><CR><head><CR><title></title><CR></head><CR><body><CR></body><CR></html><Esc>/title<CR>wa
-autocmd group BufEnter *.go iabbr forr for _,X := range k {<CR>}<Esc>kfXs
-autocmd group BufEnter *.go iabbr fmtp fmt.Println("")<Esc>F"i
-autocmd group BufEnter *.rs iabbr pr println!("{:?}",);<Esc>F)i
 
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
@@ -220,7 +223,7 @@ inoremap <C-]> {<CR>}<Esc>O
 cnoremap <C-k> \(.*\)
 
 " Auto-wrap tags (replaces default register with previously cut content)
-inoremap <C-t> <Esc>ciW<<Esc>pa></<Esc>pa><Esc>F<:let @"=@0<CR>i
+inoremap <C-t> <Esc>ciw<<Esc>pa></<Esc>pa><Esc>F<:let @"=@0<CR>i
 
 " jk -> esc
 inoremap jk <Esc>
@@ -364,6 +367,14 @@ autocmd group BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:
 "  nnoremap <buffer> <c-l> :wincmd l<cr>
 "endfunction
 
+function! SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
+nnoremap gm :call SynStack()<CR>
 
 command! -bar -nargs=* -complete=file -range=% -bang W         <line1>,<line2>write<bang> <args>
 command! -bar -nargs=* -complete=file -range=% -bang Wq        <line1>,<line2>wq<bang> <args>
