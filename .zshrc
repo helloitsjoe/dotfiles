@@ -64,12 +64,17 @@ ZSH_THEME="crunch"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  vi-mode
 )
 
 source $ZSH/oh-my-zsh.sh
 
+bindkey -v # vi mode
 bindkey '^k' up-line-or-beginning-search
 bindkey '^j' down-line-or-beginning-search
+
+KEYTIMEOUT=1
+VI_MODE_SET_CURSOR=true
 
 # User configuration
 
@@ -143,6 +148,12 @@ alias ytwc="yt --watch --coverage"
 alias ytws="yt --watch --silent"
 alias nyt="node --test"
 alias nytw="node --test --watch ."
+alias bt="bun test"
+alias bw="bun watch"
+alias bb="bun build"
+alias bs="bun start"
+alias bd="bun dev"
+alias btw="bt --watch"
 alias p="pnpm"
 alias gcdf="git clean -df"
 alias gcam="git add . && git commit -m"
@@ -249,7 +260,8 @@ alias gdeploy="garden deploy"
 # GIF
 function gif() {
   # ffmpeg -i $1.mov -vf scale=480:-1 -r 15 gif/ffout%3d.png
-  ffmpeg -i $1.mov -pix_fmt rgb8 -r 15 -vf scale=480:-1 $1.gif
+  # ffmpeg -i $1.mov -pix_fmt rgb8 -r 15 -vf scale=480:-1 $1.gif
+  ffmpeg -i $1.mov -filter_complex "[0:v] fps=12,scale=720:-1,split [a][b];[a] palettegen [p];[b][p] paletteuse" $1.gif
   # convert -layers Optimize $1.gif $1-small.gif
 }
 
