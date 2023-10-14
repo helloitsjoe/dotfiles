@@ -50,7 +50,7 @@ let g:go_highlight_variable_assignments = 1
 let g:go_highlight_operators = 1
 
 " Transparent background
-hi Normal guibg=NONE ctermbg=NONE
+" hi Normal guibg=NONE ctermbg=NONE
 
 highlight HighlightedyankRegion cterm=reverse gui=reverse
 let g:highlightedyank_highlight_duration = 50
@@ -351,7 +351,7 @@ command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   "rg --column --hidden --line-number --no-heading --color=always --smart-case -g '!{.git,*.lock,*-lock.json}' ".shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview('up:40%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \           : fzf#vim#with_preview('right:50%', '?'),
   \   <bang>0)
 
 let NERDTreeShowHidden = 1
