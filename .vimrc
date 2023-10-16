@@ -54,6 +54,7 @@ let g:go_highlight_operators = 1
 
 highlight HighlightedyankRegion cterm=reverse gui=reverse
 let g:highlightedyank_highlight_duration = 50
+let g:yats_host_keyword = 1
 
 filetype plugin indent on
 
@@ -235,6 +236,9 @@ inoremap <C-]> {<CR>}<Esc>O
 " One-eyed Kirby
 cnoremap <C-k> \(.*\)
 
+" Write to readonly file if you forget to open with sudo
+cnoremap w!! :execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
+
 " Auto-wrap tags (replaces default register with previously cut content)
 inoremap <C-t> <Esc>ciw<<Esc>pa></<Esc>pa><Esc>F<:let @"=@0<CR>i
 
@@ -346,6 +350,9 @@ inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
 
 :nnoremap <leader>w <C-w>
 
+" Open another file in diff view
+command! -nargs=1 -complete=file Diffwith :vs <args> <Bar> windo diffthis
+
 " Search across files
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
@@ -380,6 +387,7 @@ autocmd group BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:
 "  nnoremap <buffer> <c-l> :wincmd l<cr>
 "endfunction
 
+" Syntax highlighting: get the identifier for the symbol under the cursor
 function! SynStack()
   if !exists("*synstack")
     return
