@@ -72,6 +72,8 @@ source $ZSH/oh-my-zsh.sh
 bindkey -v # vi mode
 bindkey '^k' up-line-or-beginning-search
 bindkey '^j' down-line-or-beginning-search
+bindkey '^p' up-line-or-beginning-search
+bindkey '^n' down-line-or-beginning-search
 
 KEYTIMEOUT=1
 VI_MODE_SET_CURSOR=true
