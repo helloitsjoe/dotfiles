@@ -29,7 +29,10 @@ set background=dark
 set wildignore=node_modules/**,dist/**,coverage/**
 " Hide Omnicomplete preview window
 set completeopt-=preview
-set foldmethod=indent
+set foldmethod=syntax
+" set foldcolumn=1
+" set foldlevelstart=99
+" let javaScript_fold=1
 set nofoldenable
 " Use new syntax highlighting engine because TS is slow
 set re=0
@@ -128,7 +131,7 @@ autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr test( test(', () => {<CR
 autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr d( describe(', () => {<CR>});<C-c>kf'i
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr imr import React from 'react';
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr func function() {<CR><CR>}<C-c>kk0f(i
-autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr )) () => {<CR><CR>})<C-c>kA
+autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr (( () => {<CR><CR>})<C-c>kA
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr /** /**<CR> *<CR>*/<C-c>kA
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr /*/ /* */<C-c>hhi
 autocmd group BufEnter *.{js,jsx} iabbr impt import PropTypes from 'prop-types';
