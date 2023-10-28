@@ -176,6 +176,7 @@ alias deleteremote="git push -d origin"
 alias python="python3"
 alias pip="pip3"
 
+function killport() { kill -9 $(lsof -ti tcp:$1); }
 function gcamp() { gcam $1 && git push; }
 function mk() { mkdir -p $1 && cd $1; }
 
