@@ -8,7 +8,6 @@ call plug#begin()
   Plug 'preservim/nerdtree'
   Plug 'rust-lang/rust.vim'
   Plug 'markonm/traces.vim'
-  " Plug 'wellle/context.vim'
   Plug 'github/copilot.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
@@ -39,6 +38,7 @@ set re=0
 
 colorscheme quantum
 
+" Go syntax highlighting
 let g:go_highlight_functions = 1
 let g:go_highlight_function_parameters = 1
 let g:go_highlight_function_calls = 1
@@ -55,10 +55,6 @@ let g:go_highlight_operators = 1
 " Transparent background
 " hi Normal guibg=NONE ctermbg=NONE
 
-highlight HighlightedyankRegion cterm=reverse gui=reverse
-let g:highlightedyank_highlight_duration = 50
-let g:yats_host_keyword = 1
-
 filetype plugin indent on
 
 " Show file list when tabbing in shell commands, e.g. :!mv ./<tab>
@@ -69,6 +65,7 @@ highlight ALEError ctermbg=none ctermfg=red cterm=underline gui=undercurl
 highlight ALEWarning ctermbg=none ctermfg=yellow cterm=underline gui=undercurl
 highlight HighlightedyankRegion cterm=reverse gui=reverse
 let g:highlightedyank_highlight_duration = 50
+let g:yats_host_keyword = 1
 
 let padding = ' | '
 
@@ -220,12 +217,9 @@ nnoremap <leader>cpd :Copilot disable<CR>
 
 " React useState
 nnoremap <C-s> <Esc>diwi []<Esc>Pa, <Esc>pbvUiset<Esc>A = useState();<Esc>F)i
-inoremap <C-s> <Esc>diwi []<Esc>Pa, <Esc>pbvUiset<Esc>A = useState();<Esc>F)i
 
 nnoremap <C-n> :m .+1<CR>==
 nnoremap <C-m> :m .-2<CR>==
-" inoremap <C-n> <Esc>:m .+1<CR>==gi
-" inoremap <C-m> <Esc>:m .-2<CR>==gi
 vnoremap <C-n> :m '>+1<CR>gv=gv
 vnoremap <C-m> :m '<-2<CR>gv=gv
 
@@ -239,25 +233,18 @@ inoremap <C-]> {<CR>}<Esc>O
 " One-eyed Kirby
 cnoremap <C-k> \(.*\)
 
-" Write to readonly file if you forget to open with sudo
-cnoremap w!! :execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
-
 " Auto-wrap tags (replaces default register with previously cut content)
 inoremap <C-t> <Esc>ciw<<Esc>pa></<Esc>pa><Esc>F<:let @"=@0<CR>i
 
 " jk -> esc
 inoremap jk <Esc>
-
 " vim-commentary
 nmap <C-_> gcc
 vmap <C-_> gcgv
 
 " source vimrc
 nnoremap <leader>so :so ~/.vimrc<CR>
-nnoremap <leader>sv :so ~/.vimrc<CR>
 
-" search across file
-nnoremap <leader>s :%s/
 " search for word under cursor across file
 nnoremap <leader>S :%s/<C-r><C-w>//g<C-f>hhi<C-c>
 
@@ -270,16 +257,12 @@ nnoremap <leader>e :NERDTreeToggle<CR>
 nnoremap <leader>re :NERDTreeFind<CR>
 " Copy relative file path to clipboard
 noremap <leader>yf :let @*=expand("%")<cr>:echo "Copied file to clipboard"<cr>
-" Probably delete this, seems like gf does the trick
-" nnoremap <leader>wf :wincmd f<CR>
 
 " Quickfix list
 nnoremap <leader>co :copen<CR>
 nnoremap <leader>cl :cclose<CR>
 nnoremap <leader>n :cnext<CR>
 nnoremap <leader>p :cprev<CR>
-" Zoom into current tab, :q to close
-nnoremap <leader>z :tab split<CR>
 " Repeat last command line command
 nnoremap <leader>@ :!<Up>
 nnoremap ; :
@@ -304,17 +287,17 @@ nnoremap <leader>b :ls<CR>:b
 nnoremap <C-u> <C-u>zz
 nnoremap <C-d> <C-d>zz
 
-" Fugitive - some of these might be overkill as mappings
+" Fugitive
 nnoremap <leader>gb :Git blame<CR>
 nnoremap <leader>gs :Git<CR> <C-w>10_
 nnoremap <leader>gl :Git log<CR>
 nnoremap <leader>glo :Git log --oneline<CR>
-" Pickaxe
-nnoremap <leader>glp :Git log -p -S ''<C-f>ba
 nnoremap <leader>gd :Gvdiff!<CR>
 nnoremap <leader>ga :Git add .<CR>
-nnoremap gdh :diffget //2<CR>
-nnoremap gdl :diffget //3<CR>
+nnoremap <leader>gdh :diffget //2<CR>
+nnoremap <leader>gdl :diffget //3<CR>
+" Pickaxe
+nnoremap <leader>gpx :Git log -p -S ''<C-f>ba
 
 " fzf :History command to open recently opend files
 nnoremap <leader>hi :History<CR>
@@ -369,26 +352,10 @@ let NERDTreeShowHidden = 1
 " Exit Vim if NERDTree is the only window remaining in the only tab.
 autocmd group BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
-" This is nice in theory but ends up messing with <C-w>l when in NERDTree.
+" This is nice in theory but ends up messing with <C-w>l when in NERDTree?
 " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
 " autocmd group BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
 "     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
-
-" Make netrw use current selected directory as you navigate
-" let g:netrw_keepdir=0
-" let g:netrw_banner=0
-" let g:netrw_liststyle = 3
-" let g:netrw_localrmdir='rm -r'
-
-"" Focus right pane in netrw instead of new netrw pane
-"augroup netrw_mapping
-"  autocmd!
-"  autocmd filetype netrw call NetrwMapping()
-"augroup END
-
-"function! NetrwMapping()
-"  nnoremap <buffer> <c-l> :wincmd l<cr>
-"endfunction
 
 " Syntax highlighting: get the identifier for the symbol under the cursor
 function! SynStack()
