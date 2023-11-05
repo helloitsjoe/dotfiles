@@ -165,6 +165,7 @@ alias gmm="gco main && git pull && gco - && git merge main"
 alias glg="git log --graph --oneline"
 alias glc="git rev-parse --short HEAD | tr -d '\n' | pbcopy && echo 'Copied hash'"
 alias gpx="git log -p -S"
+alias gpuu="git push -u origin $(git rev-parse --abbrev-ref HEAD)"
 alias his="history | grep"
 alias testpack="npm pack && tar -xvzf *.tgz && rm -rf package *.tgz"
 alias npkill="npx npkill"
@@ -178,6 +179,7 @@ alias deleteremote="git push -d origin"
 alias python="python3"
 alias pip="pip3"
 
+function killport() { kill -9 $(lsof -ti tcp:$1); }
 function gcamp() { gcam $1 && git push; }
 function mk() { mkdir -p $1 && cd $1; }
 
