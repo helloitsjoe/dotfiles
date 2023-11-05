@@ -75,8 +75,10 @@ bindkey '^j' down-line-or-beginning-search
 bindkey '^p' up-line-or-beginning-search
 bindkey '^n' down-line-or-beginning-search
 
+# Vim mode
 KEYTIMEOUT=1
 VI_MODE_SET_CURSOR=true
+# PROMPT="$PROMPT\$(vi_mode_prompt_info)"
 
 # User configuration
 
@@ -254,10 +256,6 @@ function kauth() {
   # mv $1 ~/.kube/config
   mv ~/Downloads/kubecfg.yaml ~/.kube/config
 }
-
-# Garden.io
-alias glogs="garden logs"
-alias gdeploy="garden deploy"
 
 # GIF
 function gif() {

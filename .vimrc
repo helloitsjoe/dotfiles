@@ -8,7 +8,6 @@ call plug#begin()
   Plug 'preservim/nerdtree'
   Plug 'rust-lang/rust.vim'
   Plug 'markonm/traces.vim'
-  " Plug 'wellle/context.vim'
   Plug 'github/copilot.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
@@ -27,12 +26,9 @@ syntax on
 set termguicolors
 set background=dark
 set wildignore=node_modules/**,dist/**,coverage/**
-" Hide Omnicomplete preview window
+" Hide Omnicomplete preview window (can I remove this?)
 set completeopt-=preview
 set foldmethod=syntax
-" set foldcolumn=1
-" set foldlevelstart=99
-" let javaScript_fold=1
 set nofoldenable
 " Use new syntax highlighting engine because TS is slow
 set re=0
@@ -55,10 +51,6 @@ let g:go_highlight_operators = 1
 " Transparent background
 " hi Normal guibg=NONE ctermbg=NONE
 
-highlight HighlightedyankRegion cterm=reverse gui=reverse
-let g:highlightedyank_highlight_duration = 50
-let g:yats_host_keyword = 1
-
 filetype plugin indent on
 
 " Show file list when tabbing in shell commands, e.g. :!mv ./<tab>
@@ -67,12 +59,13 @@ set wildmenu
 
 highlight ALEError ctermbg=none ctermfg=red cterm=underline gui=undercurl
 highlight ALEWarning ctermbg=none ctermfg=yellow cterm=underline gui=undercurl
+
 highlight HighlightedyankRegion cterm=reverse gui=reverse
 let g:highlightedyank_highlight_duration = 50
-
-let padding = ' | '
+let g:yats_host_keyword = 1
 
 " Add filename and lint status to the statusline
+let padding = ' | '
 set statusline=%f " %t for just filename
 set statusline+=%{padding}
 set statusline+=col:\ %c
@@ -103,9 +96,6 @@ set signcolumn=yes
 set updatetime=500
 set backspace=indent,eol,start
 
-" Copy visual selection to clipboard
-map <C-c> "+y
-
 " https://gist.github.com/romainl/6e4c15dfc4885cb4bd64688a71aa7063#risky-business
 augroup group
   autocmd!
@@ -126,6 +116,7 @@ autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr modex module.exports = {};<C-
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr imn import { X } from ';<C-c>F'i
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr import import { X } from '';<C-c>F'i
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr require const { X } = require('');<C-c>F'i
+autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr expp expect().toBe();<C-c>2F)i
 autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr it( it(', () => {<CR>});<C-c>kf'i
 autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr test( test(', () => {<CR>});<C-c>kf'i
 autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr d( describe(', () => {<CR>});<C-c>kf'i
@@ -141,6 +132,8 @@ let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
 let g:rustfmt_autosave = 1
+
+"==== Linting ====
 
 " Adds total lint warnings/errors to the statusbar
 function! LinterStatus() abort
@@ -207,6 +200,9 @@ let mapleader = " "
 " `update` saves (only writes if changes were made)
 " Can also use `bufdo` do find/replace in open buffers
 " :cdo %s/pattern/replace/ge | update
+
+" Copy visual selection to clipboard
+map <C-c> "+y
 
 " Find next/previous lint errors
 nnoremap <leader>ln :ALENextWrap<CR>
