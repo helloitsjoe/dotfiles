@@ -22,7 +22,14 @@ let $FZF_DEFAULT_OPTS='--reverse'
 
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
+colorscheme quantum
+
+" Transparent background
+" hi Normal guibg=NONE ctermbg=NONE
+
 syntax on
+filetype plugin indent on
+
 set termguicolors
 set background=dark
 set wildignore=node_modules/**,dist/**,coverage/**
@@ -33,37 +40,9 @@ set nofoldenable
 " Use new syntax highlighting engine because TS is slow
 set re=0
 
-colorscheme quantum
-
-" Go syntax highlighting
-let g:go_highlight_functions = 1
-let g:go_highlight_function_parameters = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_generate_tags = 1
-let g:go_highlight_format_strings = 1
-let g:go_highlight_variable_declarations = 1
-let g:go_highlight_variable_assignments = 1
-let g:go_highlight_operators = 1
-
-" Transparent background
-" hi Normal guibg=NONE ctermbg=NONE
-
-filetype plugin indent on
-
 " Show file list when tabbing in shell commands, e.g. :!mv ./<tab>
 set wildmode=longest,list,full
 set wildmenu
-
-highlight ALEError ctermbg=none ctermfg=red cterm=underline gui=undercurl
-highlight ALEWarning ctermbg=none ctermfg=yellow cterm=underline gui=undercurl
-
-highlight HighlightedyankRegion cterm=reverse gui=reverse
-let g:highlightedyank_highlight_duration = 50
-let g:yats_host_keyword = 1
 
 " Add filename and lint status to the statusline
 let padding = ' | '
@@ -94,8 +73,15 @@ set hidden
 set visualbell t_vb=
 set colorcolumn=80
 set signcolumn=yes
-set updatetime=500
+set updatetime=50
 set backspace=indent,eol,start
+
+highlight ALEError ctermbg=none ctermfg=red cterm=underline gui=undercurl
+highlight ALEWarning ctermbg=none ctermfg=yellow cterm=underline gui=undercurl
+
+highlight HighlightedyankRegion cterm=reverse gui=reverse
+let g:highlightedyank_highlight_duration = 50
+let g:yats_host_keyword = 1
 
 " https://gist.github.com/romainl/6e4c15dfc4885cb4bd64688a71aa7063#risky-business
 augroup group
@@ -106,13 +92,12 @@ augroup END
 autocmd group FileType * set formatoptions-=cro
 autocmd group BufEnter *.md set conceallevel=0
 
-" cl' or cll' will expand to a console log with the cursor in place
 autocmd group BufEnter *.go iabbr forr for _,X := range k {<CR>}<Esc>kfXs
 autocmd group BufEnter *.go iabbr fmtp fmt.Println("")<Esc>F"i
 autocmd group BufEnter *.rs iabbr pr println!("{:?}",);<Esc>F)i
+" cl' or cll' will expand to a console log with the cursor in place
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr cl console.log(');<C-c>F'i
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr cll console.log(');<C-c>F'i
-autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr clll console.log(');<C-c>F'i
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr modex module.exports = {};<C-c>F{a
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr imn import { X } from ';<C-c>F'i
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr import import { X } from '';<C-c>F'i
@@ -129,12 +114,27 @@ autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr /*/ /* */<C-c>hhi
 autocmd group BufEnter *.{js,jsx} iabbr impt import PropTypes from 'prop-types';
 autocmd group BufEnter *.html iabbr htmll <html><CR><head><CR><title></title><CR></head><CR><body><CR></body><CR></html><Esc>/title<CR>wa
 
+" Bar cursor in insert mode
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
 let g:rustfmt_autosave = 1
 
-"==== Linting ====
+" Go syntax highlighting
+let g:go_highlight_functions = 1
+let g:go_highlight_function_parameters = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_generate_tags = 1
+let g:go_highlight_format_strings = 1
+let g:go_highlight_variable_declarations = 1
+let g:go_highlight_variable_assignments = 1
+let g:go_highlight_operators = 1
+
+"==== ALE ====
 
 " Adds total lint warnings/errors to the statusbar
 function! LinterStatus() abort
@@ -150,7 +150,6 @@ function! LinterStatus() abort
   \)
 endfunction
 
-" ALE (linting and prettier)
 let g:ale_linter_aliases = {'svelte': ['css', 'javascript', 'typescript', 'html']}
 let g:ale_linters = {
   \'javascript': ['tsserver', 'eslint'],
@@ -204,6 +203,14 @@ let mapleader = " "
 
 " Copy visual selection to clipboard
 map <C-c> "+y
+
+nnoremap ; :
+
+" Window nav
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
 
 " Find next/previous lint errors
 nnoremap <leader>ln :ALENextWrap<CR>
@@ -265,16 +272,7 @@ nnoremap <leader>n :cnext<CR>
 nnoremap <leader>p :cprev<CR>
 " Repeat last command line command
 nnoremap <leader>@ :!<Up>
-nnoremap ; :
 
-" Window nav
-nnoremap <C-j> <C-W>j
-nnoremap <C-k> <C-W>k
-nnoremap <C-h> <C-W>h
-nnoremap <C-l> <C-W>l
-
-" Split vertically and focus on right pane
-nnoremap <leader>wv <C-w>v<C-w>l
 " Fuzzy file finder, exclude .yarn cache
 nnoremap <C-p> :GFiles ':!:.yarn/cache'<CR>
 " Fuzzy text search
@@ -292,7 +290,7 @@ nnoremap <leader>gb :Git blame<CR>
 nnoremap <leader>gs :Git<CR> <C-w>10_
 nnoremap <leader>gl :Git log<CR>
 nnoremap <leader>glo :Git log --oneline<CR>
-nnoremap <leader>gd :Gvdiff!<CR>
+nnoremap <leader>gdd :Gvdiff!<CR>
 nnoremap <leader>ga :Git add .<CR>
 nnoremap <leader>gdh :diffget //2<CR>
 nnoremap <leader>gdl :diffget //3<CR>
@@ -312,21 +310,17 @@ nnoremap <leader>spx :set nospell<CR>
 " Make Y act like C and D
 nnoremap Y y$
 
-" Visual maps
 xnoremap A $A
+" Re-yank selection after pasting
 xnoremap p pgvy
 " Visual mode indent repeat
 vnoremap > >gv
 vnoremap < <gv
 
-" Select all
-nnoremap <leader>ggg ggVG
-
 " Swap relative/absolute numbers
 nnoremap <leader>rn :set relativenumber!<CR>
 
-" Git push
-nnoremap <leader>gp :! git add . && git commit -m '' && git push<C-f>4ba
+" Open vimrc in vertical split
 nnoremap <leader>vim <C-w>v<C-w>l:e ~/.vimrc<CR>
 
 " Tab autocomplete, navigate with j/k
@@ -352,10 +346,10 @@ let NERDTreeShowHidden = 1
 " Exit Vim if NERDTree is the only window remaining in the only tab.
 autocmd group BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
-" This is nice in theory but ends up messing with <C-w>l when in NERDTree?
 " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-" autocmd group BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-"     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+" This is nice in theory but ends up messing with <C-w>l when in NERDTree?
+autocmd group BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 
 " Syntax highlighting: get the identifier for the symbol under the cursor
 function! SynStack()
