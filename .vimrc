@@ -338,7 +338,7 @@ command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   "rg --column --hidden --line-number --no-heading --color=always --smart-case -g '!{.git,*.lock,*-lock.json}' ".shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview('up:40%')
-  \           : fzf#vim#with_preview('right:50%', '?'),
+  \           : fzf#vim#with_preview('right:50%', 'ctrl-/'),
   \   <bang>0)
 
 let NERDTreeShowHidden = 1
