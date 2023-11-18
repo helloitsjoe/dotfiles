@@ -93,7 +93,7 @@ autocmd group FileType * set formatoptions-=cro
 autocmd group BufEnter *.md set conceallevel=0
 
 autocmd group BufEnter *.go iabbr forr for _,X := range k {<CR>}<Esc>kfXs
-autocmd group BufEnter *.go iabbr fmtp fmt.Println("")<Esc>F"i
+autocmd group BufEnter *.go iabbr pr fmt.Println("")<Esc>F"i
 autocmd group BufEnter *.rs iabbr pr println!("{:?}",);<Esc>F)i
 " cl' or cll' will expand to a console log with the cursor in place
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr cl console.log(');<C-c>F'i
@@ -333,12 +333,15 @@ inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
 " Open another file in diff view
 command! -nargs=1 -complete=file Diffwith :vs <args> <Bar> windo diffthis
 
+let g:fzf_vim = {}
+let g:fzf_vim.preview_window = ['right:50%:<70(down:40%)', 'ctrl-/']
+
 " Search across files
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   "rg --column --hidden --line-number --no-heading --color=always --smart-case -g '!{.git,*.lock,*-lock.json}' ".shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview('up:40%')
-  \           : fzf#vim#with_preview('right:50%', 'ctrl-/'),
+  \           : fzf#vim#with_preview('right:50%:<70(down:40%)', 'ctrl-/'),
   \   <bang>0)
 
 let NERDTreeShowHidden = 1
