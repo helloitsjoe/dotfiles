@@ -371,3 +371,25 @@ nnoremap gm :call SynStack()<CR>
 command! -bar -nargs=* -complete=file -range=% -bang W         <line1>,<line2>write<bang> <args>
 command! -bar -nargs=* -complete=file -range=% -bang Wq        <line1>,<line2>wq<bang> <args>
 command! -bar -bang Q quit<bang>
+
+" gof = git open file, open the current file in GitHub UI
+noremap <silent> <leader>gof :<c-u>call OpenInGitHub()<cr>
+" goc = git open commit, when on a commit hash, e.g. in Fugitive git blame
+noremap <silent> <leader>goc yiw:q<CR> :<c-u>call OpenInGitHub('<c-r>"')<cr>
+
+function! OpenInGitHub(...)
+  let commit_hash = get(a:, 1, '')
+  let file_dir = expand('%:h')
+  let git_root = system('cd ' . file_dir . '; git rev-parse --show-toplevel | tr -d "\n"')
+  let file_path = substitute(expand('%:p'), git_root . '/', '', '')
+  let branch = system('git symbolic-ref --short -q HEAD | tr -d "\n")
+  let git_remote = system('cd ' . file_dir . '; git remote get-url origin')
+  let repo_path = matchlist(git_remote, ':\(.*\)\.')[1]
+  let url = 'https://github.com/' . repo_path
+  if commit_hash != ''
+    let url .= '/commit/' . commit_hash
+  else
+    let url .= '/blob/master/' . file_path
+  endif
+  call system('open ' . url)
+endfunction
