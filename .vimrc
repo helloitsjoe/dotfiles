@@ -389,7 +389,7 @@ function! OpenInGitHub(...)
   if commit_hash != ''
     let url .= '/commit/' . commit_hash
   else
-    let url .= '/blob/master/' . file_path
+    let url .= '/blob/main/' . file_path
   endif
   call system('open ' . url)
 endfunction
