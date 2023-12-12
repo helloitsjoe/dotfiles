@@ -382,7 +382,7 @@ function! OpenInGitHub(...)
   let file_dir = expand('%:h')
   let git_root = system('cd ' . file_dir . '; git rev-parse --show-toplevel | tr -d "\n"')
   let file_path = substitute(expand('%:p'), git_root . '/', '', '')
-  let branch = system('git symbolic-ref --short -q HEAD | tr -d "\n")
+  let branch = system('git symbolic-ref --short -q HEAD | tr -d "\n"')
   let git_remote = system('cd ' . file_dir . '; git remote get-url origin')
   let repo_path = matchlist(git_remote, ':\(.*\)\.')[1]
   let url = 'https://github.com/' . repo_path
