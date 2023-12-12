@@ -33,7 +33,7 @@ filetype plugin indent on
 set termguicolors
 set background=dark
 set wildignore=node_modules/**,dist/**,coverage/**
-" Hide Omnicomplete preview window (can I remove this?)
+" Hide Omnicomplete preview window at top of screen
 set completeopt-=preview
 set foldmethod=syntax
 set nofoldenable
@@ -96,19 +96,17 @@ autocmd group BufEnter *.go iabbr forr for _,X := range k {<CR>}<Esc>kfXs
 autocmd group BufEnter *.go iabbr pr fmt.Println("")<Esc>F"i
 autocmd group BufEnter *.rs iabbr pr println!("{:?}",);<Esc>F)i
 " cl' or cll' will expand to a console log with the cursor in place
-autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr cl console.log(');<C-c>F'i
-autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr cll console.log(');<C-c>F'i
+autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr cl console.log('');<C-c>F'i
+autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr cll console.log('');<C-c>F'i
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr modex module.exports = {};<C-c>F{a
-autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr imn import { X } from ';<C-c>F'i
-autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr import import { X } from '';<C-c>F'i
-autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr require const { X } = require('');<C-c>F'i
+autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr impp import { } from '';<C-c>F{a
+autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr reqq const { } = require('');<C-c>F{a
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr expp expect().toBe();<C-c>2F)i
-autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr it( it(', () => {<CR>});<C-c>kf'i
-autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr test( test(', () => {<CR>});<C-c>kf'i
-autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr d( describe(', () => {<CR>});<C-c>kf'i
+autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr itt it('', () => {<CR>});<C-c>kf'a
+autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr testt test('', () => {<CR>});<C-c>kf'a
+autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr dess describe('', () => {<CR>});<C-c>kf'a
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr imr import React from 'react';
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr func function() {<CR><CR>}<C-c>kk0f(i
-autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr (( () => {<CR><CR>})<C-c>kA
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr /** /**<CR> *<CR>*/<C-c>kA
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr /*/ /* */<C-c>hhi
 autocmd group BufEnter *.{js,jsx} iabbr impt import PropTypes from 'prop-types';
@@ -201,6 +199,9 @@ let mapleader = " "
 " Can also use `bufdo` do find/replace in open buffers
 " :cdo %s/pattern/replace/ge | update
 
+" Paste from clipboard - native ctrl-p is very slow sometimes
+" https://stackoverflow.com/questions/18258561/pasting-a-huge-amount-of-text-into-vim-is-slow
+inoremap <C-v> <c-c>"+p
 " Copy visual selection to clipboard
 map <C-c> "+y
 
@@ -233,9 +234,12 @@ vnoremap <C-m> :m '<-2<CR>gv=gv
 " In insert mode, paste the variable from its label
 " specifically for cl' abbrev
 inoremap <C-l> <Esc>yi'f'a, <Esc>p
+nnoremap <leader>cll iconsole.log('');<C-c>F'i
 
 " Open brackets
 inoremap <C-]> {<CR>}<Esc>O
+" Function
+inoremap <C-f> () => {<CR><CR>});<C-c>2k$F)i
 
 " One-eyed Kirby
 cnoremap <C-k> \(.*\)
@@ -351,8 +355,8 @@ autocmd group BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:
 
 " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
 " This is nice in theory but ends up messing with <C-w>l when in NERDTree?
-autocmd group BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+" autocmd group BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+"     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 
 " Syntax highlighting: get the identifier for the symbol under the cursor
 function! SynStack()
