@@ -107,6 +107,7 @@ autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr testt test('', () => {<C
 autocmd group BufEnter *.test.{js,ts,jsx,tsx,mjs} iabbr dess describe('', () => {<CR>});<C-c>kf'a
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr imr import React from 'react';
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr func function() {<CR><CR>}<C-c>kk0f(i
+autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr todo // TODO:
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr /** /**<CR> *<CR>*/<C-c>kA
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr /*/ /* */<C-c>hhi
 autocmd group BufEnter *.{js,jsx} iabbr impt import PropTypes from 'prop-types';
