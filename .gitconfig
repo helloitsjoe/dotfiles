@@ -1,0 +1,11 @@
+# This is Git's per-user configuration file.
+[user]
+	email = jboyle617@gmail.com
+# Please adapt and uncomment the following lines:
+#	name = Joe Boyle
+#	email = jboyle617@gmail.com
+[rerere]
+	enabled = true
+	autoUpdate = true
+[branch]
+	sort = -committerdate
