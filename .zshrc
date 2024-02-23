@@ -125,6 +125,7 @@ fi
 alias zshconfig="code ~/.zshrc"
 alias ohmyzsh="code ~/.oh-my-zsh"
 alias gz="gzip -c $1 | wc -c"
+alias inm="echo node_modules >> .gitignore"
 alias c="code ."
 alias v="vim ."
 alias vimrc="vim ~/.vimrc"
