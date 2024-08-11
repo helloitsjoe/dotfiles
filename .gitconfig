@@ -9,8 +9,6 @@
 	autoUpdate = true
 [branch]
 	sort = -committerdate
-[merge]
-	conflictStyle = zdiff3
 [push]
 	default = current
 [diff]
