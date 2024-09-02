@@ -10,8 +10,12 @@ export ZSH=~/.oh-my-zsh
 # ZSH_THEME="gianu"
 # ZSH_THEME="robbyrussell"
 # ZSH_THEME="darkblood"
-ZSH_THEME="crunch"
+# ZSH_THEME="crunch"
 # ZSH_THEME="cloud"
+ZSH_THEME="clint"
+export BAT_THEME="TwoDark"
+# export TERM=xterm-256color
+# export CLICOLOR=1
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -128,6 +132,7 @@ alias gz="gzip -c $1 | wc -c"
 alias inm="echo node_modules >> .gitignore"
 alias c="code ."
 alias v="vim ."
+alias nv="nvim ."
 alias vimrc="vim ~/.vimrc"
 alias z="vi ~/.zshrc"
 alias g="vi ~/.gitconfig"
@@ -167,6 +172,7 @@ alias gmm="gco main && git pull && gco - && git merge main"
 alias glg="git log --graph --oneline"
 alias glc="git rev-parse --short HEAD | tr -d '\n' | pbcopy && echo 'Copied hash'"
 alias gpx="git log -p -S"
+alias gmc="git merge --continue"
 alias gpuu="git rev-parse --abbrev-ref HEAD | xargs git push -u origin"
 alias gpushf="git push --force-with-lease"
 # Git commands from https://blog.gitbutler.com/git-tips-1-theres-a-git-config-for-that/
@@ -184,6 +190,7 @@ alias pruneRemote="git remote prune origin"
 alias deleteremote="git push -d origin"
 alias python="python3"
 alias pip="pip3"
+alias activate="source .venv/bin/activate"
 
 function killport() { kill -9 $(lsof -ti tcp:$1); }
 function gcamp() { gcam $1 && git push; }
@@ -293,3 +300,5 @@ export LANG=C
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+[ -f "/Users/joe/.ghcup/env" ] && . "/Users/joe/.ghcup/env" # ghcup-env
