@@ -191,10 +191,21 @@ alias deleteremote="git push -d origin"
 alias python="python3"
 alias pip="pip3"
 alias activate="source .venv/bin/activate"
+alias pipup="python -m pip install --upgrade pip"
+function pi() { pip install $@ && pip freeze > requirements.txt; }
 
 function killport() { kill -9 $(lsof -ti tcp:$1); }
 function gcamp() { gcam $1 && git push; }
 function mk() { mkdir -p $1 && cd $1; }
+
+unalias gbr
+function gbr() {
+  local branches branch
+  branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
+    branch=$(echo "$branches" |
+      fzf -d $((2 + $(wc -l <<<"$branches"))) +m) &&
+    git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+}
 
 function yfix() {
   if [ -e yarn.lock ]; then
