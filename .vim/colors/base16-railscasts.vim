@@ -2,7 +2,7 @@
 " Scheme: Ryan Bates (http://railscasts.com)
 
 " GUI color definitions
-let s:gui00 = "2b2b2b"
+let s:gui00 = "111111"
 let s:gui01 = "272935"
 let s:gui02 = "3a4055"
 let s:gui03 = "5a647e"
