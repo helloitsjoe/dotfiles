@@ -1,5 +1,6 @@
 call plug#begin()
   Plug 'machakann/vim-highlightedyank'
+  Plug 'neovimhaskell/haskell-vim'
   Plug 'helloitsjoe/quantum.vim'
   Plug 'airblade/vim-gitgutter'
   Plug 'sheerun/vim-polyglot'
@@ -7,22 +8,20 @@ call plug#begin()
   Plug 'dense-analysis/ale'
   Plug 'preservim/nerdtree'
   Plug 'rust-lang/rust.vim'
-  Plug 'markonm/traces.vim'
   Plug 'github/copilot.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
-  Plug 'nicwest/vim-http'
   Plug 'junegunn/fzf.vim'
   Plug 'evanleck/vim-svelte', {'branch': 'main'}
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+  " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
 let $FZF_DEFAULT_OPTS='--reverse'
 
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
-colorscheme quantum
+colorscheme iceberg
 
 " Transparent background
 " hi Normal guibg=NONE ctermbg=NONE
@@ -33,15 +32,14 @@ filetype plugin indent on
 set termguicolors
 set background=dark
 set wildignore=node_modules/**,dist/**,coverage/**
-" Hide Omnicomplete preview window at top of screen
-set completeopt-=preview
+set completeopt-=preview " Hide Omnicomplete preview window at top of screen
 set foldmethod=syntax
 set nofoldenable
-" Use new syntax highlighting engine because TS is slow
-set re=0
+set re=0 " Use new syntax highlighting engine because TS is slow
 
-" Show file list when tabbing in shell commands, e.g. :!mv ./<tab>
-set wildmode=longest,list,full
+set omnifunc=ale#completion#OmniFunc
+
+set wildmode=longest,list,full " Show file list when tabbing in shell commands, e.g. :!mv ./<tab>
 set wildmenu
 
 " Add filename and lint status to the statusline
@@ -68,8 +66,7 @@ set smartcase
 set laststatus=2
 set incsearch
 set noerrorbells
-" Keep Explore window from splitting vertically
-set hidden
+set hidden " Keep Explore window from splitting vertically
 set visualbell t_vb=
 set colorcolumn=80
 set signcolumn=yes
@@ -95,7 +92,6 @@ autocmd group BufEnter *.md set conceallevel=0
 autocmd group BufEnter *.go iabbr forr for _,X := range k {<CR>}<Esc>kfXs
 autocmd group BufEnter *.go iabbr pr fmt.Println("")<Esc>F"i
 autocmd group BufEnter *.rs iabbr pr println!("{:?}",);<Esc>F)i
-" cl' or cll' will expand to a console log with the cursor in place
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr cl console.log('');<C-c>F'i
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr cll console.log('');<C-c>F'i
 autocmd group BufEnter *.{js,ts,jsx,tsx,mjs} iabbr modex module.exports = {};<C-c>F{a
@@ -142,53 +138,33 @@ function! LinterStatus() abort
   let l:all_errors = l:counts.error + l:counts.style_error
   let l:all_non_errors = l:counts.total - l:all_errors
 
-  return l:counts.total == 0 ? '' : printf(
-  \   '⚠️  %d 🔴 %d',
-  \   all_non_errors,
-  \   all_errors
-  \)
+  return l:counts.total == 0 ? '' : printf('⚠️  %d 🔴 %d', all_non_errors, all_errors)
 endfunction
 
 let g:ale_linter_aliases = {'svelte': ['css', 'javascript', 'typescript', 'html']}
-let g:ale_linters = {
-  \'javascript': ['tsserver', 'eslint'],
-  \'typescript': ['tsserver', 'eslint'],
-  \'javascriptreact': ['tsserver', 'eslint'],
-  \'typescriptreact': ['tsserver', 'eslint'],
-  \'sh': ['shellcheck'],
-  \'rust': ['analyzer', 'cargo'],
-  \'svelte': ['tsserver', 'eslint']
-  \}
-let g:ale_fixers = {
-  \'javascript': ['prettier'],
-  \'typescript': ['prettier'],
-  \'javascriptreact': ['prettier'],
-  \'typescriptreact': ['prettier'],
-  \'json': ['prettier'],
-  \'markdown': ['prettier'],
-  \'html': ['prettier'],
-  \'svelte': ['prettier']
-  \}
+let g:ale_linters = { 'javascript': ['tsserver', 'eslint'], 'typescript': ['tsserver', 'eslint'], 'javascriptreact': ['tsserver', 'eslint'], 'typescriptreact': ['tsserver', 'eslint'], 'sh': ['shellcheck'], 'python': ['jedils', 'pylint', 'flake8', 'black', 'mypy'], 'rust': ['analyzer', 'cargo'], 'svelte': ['tsserver', 'eslint'] }
+let g:ale_fixers = { 'javascript': ['prettier'], 'typescript': ['prettier'], 'javascriptreact': ['prettier'], 'typescriptreact': ['prettier'], 'json': ['prettier'], 'markdown': ['prettier'], 'python': ['black'], 'html': ['prettier'], 'svelte': ['prettier'] }
 let g:ale_deno_executable = ''
 
-let g:ale_sign_error = '🔴'
-let g:ale_sign_warning = '⚠️'
+let g:ale_sign_error = 'X'
+let g:ale_sign_warning = '*'
 let g:ale_echo_msg_error_str = 'Errors'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_statusline_format = ['%d errors', '%d warnings', 'OK']
 let g:ale_fix_on_save = 1
 let g:ale_rust_cargo_use_clippy = 1
+let g:ale_python_black_options='--line-length=79'
 
 let g:ale_completion_enabled = 1
+let g:ale_save_hidden = 1 " Save hidden buffers (experimenting)
+
 let g:ale_completion_delay = 10
 let g:ale_lint_delay = 10
 
-" Lint info in floating window
-let g:ale_floating_preview = 1
+let g:ale_floating_preview = 1 " Lint info in floating window
 let g:ale_cursor_detail = 1
 let g:ale_floating_window_border = []
-" Workaround for Go linting, see https://github.com/golangci/golangci-lint/issues/536
-let g:ale_go_golangci_lint_package = 1
+let g:ale_go_golangci_lint_package = 1 " Workaround for Go linting, see https://github.com/golangci/golangci-lint/issues/536
 
 let g:svelte_preprocessors = ['typescript']
 
@@ -203,8 +179,7 @@ let mapleader = " "
 " Paste from clipboard - native ctrl-p is very slow sometimes
 " https://stackoverflow.com/questions/18258561/pasting-a-huge-amount-of-text-into-vim-is-slow
 inoremap <C-v> <c-c>"+p
-" Copy visual selection to clipboard
-map <C-c> "+y
+map <C-c> "+y " Copy visual selection to clipboard
 
 nnoremap ; :
 
@@ -219,49 +194,37 @@ nnoremap <leader>ln :ALENextWrap<CR>
 nnoremap <leader>lp :ALEPreviousWrap<CR>
 nnoremap <leader>D :ALEGoToDefinition<CR>
 nnoremap <leader>ty :ALEHover<CR>
-" Toggle completion so it doesn't get in the way of copilot
-nnoremap <leader>au :let g:ale_completion_enabled = !g:ale_completion_enabled<CR>
+nnoremap <leader>au :let g:ale_completion_enabled = !g:ale_completion_enabled<CR> " Toggle completion so it doesn't get in the way of copilot
+nnoremap <leader>R :ALERename<CR>
+" nnoremap <leader>F :ALEFindReferences<CR>
 nnoremap <leader>cpe :Copilot enable<CR>
 nnoremap <leader>cpd :Copilot disable<CR>
 
 " React useState
 nnoremap <C-s> <Esc>diwi []<Esc>Pa, <Esc>pbvUiset<Esc>A = useState();<Esc>F)i
 
+" Move lines up and down
 nnoremap <C-n> :m .+1<CR>==
 nnoremap <C-m> :m .-2<CR>==
 vnoremap <C-n> :m '>+1<CR>gv=gv
 vnoremap <C-m> :m '<-2<CR>gv=gv
 
-" In insert mode, paste the variable from its label
-" specifically for cl' abbrev
-inoremap <C-l> <Esc>yi'f'a, <Esc>p
-nnoremap <leader>cll iconsole.log('');<C-c>F'i
+inoremap <C-l> <Esc>yi'f'a, <Esc>p " In insert mode, paste the variable from its label
+inoremap <C-]> {<CR>}<Esc>O " Open brackets
+inoremap <C-f> () => {<CR><CR>});<C-c>2k$F)i " Function
 
-" Open brackets
-inoremap <C-]> {<CR>}<Esc>O
-" Function
-inoremap <C-f> () => {<CR><CR>});<C-c>2k$F)i
+cnoremap <C-k> \(.*\) " One-eyed Kirby for find/replace
 
-" One-eyed Kirby
-cnoremap <C-k> \(.*\)
+inoremap <C-t> <Esc>ciw<<Esc>pa></<Esc>pa><Esc>F<:let @"=@0<CR>i " Auto-wrap tags (replaces default register with previously cut content)
 
-" Auto-wrap tags (replaces default register with previously cut content)
-inoremap <C-t> <Esc>ciw<<Esc>pa></<Esc>pa><Esc>F<:let @"=@0<CR>i
-
-" jk -> esc
-inoremap jk <Esc>
+inoremap jk <Esc> " jk -> esc
 " vim-commentary
-nmap <C-_> gcc
-vmap <C-_> gcgv
+nmap <C-/> gcc
+vmap <C-/> gcgv
 
-" source vimrc
-nnoremap <leader>so :so ~/.vimrc<CR>
-
-" search for word under cursor across file
-nnoremap <leader>S :%s/<C-r><C-w>//g<C-f>hhi<C-c>
-
-" open current file in Chrome (e.g. preview markdown or html)
-nnoremap <leader>ch :!open -a "Google Chrome" %<CR>
+nnoremap <leader>so :so ~/.vimrc<CR> " source vimrc
+nnoremap <leader>S :%s/<C-r><C-w>//g<C-f>hhi<C-c> " search for word under cursor across file
+nnoremap <leader>ch :!open -a "Google Chrome" %<CR> " open current file in Chrome (e.g. preview markdown or html)
 
 " Open explorer in a side panel (not needed with NerdTree
 " nnoremap <leader>e :wincmd v<bar> :wincmd H<bar> :Ex <bar> :vertical resize 25 <bar> let g:netrw_browse_split = 4<CR>
@@ -275,19 +238,15 @@ nnoremap <leader>co :copen<CR>
 nnoremap <leader>cl :cclose<CR>
 nnoremap <leader>n :cnext<CR>
 nnoremap <leader>p :cprev<CR>
-" Repeat last command line command
-nnoremap <leader>@ :!<Up>
 
-" Fuzzy file finder, exclude .yarn cache
-nnoremap <C-p> :GFiles ':!:.yarn/cache'<CR>
-" Fuzzy text search
-nnoremap <leader>f :Rg<CR>
-" Search the word under the cursor
-nnoremap <leader>F :Rg <C-R><C-W><CR>
-" List buffers
-nnoremap <leader>b :ls<CR>:b
+nnoremap <leader>@ :!<Up> " Repeat last command line command
 
-nnoremap <C-u> <C-u>zz
+nnoremap <C-p> :GFiles ':!:.yarn/cache'<CR> " Fuzzy file finder, exclude .yarn cache
+nnoremap <leader>f :Rg<CR> " Fuzzy text search
+nnoremap <leader>F :Rg <C-R><C-W><CR> " Search the word under the cursor
+nnoremap <leader>b :ls<CR>:b " List buffers
+
+nnoremap <C-u> <C-u>zz " re-center cursor after scrolling
 nnoremap <C-d> <C-d>zz
 
 " Fugitive
@@ -299,14 +258,10 @@ nnoremap <leader>gdd :Gvdiff!<CR>
 nnoremap <leader>ga :Git add .<CR>
 nnoremap <leader>gdh :diffget //2<CR>
 nnoremap <leader>gdl :diffget //3<CR>
-" Pickaxe
-nnoremap <leader>gpx :Git log -p -S ''<C-f>ba
+nnoremap <leader>gpx :Git log -p -S ''<C-f>ba " Pickaxe
 
-" fzf :History command to open recently opend files
-nnoremap <leader>hi :History<CR>
-
-" Turn off current highlight selection
-nnoremap <leader>no :noh<CR>
+nnoremap <leader>hi :History<CR> " fzf :History command to open recently opend files
+nnoremap <leader>no :noh<CR> " Turn off current highlight selection
 
 " Spell check
 nnoremap <leader>spp :set spell spelllang=en_us<CR>
@@ -314,22 +269,17 @@ nnoremap <leader>spx :set nospell<CR>
 
 " Make Y act like C and D
 nnoremap Y y$
-
 xnoremap A $A
-" Re-yank selection after pasting
-xnoremap p pgvy
+xnoremap p pgvy " Re-yank selection after pasting
 " Visual mode indent repeat
 vnoremap > >gv
 vnoremap < <gv
 
-" Swap relative/absolute numbers
-nnoremap <leader>rn :set relativenumber!<CR>
+nnoremap <leader>rn :set relativenumber!<CR> " Swap relative/absolute numbers
+nnoremap <leader>vim <C-w>v<C-w>l:e ~/.vimrc<CR> " Open vimrc in vertical split
 
-" Open vimrc in vertical split
-nnoremap <leader>vim <C-w>v<C-w>l:e ~/.vimrc<CR>
-
-" Tab autocomplete, navigate with j/k
-inoremap <tab> <C-n>
+inoremap <tab> <C-n> " Tab autocomplete, navigate with j/k
+" inoremap <silent><expr> <tab> pumvisible() ? "\<C-n>" : "\<tab>"
 inoremap <expr> <C-j> ((pumvisible())?("\<C-n>"):("j"))
 inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
 
@@ -339,14 +289,14 @@ inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
 command! -nargs=1 -complete=file Diffwith :vs <args> <Bar> windo diffthis
 
 let g:fzf_vim = {}
-let g:fzf_vim.preview_window = ['right:50%:<70(down:40%)', 'ctrl-/']
+let g:fzf_vim.preview_window = ['right:50%:<70(down:40%)', 'ctrl-p']
 
 " Search across files
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   "rg --column --hidden --line-number --no-heading --color=always --smart-case -g '!{.git,*.lock,*-lock.json}' ".shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview('up:40%')
-  \           : fzf#vim#with_preview('right:50%:<70(down:40%)', 'ctrl-/'),
+  \           : fzf#vim#with_preview('right:50%:<70(down:40%)', 'ctrl-p'),
   \   <bang>0)
 
 let NERDTreeShowHidden = 1
