@@ -194,7 +194,8 @@ nnoremap <leader>ln :ALENextWrap<CR>
 nnoremap <leader>lp :ALEPreviousWrap<CR>
 nnoremap <leader>D :ALEGoToDefinition<CR>
 nnoremap <leader>ty :ALEHover<CR>
-nnoremap <leader>au :let g:ale_completion_enabled = !g:ale_completion_enabled<CR> " Toggle completion so it doesn't get in the way of copilot
+" Toggle completion so it doesn't get in the way of copilot
+nnoremap <leader>au :let g:ale_completion_enabled = !g:ale_completion_enabled<CR>
 nnoremap <leader>R :ALERename<CR>
 " nnoremap <leader>F :ALEFindReferences<CR>
 nnoremap <leader>cpe :Copilot enable<CR>
@@ -215,16 +216,20 @@ inoremap <C-f> () => {<CR><CR>});<C-c>2k$F)i " Function
 
 cnoremap <C-k> \(.*\) " One-eyed Kirby for find/replace
 
-inoremap <C-t> <Esc>ciw<<Esc>pa></<Esc>pa><Esc>F<:let @"=@0<CR>i " Auto-wrap tags (replaces default register with previously cut content)
+" Auto-wrap tags (replaces default register with previously cut content)
+inoremap <C-t> <Esc>ciw<<Esc>pa></<Esc>pa><Esc>F<:let @"=@0<CR>i
 
 inoremap jk <Esc> " jk -> esc
 " vim-commentary
 nmap <C-/> gcc
 vmap <C-/> gcgv
 
-nnoremap <leader>so :so ~/.vimrc<CR> " source vimrc
-nnoremap <leader>S :%s/<C-r><C-w>//g<C-f>hhi<C-c> " search for word under cursor across file
-nnoremap <leader>ch :!open -a "Google Chrome" %<CR> " open current file in Chrome (e.g. preview markdown or html)
+" source vimrc
+nnoremap <leader>so :so ~/.vimrc<CR>
+" search for word under cursor across file
+nnoremap <leader>S :%s/<C-r><C-w>//g<C-f>hhi<C-c>
+" open current file in Chrome (e.g. preview markdown or html)
+nnoremap <leader>ch :!open -a "Google Chrome" %<CR>
 
 " Open explorer in a side panel (not needed with NerdTree
 " nnoremap <leader>e :wincmd v<bar> :wincmd H<bar> :Ex <bar> :vertical resize 25 <bar> let g:netrw_browse_split = 4<CR>
@@ -241,12 +246,17 @@ nnoremap <leader>p :cprev<CR>
 
 nnoremap <leader>@ :!<Up> " Repeat last command line command
 
-nnoremap <C-p> :GFiles ':!:.yarn/cache'<CR> " Fuzzy file finder, exclude .yarn cache
-nnoremap <leader>f :Rg<CR> " Fuzzy text search
-nnoremap <leader>F :Rg <C-R><C-W><CR> " Search the word under the cursor
-nnoremap <leader>b :ls<CR>:b " List buffers
+" Fuzzy file finder, exclude .yarn cache
+nnoremap <C-p> :GFiles ':!:.yarn/cache'<CR>
+" Fuzzy text search
+nnoremap <leader>f :Rg<CR>
+" Search the word under the cursor
+nnoremap <leader>F :Rg <C-R><C-W><CR>
+" List buffers
+nnoremap <leader>b :ls<CR>:b
 
-nnoremap <C-u> <C-u>zz " re-center cursor after scrolling
+" re-center cursor after scrolling
+nnoremap <C-u> <C-u>zz
 nnoremap <C-d> <C-d>zz
 
 " Fugitive
@@ -258,10 +268,13 @@ nnoremap <leader>gdd :Gvdiff!<CR>
 nnoremap <leader>ga :Git add .<CR>
 nnoremap <leader>gdh :diffget //2<CR>
 nnoremap <leader>gdl :diffget //3<CR>
-nnoremap <leader>gpx :Git log -p -S ''<C-f>ba " Pickaxe
+" Pickaxe
+nnoremap <leader>gpx :Git log -p -S ''<C-f>ba
 
-nnoremap <leader>hi :History<CR> " fzf :History command to open recently opend files
-nnoremap <leader>no :noh<CR> " Turn off current highlight selection
+" fzf :History command to open recently opend files
+nnoremap <leader>hi :History<CR>
+" Turn off current highlight selection
+nnoremap <leader>no :noh<CR>
 
 " Spell check
 nnoremap <leader>spp :set spell spelllang=en_us<CR>
@@ -275,8 +288,10 @@ xnoremap p pgvy " Re-yank selection after pasting
 vnoremap > >gv
 vnoremap < <gv
 
-nnoremap <leader>rn :set relativenumber!<CR> " Swap relative/absolute numbers
-nnoremap <leader>vim <C-w>v<C-w>l:e ~/.vimrc<CR> " Open vimrc in vertical split
+" Swap relative/absolute numbers
+nnoremap <leader>rn :set relativenumber!<CR>
+" Open vimrc in vertical split
+nnoremap <leader>vim <C-w>v<C-w>l:e ~/.vimrc<CR>
 
 inoremap <tab> <C-n> " Tab autocomplete, navigate with j/k
 " inoremap <silent><expr> <tab> pumvisible() ? "\<C-n>" : "\<tab>"
