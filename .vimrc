@@ -238,12 +238,6 @@ nnoremap <leader>re :NERDTreeFind<CR>
 " Copy relative file path to clipboard
 noremap <leader>yf :let @*=expand("%")<cr>:echo "Copied file to clipboard"<cr>
 
-" Quickfix list
-nnoremap <leader>co :copen<CR>
-nnoremap <leader>cl :cclose<CR>
-nnoremap <leader>n :cnext<CR>
-nnoremap <leader>p :cprev<CR>
-
 nnoremap <leader>@ :!<Up> " Repeat last command line command
 
 " Fuzzy file finder, exclude .yarn cache
@@ -293,7 +287,8 @@ nnoremap <leader>rn :set relativenumber!<CR>
 " Open vimrc in vertical split
 nnoremap <leader>vim <C-w>v<C-w>l:e ~/.vimrc<CR>
 
-inoremap <tab> <C-n> " Tab autocomplete, navigate with j/k
+" Tab autocomplete, navigate with j/k
+inoremap <tab> <C-n>
 " inoremap <silent><expr> <tab> pumvisible() ? "\<C-n>" : "\<tab>"
 inoremap <expr> <C-j> ((pumvisible())?("\<C-n>"):("j"))
 inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
