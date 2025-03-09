@@ -11,6 +11,7 @@ call plug#begin()
   Plug 'github/copilot.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
+  Plug 'markonm/traces.vim'
   Plug 'junegunn/fzf.vim'
   Plug 'evanleck/vim-svelte', {'branch': 'main'}
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -142,7 +143,7 @@ function! LinterStatus() abort
 endfunction
 
 let g:ale_linter_aliases = {'svelte': ['css', 'javascript', 'typescript', 'html']}
-let g:ale_linters = { 'javascript': ['tsserver', 'eslint'], 'typescript': ['tsserver', 'eslint'], 'javascriptreact': ['tsserver', 'eslint'], 'typescriptreact': ['tsserver', 'eslint'], 'sh': ['shellcheck'], 'python': ['jedils', 'pylint', 'flake8', 'black', 'mypy'], 'rust': ['analyzer', 'cargo'], 'svelte': ['tsserver', 'eslint'] }
+let g:ale_linters = { 'javascript': ['tsserver', 'eslint'], 'typescript': ['tsserver', 'eslint'], 'javascriptreact': ['tsserver', 'eslint'], 'typescriptreact': ['tsserver', 'eslint'], 'sh': ['shellcheck'], 'python': ['jedils', 'pylint', 'black', 'mypy'], 'rust': ['analyzer', 'cargo'], 'svelte': ['tsserver', 'eslint'] }
 let g:ale_fixers = { 'javascript': ['prettier'], 'typescript': ['prettier'], 'javascriptreact': ['prettier'], 'typescriptreact': ['prettier'], 'json': ['prettier'], 'markdown': ['prettier'], 'python': ['black'], 'html': ['prettier'], 'svelte': ['prettier'] }
 let g:ale_deno_executable = ''
 
@@ -210,11 +211,15 @@ nnoremap <C-m> :m .-2<CR>==
 vnoremap <C-n> :m '>+1<CR>gv=gv
 vnoremap <C-m> :m '<-2<CR>gv=gv
 
-inoremap <C-l> <Esc>yi'f'a, <Esc>p " In insert mode, paste the variable from its label
-inoremap <C-]> {<CR>}<Esc>O " Open brackets
-inoremap <C-f> () => {<CR><CR>});<C-c>2k$F)i " Function
+" In insert mode, paste the variable from its label
+inoremap <C-l> <Esc>yi'f'a, <Esc>p
+" Open brackets
+inoremap <C-]> {<CR>}<Esc>O
+" Function
+inoremap <C-f> () => {<CR><CR>});<C-c>2k$F)i
 
-cnoremap <C-k> \(.*\) " One-eyed Kirby for find/replace
+" One-eyed Kirby for find/replace
+cnoremap <C-k> \(.*\)
 
 " Auto-wrap tags (replaces default register with previously cut content)
 inoremap <C-t> <Esc>ciw<<Esc>pa></<Esc>pa><Esc>F<:let @"=@0<CR>i
