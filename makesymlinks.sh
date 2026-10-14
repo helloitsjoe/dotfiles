@@ -9,7 +9,7 @@
 
 DIR=~/dotfiles                    # dotfiles directory
 OLD_DIR=~/dotfiles_old            # old dotfiles backup directory
-FILES="vimrc vim zshrc gitconfig oh-my-zsh/custom/themes" # list of files/folders to symlink in homedir
+FILES="vimrc vim zshrc gitconfig ghostty oh-my-zsh/custom/themes" # list of files/folders to symlink in homedir
 
 ##########
 
@@ -24,7 +24,15 @@ cd $DIR
 # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks from the homedir to any files in the ~/dotfiles directory specified in $FILES
 for file in $FILES; do
     echo "Moving any existing dotfiles from ~ to $OLD_DIR"
-    mv ~/.$file ~/dotfiles_old/
-    echo "Creating symlink to $file in home directory."
-    ln -s $DIR/.$file ~/.$file
+    if [ "$file" = "ghostty" ]; then
+        # Ghostty lives in ~/.config - create it if it doesn't exist
+        mkdir -p ~/.config
+        mv ~/.config/$file ~/dotfiles_old/ 2>/dev/null || true
+        echo "Creating symlink to $file in ~/.config directory."
+        ln -s $DIR/$file ~/.config/$file
+    else
+        mv ~/.$file ~/dotfiles_old/ 2>/dev/null || true
+        echo "Creating symlink to $file in home directory."
+        ln -s $DIR/.$file ~/.$file
+    fi
 done

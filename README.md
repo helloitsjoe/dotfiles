@@ -31,3 +31,7 @@ Install plugins:
 
 You can add a `~/.local.zsh` file for custom configuration and it will be
 automatically sourced.
+
+## Ghostty
+
+Config lives in `ghostty/config` and is symlinked to `~/.config/ghostty`

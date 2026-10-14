@@ -1,0 +1,40 @@
+# Font
+font-family = Monaco
+font-size = 16
+font-thicken = true
+
+# Colors
+background = 0c0c0c
+foreground = a1cfff
+cursor-color = bbbbbb
+
+# ANSI palette (matched form iTerm)
+palette = 0=#000000
+palette = 1=#bb0000
+palette = 2=#00bb00
+palette = 3=#bbbb00
+palette = 4=#0000bb
+palette = 5=#bb00bb
+palette = 6=#00bbbb
+palette = 7=#bbbbbb
+palette = 8=#808080
+palette = 9=#ff5555
+palette = 10=#55ff55
+palette = 11=#ffff55
+palette = 12=#5555ff
+palette = 13=#ff55ff
+palette = 14=#55ffff
+palette = 15=#ffffff
+
+# Split pane navigation (vim-style: shift+cmd+h/j/k/l)
+keybind = shift+super+h=goto_split:left
+keybind = shift+super+j=goto_split:bottom
+keybind = shift+super+k=goto_split:top
+keybind = shift+super+l=goto_split:right
+
+# Unfocused split dimming
+unfocused-split-opacity = 0.8
+unfocused-split-fil = ffffff
+
+# Window state
+window-save-state = always
