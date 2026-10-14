@@ -8,7 +8,7 @@ call plug#begin()
   Plug 'dense-analysis/ale'
   Plug 'preservim/nerdtree'
   Plug 'rust-lang/rust.vim'
-  Plug 'github/copilot.vim'
+  " Plug 'github/copilot.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
   Plug 'markonm/traces.vim'
@@ -243,7 +243,8 @@ nnoremap <leader>re :NERDTreeFind<CR>
 " Copy relative file path to clipboard
 noremap <leader>yf :let @*=expand("%")<cr>:echo "Copied file to clipboard"<cr>
 
-nnoremap <leader>@ :!<Up> " Repeat last command line command
+" Repeat last command line command
+nnoremap <leader>@ :!<Up>
 
 " Fuzzy file finder, exclude .yarn cache
 nnoremap <C-p> :GFiles ':!:.yarn/cache'<CR>

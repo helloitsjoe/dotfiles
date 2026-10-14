@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$(go env GOPATH)/bin:$PATH
+export PATH=/opt/homebrew/bin:$HOME/bin:/usr/local/bin:$(go env GOPATH)/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
@@ -188,7 +188,7 @@ alias pruneLocal="git branch -vv | grep origin | grep ': gone' | awk '{print $1}
 # alias prunelocal="git branch --merged main | grep -v "main" | xargs -n 1 git branch -d"
 alias pruneRemote="git remote prune origin"
 alias deleteremote="git push -d origin"
-alias python="python3"
+alias python="python3.12"
 alias pip="pip3"
 alias activate="source .venv/bin/activate"
 alias pipup="python -m pip install --upgrade pip"

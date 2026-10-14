@@ -9,7 +9,7 @@
 
 DIR=~/dotfiles                    # dotfiles directory
 OLD_DIR=~/dotfiles_old            # old dotfiles backup directory
-FILES="vimrc vim zshrc gitconfig" # list of files/folders to symlink in homedir
+FILES="vimrc vim zshrc gitconfig oh-my-zsh/custom/themes" # list of files/folders to symlink in homedir
 
 ##########
 
